@@ -27,13 +27,13 @@
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "TiqrSettings.h"
+#import "TiqrConfig.h"
 
-@interface TiqrSettings()
+@interface TiqrConfig()
 
 @end
 
-@implementation TiqrSettings
+@implementation TiqrConfig
 
 + (NSString *)valueForString:(NSString *)string {
 

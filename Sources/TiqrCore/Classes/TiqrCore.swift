@@ -35,7 +35,7 @@ public final class TiqrCore: NSObject {
     private let tiqrCoreManager = TiqrCoreManager()
 
     public var tiqrNavigationController: UINavigationController {
-        return tiqrCoreManager.tiqrViewController
+        return tiqrCoreManager.tiqrNavigationController
     }
 
 }

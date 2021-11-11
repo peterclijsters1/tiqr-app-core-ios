@@ -30,7 +30,7 @@
 #import "AuthenticationChallenge.h"
 #import "NSString+DecodeURL.h"
 #import "ServiceContainer.h"
-#import "TiqrSettings.h"
+#import "TiqrConfig.h"
 
 NSString *const TIQRACErrorDomain = @"org.tiqr.ac";
 
@@ -59,7 +59,7 @@ NSString *const TIQRACErrorDomain = @"org.tiqr.ac";
 
 + (AuthenticationChallenge *)challengeWithChallengeString:(NSString *)challengeString error:(NSError **)error {
     
-    NSString *scheme = [TiqrSettings valueForKey:@"TIQRAuthenticationURLScheme"];
+    NSString *scheme = [TiqrConfig valueForKey:@"TIQRAuthenticationURLScheme"];
 
 	NSURL *url = [NSURL URLWithString:challengeString];
     

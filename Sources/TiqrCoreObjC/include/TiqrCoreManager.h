@@ -36,6 +36,6 @@
 - (void)startWithOptions:(NSDictionary *)launchOptions;
 - (void)startChallenge:(NSString *)rawChallenge;
 
-@property (retain, nonatomic) UINavigationController *tiqrViewController;
+@property (retain, nonatomic) UINavigationController *tiqrNavigationController;
 
 @end

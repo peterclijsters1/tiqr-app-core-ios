@@ -36,7 +36,7 @@
 #import "OCRAWrapper.h"
 #import "OCRAWrapper_v1.h"
 #import "OCRAProtocol.h"
-#import "TiqrSettings.h"
+#import "TiqrConfig.h"
 
 @interface ChallengeService ()
 
@@ -62,8 +62,8 @@
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-        NSString *authenticationScheme = [TiqrSettings valueForKey:@"TIQRAuthenticationURLScheme"];
-        NSString *enrollmentScheme = [TiqrSettings valueForKey:@"TIQREnrollmentURLScheme"];
+        NSString *authenticationScheme = [TiqrConfig valueForKey:@"TIQRAuthenticationURLScheme"];
+        NSString *enrollmentScheme = [TiqrConfig valueForKey:@"TIQREnrollmentURLScheme"];
         
         TIQRChallengeType type = TIQRChallengeTypeInvalid;
         NSObject *challengeObject = nil;

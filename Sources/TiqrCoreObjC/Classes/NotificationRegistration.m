@@ -29,7 +29,7 @@
 
 #import "NotificationRegistration.h"
 #import "NSData+Hex.h"
-#import "TiqrSettings.h"
+#import "TiqrConfig.h"
 
 static NotificationRegistration *sharedInstance = nil;
 
@@ -61,7 +61,7 @@ static NotificationRegistration *sharedInstance = nil;
 	    body = [NSString stringWithFormat:@"deviceToken=%@&notificationToken=%@&language=%@", escapedDeviceToken, escapedNotificationToken, escapedLanguage];				
 	}
 
-    NSString *url = [TiqrSettings valueForKey:@"SANotificationRegistrationURL"];
+    NSString *url = [TiqrConfig valueForKey:@"SANotificationRegistrationURL"];
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
 	[request setCachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData];
 	[request setTimeoutInterval:15.0];

@@ -30,7 +30,7 @@
 #import "EnrollmentChallenge.h"
 #import "NSString+DecodeURL.h"
 #import "ServiceContainer.h"
-#import "TiqrSettings.h"
+#import "TiqrConfig.h"
 
 NSString *const TIQRECErrorDomain = @"org.tiqr.ec";
 
@@ -63,7 +63,7 @@ NSString *const TIQRECErrorDomain = @"org.tiqr.ec";
 
 + (EnrollmentChallenge *)challengeWithChallengeString:(NSString *)challengeString allowFiles:(BOOL)allowFiles error:(NSError **)error {
     
-    NSString *scheme = [TiqrSettings valueForKey:@"TIQREnrollmentURLScheme"];
+    NSString *scheme = [TiqrConfig valueForKey:@"TIQREnrollmentURLScheme"];
     NSURL *fullURL = [NSURL URLWithString:challengeString];
     
     EnrollmentChallenge *challenge = [[EnrollmentChallenge alloc] init];

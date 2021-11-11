@@ -28,7 +28,7 @@
  */
 
 #import "AboutViewController.h"
-#import "TiqrSettings.h"
+#import "TiqrConfig.h"
 
 @interface AboutViewController ()
 
@@ -63,7 +63,7 @@
     [self.okButton setTitle:NSLocalizedStringFromTableInBundle(@"ok_button", nil, SWIFTPM_MODULE_BUNDLE, @"OK") forState:UIControlStateNormal];
     self.okButton.layer.cornerRadius = 5;
 
-    NSString *version = [TiqrSettings valueForKey:@"CFBundleShortVersionString"];
+    NSString *version = [TiqrConfig valueForKey:@"CFBundleShortVersionString"];
     self.versionLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"app_version", nil, SWIFTPM_MODULE_BUNDLE, @"App version: %@"), version];
     
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {

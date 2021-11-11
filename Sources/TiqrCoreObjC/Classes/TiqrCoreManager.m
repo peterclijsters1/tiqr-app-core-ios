@@ -94,7 +94,7 @@
     return;
 }
 
-- (UINavigationController *)tiqrViewController {
+- (UINavigationController *)tiqrNavigationController {
     return self.navigationController;
 }
 

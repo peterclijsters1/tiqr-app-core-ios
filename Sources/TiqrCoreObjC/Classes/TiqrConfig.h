@@ -29,6 +29,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TiqrSettings : NSObject
+@interface TiqrConfig : NSObject
 
 @end

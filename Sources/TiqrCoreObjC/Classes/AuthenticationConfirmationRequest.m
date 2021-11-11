@@ -29,7 +29,7 @@
 
 #import "AuthenticationConfirmationRequest.h"
 #import "NotificationRegistration.h"
-#import "TiqrSettings.h"
+#import "TiqrConfig.h"
 
 NSString *const TIQRACRErrorDomain = @"org.tiqr.acr";
 NSString *const TIQRACRAttemptsLeftErrorKey = @"AttempsLeftErrorKey";
@@ -244,7 +244,7 @@ typedef void (^CompletionBlock)(BOOL success, NSError *error);
 	NSString *notificationToken = [NotificationRegistration sharedInstance].notificationToken;
 	NSString *escapedNotificationToken = [notificationToken stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSString *operation = @"login";
-    NSString *version = [TiqrSettings valueForKey:@"TIQRProtocolVersion"];
+    NSString *version = [TiqrConfig valueForKey:@"TIQRProtocolVersion"];
 
 	NSString *body = [NSString stringWithFormat:@"sessionKey=%@&userId=%@&response=%@&language=%@&notificationType=APNS&notificationAddress=%@&operation=%@&version=%@", escapedSessionKey, escapedUserId, escapedResponse, escapedLanguage, escapedNotificationToken, operation, version];
         
