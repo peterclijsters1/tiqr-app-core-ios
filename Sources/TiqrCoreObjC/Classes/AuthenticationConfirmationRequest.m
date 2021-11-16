@@ -244,7 +244,7 @@ typedef void (^CompletionBlock)(BOOL success, NSError *error);
 	NSString *notificationToken = [NotificationRegistration sharedInstance].notificationToken;
 	NSString *escapedNotificationToken = [notificationToken stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSString *operation = @"login";
-    NSString *version = [TiqrConfig valueForKey:@"TIQRProtocolVersion"];
+    NSString *version = [TiqrConfig valueForString:@"TIQRProtocolVersion"];
 
 	NSString *body = [NSString stringWithFormat:@"sessionKey=%@&userId=%@&response=%@&language=%@&notificationType=APNS&notificationAddress=%@&operation=%@&version=%@", escapedSessionKey, escapedUserId, escapedResponse, escapedLanguage, escapedNotificationToken, operation, version];
         

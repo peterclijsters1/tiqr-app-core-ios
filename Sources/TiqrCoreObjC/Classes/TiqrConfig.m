@@ -37,7 +37,7 @@
 
 + (NSString *)valueForString:(NSString *)string {
 
-    NSString *path = [SWIFTPM_MODULE_BUNDLE pathForResource:@"settings" ofType:@"plist"];
+    NSString *path = [SWIFTPM_MODULE_BUNDLE pathForResource:@"Config" ofType:@"plist"];
     NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:path];
     NSString *value = [dictionary objectForKey:string];
     

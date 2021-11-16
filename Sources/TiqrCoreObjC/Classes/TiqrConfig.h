@@ -31,4 +31,6 @@
 
 @interface TiqrConfig : NSObject
 
++ (NSString *)valueForString:(NSString *)string;
+
 @end

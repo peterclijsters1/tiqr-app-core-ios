@@ -28,18 +28,25 @@
  */
 
 #import "TiqrNavigationBar.h"
+#import <UIKit/UIKit.h>
 
 @implementation TiqrNavigationBar
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    UIImageView *tiqrHeaderView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tiqr-header"]];
-    tiqrHeaderView.translatesAutoresizingMaskIntoConstraints = NO;
-    
-    [self addSubview:tiqrHeaderView];
-    
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:tiqrHeaderView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:tiqrHeaderView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+
+    if (self) {
+        UIImage *image = [UIImage imageNamed:@"tiqr-header" inBundle:SWIFTPM_MODULE_BUNDLE compatibleWithTraitCollection:nil];
+        UIImageView *tiqrHeaderView = [[UIImageView alloc] initWithImage:image];
+        tiqrHeaderView.translatesAutoresizingMaskIntoConstraints = NO;
+        
+        [self addSubview:tiqrHeaderView];
+
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:tiqrHeaderView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:tiqrHeaderView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+     }
+
+    return self;
 }
 
 /*

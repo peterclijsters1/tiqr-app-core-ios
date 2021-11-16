@@ -62,8 +62,8 @@
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-        NSString *authenticationScheme = [TiqrConfig valueForKey:@"TIQRAuthenticationURLScheme"];
-        NSString *enrollmentScheme = [TiqrConfig valueForKey:@"TIQREnrollmentURLScheme"];
+        NSString *authenticationScheme = [TiqrConfig valueForString:@"TIQRAuthenticationURLScheme"];
+        NSString *enrollmentScheme = [TiqrConfig valueForString:@"TIQREnrollmentURLScheme"];
         
         TIQRChallengeType type = TIQRChallengeTypeInvalid;
         NSObject *challengeObject = nil;

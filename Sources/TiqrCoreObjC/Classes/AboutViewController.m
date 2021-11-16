@@ -44,8 +44,7 @@
 @implementation AboutViewController
 
 - (instancetype)init {
-    
-    self = [super init];
+    self = [super initWithNibName:@"AboutView" bundle:SWIFTPM_MODULE_BUNDLE];
     if (self != nil) {
         self.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;    
     }
@@ -63,7 +62,7 @@
     [self.okButton setTitle:NSLocalizedStringFromTableInBundle(@"ok_button", nil, SWIFTPM_MODULE_BUNDLE, @"OK") forState:UIControlStateNormal];
     self.okButton.layer.cornerRadius = 5;
 
-    NSString *version = [TiqrConfig valueForKey:@"CFBundleShortVersionString"];
+    NSString *version = [TiqrConfig valueForString:@"CFBundleShortVersionString"];
     self.versionLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"app_version", nil, SWIFTPM_MODULE_BUNDLE, @"App version: %@"), version];
     
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {

@@ -32,11 +32,46 @@ import TiqrCoreObjC
 
 @objc
 public final class TiqrCore: NSObject {
+    public static let shared = TiqrCore()
     private let tiqrCoreManager = TiqrCoreManager()
 
-    public var tiqrNavigationController: UINavigationController {
-        return tiqrCoreManager.tiqrNavigationController
+    private override init() {
+        super.init()
+
+        NotificationCenter.default.addObserver(self, selector: #selector(willEnterForegroundNotification), name: UIApplication.willEnterForegroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didEnterBackgroundNotification), name: UIApplication.willTerminateNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(willTerminateNotification), name: UIApplication.didEnterBackgroundNotification, object: nil)
+    }
+}
+
+private extension TiqrCore {
+
+    @objc func willEnterForegroundNotification() {
+        TiqrCoreManager.sharedInstance().popToStartViewController(animated: false)
     }
 
+    @objc func didEnterBackgroundNotification() {
+        ServiceContainer.sharedInstance().identityService.saveIdentities()
+    }
+
+    @objc func willTerminateNotification() {
+        ServiceContainer.sharedInstance().identityService.saveIdentities()
+    }
+}
+
+public extension TiqrCore {
+    @available(iOS 13.0, *)
+    func startWithOptions(options: UIScene.ConnectionOptions) -> UINavigationController {
+        let userInfo = options.notificationResponse?.notification.request.content.userInfo
+        return TiqrCoreManager.sharedInstance().start(options: userInfo)
+    }
+
+    func registerDeviceToken(token: Data) {
+        NotificationRegistration.sharedInstance().sendRequest(withDeviceToken: token)
+    }
+
+    func startChallenge(challenge: String) {
+        TiqrCoreManager.sharedInstance().startChallenge(challenge)
+    }
 }
 

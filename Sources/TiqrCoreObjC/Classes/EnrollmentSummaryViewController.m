@@ -28,7 +28,7 @@
  */
 
 #import "EnrollmentSummaryViewController.h"
-//#import "TiqrAppDelegate.h"
+#import "TiqrCoreManager.h"
 #import "ServiceContainer.h"
 
 @interface EnrollmentSummaryViewController ()
@@ -87,13 +87,13 @@
 }
 
 - (void)done {
-    //[(TiqrAppDelegate *)[UIApplication sharedApplication].delegate popToStartViewControllerAnimated:YES];
+    [TiqrCoreManager.sharedInstance popToStartViewControllerAnimated:YES];
 }
 
 - (IBAction)returnToCaller {
-//    [(TiqrAppDelegate *)[UIApplication sharedApplication].delegate popToStartViewControllerAnimated:NO];    
-//    NSString *returnURL = [NSString stringWithFormat:@"%@?successful=1", self.challenge.returnUrl];
-//    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:returnURL]];
+    [TiqrCoreManager.sharedInstance popToStartViewControllerAnimated:NO];
+    NSString *returnURL = [NSString stringWithFormat:@"%@?successful=1", self.challenge.returnUrl];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:returnURL]];
 }
 
 @end

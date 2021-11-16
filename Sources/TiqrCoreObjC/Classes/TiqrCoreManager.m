@@ -39,6 +39,9 @@
 #import "StartViewController.h"
 #import "ErrorViewController.h"
 #import "ServiceContainer.h"
+#import "TiqrToolbar.h"
+#import "TiqrNavigationBar.h"
+#import "TiqrConfig.h"
 
 @interface TiqrCoreManager ()
     @property (nonatomic, strong) UINavigationController *navigationController;
@@ -49,17 +52,38 @@
 #pragma mark -
 #pragma mark Application lifecycle
 
-- (id)init {
-    self = [super init];
-    if (self) {
-        StartViewController *startViewController = [[StartViewController alloc] initWithNibName:@"StartViewController" bundle:SWIFTPM_MODULE_BUNDLE];
-        self.navigationController = [[UINavigationController alloc] initWithRootViewController:startViewController];
-    }
++ (instancetype)sharedInstance {
+    static TiqrCoreManager *sharedInstance;
+    static dispatch_once_t once;
+    dispatch_once(&once, ^{
+        sharedInstance = [[self alloc] init];
+    
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:SWIFTPM_MODULE_BUNDLE];
+        sharedInstance.navigationController = [storyboard instantiateInitialViewController];
 
-    return self;
+        if (@available(iOS 13.0, *)) {
+            UIColor *color = [UIColor colorWithRed:138/255.0 green:166/255.0 blue:24/255.0 alpha:1];
+
+            UINavigationBarAppearance *navigationBarAppearance = [UINavigationBarAppearance new];
+            [navigationBarAppearance configureWithOpaqueBackground];
+            navigationBarAppearance.backgroundColor = color;
+            sharedInstance.navigationController.navigationBar.standardAppearance = navigationBarAppearance;
+            sharedInstance.navigationController.navigationBar.scrollEdgeAppearance = navigationBarAppearance;
+
+            UIToolbarAppearance *toolbarAppearance = [UIToolbarAppearance new];
+            [toolbarAppearance configureWithOpaqueBackground];
+            toolbarAppearance.backgroundColor = color;
+            sharedInstance.navigationController.toolbar.standardAppearance = toolbarAppearance;
+            if (@available(iOS 15.0, *)) {
+                sharedInstance.navigationController.toolbar.scrollEdgeAppearance = toolbarAppearance;
+            }
+        }
+
+    });
+    return sharedInstance;
 }
 
-- (void)startWithOptions:(NSDictionary *)launchOptions {
+- (UINavigationController * _Nonnull)startWithOptions:(NSDictionary * _Nullable)launchOptions {
 
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];	
 	BOOL showInstructions = 
@@ -68,33 +92,20 @@
 
     BOOL allIdentitiesBlocked = ServiceContainer.sharedInstance.identityService.allIdentitiesBlocked;
 
-
 	if (!allIdentitiesBlocked && !showInstructions) {
 		ScanViewController *scanViewController = [[ScanViewController alloc] init];
         [self.navigationController pushViewController:scanViewController animated:NO];
     }
 
+    if (launchOptions != nil) {
+        NSDictionary *info = [launchOptions valueForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
 
-	NSDictionary *info = [launchOptions valueForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-	if (info != nil) {
-        [self startChallenge:[info valueForKey:@"challenge"]];
-        return;
-	}
+        if (info != nil) {
+            [self startChallenge:[info valueForKey:@"challenge"]];
+            return;
+        }
+    }
 
-    #if !TARGET_IPHONE_SIMULATOR
-    NSString *url = [TiqrSettings valueForKey:@"SANotificationRegistrationURL"];
-	if (url != nil && [url length] > 0) {
-        //-- Set Notification
-        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeSound categories:nil];
-        [application registerUserNotificationSettings:settings];
-        
-	}
-    #endif
-
-    return;
-}
-
-- (UINavigationController *)tiqrNavigationController {
     return self.navigationController;
 }
 
@@ -102,7 +113,7 @@
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];	
     BOOL showInstructions = [defaults objectForKey:@"show_instructions_preference"] == nil || [defaults boolForKey:@"show_instructions_preference"];
     BOOL allIdentitiesBlocked = ServiceContainer.sharedInstance.identityService.allIdentitiesBlocked;
-    
+
     if (allIdentitiesBlocked || showInstructions) {
         [self.navigationController popToRootViewControllerAnimated:animated];
     } else {
@@ -111,27 +122,15 @@
     }
 }
 
-- (void)applicationDidEnterBackground:(UIApplication *)application {
-    [ServiceContainer.sharedInstance.identityService saveIdentities];
-}
-
-- (void)applicationWillEnterForeground:(UIApplication *)application {
-	[self.navigationController popToRootViewControllerAnimated:NO];
-}
-
-- (void)applicationWillTerminate:(UIApplication *)application {
-    [ServiceContainer.sharedInstance.identityService saveIdentities];
-}
-
 #pragma mark -
 #pragma mark Authentication / enrollment challenge
 
 - (void)startChallenge: (NSString *)rawChallenge  {
     UIViewController *firstViewController = self.navigationController.viewControllers[[self.navigationController.viewControllers count] > 1 ? 1 : 0];
     [self.navigationController popToViewController:firstViewController animated:NO];
-    
+
     ChallengeService *challengeService = ServiceContainer.sharedInstance.challengeService;
-    
+
     [challengeService startChallengeFromScanResult:rawChallenge completionHandler:^(TIQRChallengeType type, NSObject *challengeObject, NSError *error) {
         if (!error) {
             switch (type) {
@@ -160,42 +159,6 @@
             [self.navigationController pushViewController:errorViewController animated:NO];
         }
     }];
-
 }
-
-#pragma mark -
-#pragma mark Handle open URL
-
-- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options {
-    [self startChallenge:[url description]];
-
-    return YES;
-}
-
-#pragma mark -
-#pragma mark Remote notifications
-
-- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
-                [application registerForRemoteNotifications];
-}
-
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-	[[NotificationRegistration sharedInstance] sendRequestWithDeviceToken:deviceToken];
-}
-
-- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
-	NSLog(@"Remote notification registration error: %@", error);
-}
-
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)info {
-	[self startChallenge:[info valueForKey:@"challenge"]];
-} 
-
-#pragma mark -
-#pragma mark Memory management
-
-- (void)applicationDidReceiveMemoryWarning:(UIApplication *)application {
-}
-
 
 @end

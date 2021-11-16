@@ -28,7 +28,7 @@
  */
 
 #import "AuthenticationFallbackViewController.h"
-//#import "TiqrAppDelegate.h"
+#import "TiqrCoreManager.h"
 #import "ServiceContainer.h"
 #import <UIKit/UIKit.h>
 
@@ -80,7 +80,7 @@
 }
 
 - (void)done {
-    //[(TiqrAppDelegate *)[UIApplication sharedApplication].delegate popToStartViewControllerAnimated:YES];
+    [TiqrCoreManager.sharedInstance popToStartViewControllerAnimated:YES];
 }
 
 @end

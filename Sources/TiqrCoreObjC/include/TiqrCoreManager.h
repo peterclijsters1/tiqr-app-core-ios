@@ -33,9 +33,10 @@
 
 }
 
-- (void)startWithOptions:(NSDictionary *)launchOptions;
-- (void)startChallenge:(NSString *)rawChallenge;
++ (instancetype _Nonnull)sharedInstance;
+- (UINavigationController * _Nonnull)startWithOptions:(NSDictionary * _Nullable)launchOptions;
 
-@property (retain, nonatomic) UINavigationController *tiqrNavigationController;
+- (void)startChallenge:(NSString *_Nonnull)rawChallenge;
+- (void)popToStartViewControllerAnimated:(BOOL)animated;
 
 @end
