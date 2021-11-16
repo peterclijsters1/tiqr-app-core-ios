@@ -35,26 +35,14 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
 
-    if (self) {
-        UIImage *image = [UIImage imageNamed:@"tiqr-header" inBundle:SWIFTPM_MODULE_BUNDLE compatibleWithTraitCollection:nil];
-        UIImageView *tiqrHeaderView = [[UIImageView alloc] initWithImage:image];
-        tiqrHeaderView.translatesAutoresizingMaskIntoConstraints = NO;
-        
-        [self addSubview:tiqrHeaderView];
+    UIImage *image = [UIImage imageNamed:@"tiqr-header" inBundle:SWIFTPM_MODULE_BUNDLE compatibleWithTraitCollection:nil];
+    UIImageView *tiqrHeaderView = [[UIImageView alloc] initWithImage:image];
+    tiqrHeaderView.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    [self addSubview:tiqrHeaderView];
 
-        [self addConstraint:[NSLayoutConstraint constraintWithItem:tiqrHeaderView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
-        [self addConstraint:[NSLayoutConstraint constraintWithItem:tiqrHeaderView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
-     }
-
-    return self;
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:tiqrHeaderView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:tiqrHeaderView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
 }
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 
 @end

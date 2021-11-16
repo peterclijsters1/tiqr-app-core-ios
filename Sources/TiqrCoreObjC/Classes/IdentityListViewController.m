@@ -142,8 +142,8 @@
         
         UIAlertAction *noButton = [UIAlertAction actionWithTitle:noTitle style:UIAlertActionStyleCancel handler:nil];
 
-        [alertController addAction: yesButton];
-        [alertController addAction: noButton];
+        [alertController addAction:yesButton];
+        [alertController addAction:noButton];
 
         [self presentViewController:alertController animated:YES completion:nil];
     }

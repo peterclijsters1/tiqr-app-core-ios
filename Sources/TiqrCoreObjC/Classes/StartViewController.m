@@ -129,7 +129,7 @@
             [self.navigationController pushViewController:viewController animated:YES];
         }];
 
-        UIAlertAction *noButton = [UIAlertAction actionWithTitle:yesTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        UIAlertAction *noButton = [UIAlertAction actionWithTitle:noTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
             [defaults setBool:NO forKey:@"show_instructions_preference"];
 
@@ -137,8 +137,8 @@
             [self.navigationController pushViewController:viewController animated:YES];
         }];
 
-        [alertController addAction: yesButton];
-        [alertController addAction: noButton];
+        [alertController addAction:yesButton];
+        [alertController addAction:noButton];
 
         [self presentViewController:alertController animated:YES completion:nil];
 	} else {

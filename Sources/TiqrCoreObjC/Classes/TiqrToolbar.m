@@ -41,16 +41,12 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
 
-    if (self) {
-        self.surfnetButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.surfnetButton = [UIButton buttonWithType:UIButtonTypeCustom];
 
-        UIImage *image = [UIImage imageNamed:@"surfnet-logo" inBundle:SWIFTPM_MODULE_BUNDLE compatibleWithTraitCollection:nil];
-        [self.surfnetButton setImage:image forState:UIControlStateNormal];
-        [self.surfnetButton addTarget:self action:@selector(surfnet) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:self.surfnetButton];
-    }
-
-    return self;
+    UIImage *image = [UIImage imageNamed:@"surfnet-logo" inBundle:SWIFTPM_MODULE_BUNDLE compatibleWithTraitCollection:nil];
+    [self.surfnetButton setImage:image forState:UIControlStateNormal];
+    [self.surfnetButton addTarget:self action:@selector(surfnet) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:self.surfnetButton];
 }
 
 - (void)layoutSubviews {
