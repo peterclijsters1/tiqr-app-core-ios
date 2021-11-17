@@ -47,7 +47,7 @@ public final class TiqrCore: NSObject {
 private extension TiqrCore {
 
     @objc func willEnterForegroundNotification() {
-        TiqrCoreManager.sharedInstance().popToStartViewController(animated: false)
+        TiqrCoreManager.sharedInstance().popToRootViewController(animated: true)
     }
 
     @objc func didEnterBackgroundNotification() {

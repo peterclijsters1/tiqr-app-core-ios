@@ -108,6 +108,10 @@
     return self.navigationController;
 }
 
+- (void)popToRootViewControllerAnimated:(BOOL)animated {
+    [self.navigationController popToRootViewControllerAnimated:animated];
+}
+
 - (void)popToStartViewControllerAnimated:(BOOL)animated {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];	
     BOOL showInstructions = [defaults objectForKey:@"show_instructions_preference"] == nil || [defaults boolForKey:@"show_instructions_preference"];

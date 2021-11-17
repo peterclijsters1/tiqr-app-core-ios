@@ -38,5 +38,6 @@
 
 - (void)startChallenge:(NSString *_Nonnull)rawChallenge;
 - (void)popToStartViewControllerAnimated:(BOOL)animated;
+- (void)popToRootViewControllerAnimated:(BOOL)animated;
 
 @end
