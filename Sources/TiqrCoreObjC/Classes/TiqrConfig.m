@@ -35,7 +35,7 @@
 
 @implementation TiqrConfig
 
-+ (NSString *)valueForString:(NSString *)string {
++ (NSString *)valueForKey:(NSString *)string {
 
     NSString *path = [SWIFTPM_MODULE_BUNDLE pathForResource:@"Config" ofType:@"plist"];
     NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:path];

@@ -59,7 +59,7 @@ NSString *const TIQRACErrorDomain = @"org.tiqr.ac";
 
 + (AuthenticationChallenge *)challengeWithChallengeString:(NSString *)challengeString error:(NSError **)error {
     
-    NSString *scheme = [TiqrConfig valueForString:@"TIQRAuthenticationURLScheme"];
+    NSString *scheme = [TiqrConfig valueForKey:@"TIQRAuthenticationURLScheme"];
 
 	NSURL *url = [NSURL URLWithString:challengeString];
     

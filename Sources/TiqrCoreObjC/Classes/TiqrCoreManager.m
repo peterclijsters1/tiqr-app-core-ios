@@ -102,7 +102,6 @@
 
         if (info != nil) {
             [self startChallenge:[info valueForKey:@"challenge"]];
-            return;
         }
     }
 
