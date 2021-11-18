@@ -60,7 +60,7 @@ static NotificationRegistration *sharedInstance = nil;
 	} else {
 	    body = [NSString stringWithFormat:@"deviceToken=%@&notificationToken=%@&language=%@", escapedDeviceToken, escapedNotificationToken, escapedLanguage];				
 	}
-
+    
     NSString *url = [TiqrConfig valueForKey:@"SANotificationRegistrationURL"];
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
 	[request setCachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData];

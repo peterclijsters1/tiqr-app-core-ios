@@ -33,6 +33,7 @@
 #import "ErrorController.h"
 #import "AboutViewController.h"
 #import "ServiceContainer.h"
+#import <UIKit/UIKit.h>
 
 @interface StartViewController () <UIWebViewDelegate>
 
@@ -53,7 +54,8 @@
     [self.scanButton setTitle:scanButtonTitle forState:UIControlStateNormal];
     self.scanButton.layer.cornerRadius = 5;
     
-    UIBarButtonItem *identitiesButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"identities-icon"] style:UIBarButtonItemStylePlain target:self action:@selector(listIdentities)];
+    UIImage *image = [UIImage imageNamed:@"identities-icon" inBundle:SWIFTPM_MODULE_BUNDLE compatibleWithTraitCollection:nil];
+    UIBarButtonItem *identitiesButtonItem = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(listIdentities)];
     self.navigationItem.rightBarButtonItem = identitiesButtonItem;
     self.identitiesButtonItem = identitiesButtonItem;
     
@@ -65,7 +67,10 @@
     self.webView.delegate = self;
     self.webView.scrollView.bounces = NO;
     
-    [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"info-icon"] style:UIBarButtonItemStylePlain target:self action:@selector(about)]] animated:NO];
+    UIImage *infoImage = [UIImage imageNamed:@"info-icon" inBundle:SWIFTPM_MODULE_BUNDLE compatibleWithTraitCollection:nil];
+    [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithImage:infoImage style:UIBarButtonItemStylePlain target:self action:@selector(about)]] animated:NO];
+    
+    self.view.backgroundColor = [UIColor clearColor];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -114,8 +119,28 @@
 		NSString *message = NSLocalizedStringFromTableInBundle(@"show_instructions_preference_message", nil, SWIFTPM_MODULE_BUNDLE, @"Do you want to see these instructions when you start the application in the future? You can always open the instructions from the Scan window or change this behavior in Settings.");
 		NSString *yesTitle = NSLocalizedStringFromTableInBundle(@"yes_button", nil, SWIFTPM_MODULE_BUNDLE, @"Yes button title");
 		NSString *noTitle = NSLocalizedStringFromTableInBundle(@"no_button", nil, SWIFTPM_MODULE_BUNDLE, @"No button title");		
-		UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:message delegate:self cancelButtonTitle:nil otherButtonTitles:yesTitle, noTitle, nil];
-		[alertView show];
+
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *yesButton = [UIAlertAction actionWithTitle:yesTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            [defaults setBool:YES forKey:@"show_instructions_preference"];
+
+            ScanViewController *viewController = [[ScanViewController alloc] init];
+            [self.navigationController pushViewController:viewController animated:YES];
+        }];
+
+        UIAlertAction *noButton = [UIAlertAction actionWithTitle:noTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            [defaults setBool:NO forKey:@"show_instructions_preference"];
+
+            ScanViewController *viewController = [[ScanViewController alloc] init];
+            [self.navigationController pushViewController:viewController animated:YES];
+        }];
+
+        [alertController addAction:yesButton];
+        [alertController addAction:noButton];
+
+        [self presentViewController:alertController animated:YES completion:nil];
 	} else {
 		ScanViewController *viewController = [[ScanViewController alloc] init];
 		[self.navigationController pushViewController:viewController animated:YES];	
@@ -132,13 +157,5 @@
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-	BOOL showInstructions = buttonIndex == 0;
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	[defaults setBool:showInstructions forKey:@"show_instructions_preference"];
-	
-    ScanViewController *viewController = [[ScanViewController alloc] init];
-    [self.navigationController pushViewController:viewController animated:YES];	
-}
 
 @end

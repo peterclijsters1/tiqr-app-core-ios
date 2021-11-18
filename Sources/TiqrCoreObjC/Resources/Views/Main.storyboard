@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="DA4-Fj-vM6">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Start View Controller-->
+        <scene sceneID="OUh-NO-pYv">
+            <objects>
+                <viewController id="9PQ-bi-OS6" customClass="StartViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ku0-OK-M7X">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xJd-QF-ToO">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                                <subviews>
+                                    <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kmn-6s-yte">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="681"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <dataDetectorType key="dataDetectorTypes"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="9PQ-bi-OS6" id="1ve-dQ-TqS"/>
+                                        </connections>
+                                    </webView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1nW-1N-hYR">
+                                        <rect key="frame" x="107" y="725" width="200" height="44"/>
+                                        <color key="backgroundColor" red="0.54165369269999997" green="0.65141624210000004" blue="0.0940284282" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="S5V-wM-Ueh"/>
+                                            <constraint firstAttribute="width" constant="200" id="nV9-8Y-tBh"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <state key="normal" title="Scannen">
+                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="scan" destination="9PQ-bi-OS6" eventType="touchUpInside" id="abL-X2-afO"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="1nW-1N-hYR" secondAttribute="bottom" constant="44" id="BHU-hc-V9n"/>
+                                    <constraint firstItem="kmn-6s-yte" firstAttribute="top" secondItem="xJd-QF-ToO" secondAttribute="top" id="azM-KS-FmA"/>
+                                    <constraint firstAttribute="trailing" secondItem="kmn-6s-yte" secondAttribute="trailing" id="eF1-TL-ee0"/>
+                                    <constraint firstItem="1nW-1N-hYR" firstAttribute="centerX" secondItem="xJd-QF-ToO" secondAttribute="centerX" id="lsc-2j-6Ii"/>
+                                    <constraint firstItem="kmn-6s-yte" firstAttribute="leading" secondItem="xJd-QF-ToO" secondAttribute="leading" id="pC7-WS-Wsz"/>
+                                    <constraint firstItem="1nW-1N-hYR" firstAttribute="top" secondItem="kmn-6s-yte" secondAttribute="bottom" constant="44" id="zIM-3o-SmW"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="ag0-CD-vOs"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="xJd-QF-ToO" firstAttribute="bottom" secondItem="ag0-CD-vOs" secondAttribute="bottom" id="UcB-dS-TKF"/>
+                            <constraint firstItem="xJd-QF-ToO" firstAttribute="top" secondItem="Ku0-OK-M7X" secondAttribute="top" id="WPf-cI-1wF"/>
+                            <constraint firstItem="xJd-QF-ToO" firstAttribute="leading" secondItem="Ku0-OK-M7X" secondAttribute="leading" id="ccI-YH-UUc"/>
+                            <constraint firstAttribute="trailing" secondItem="xJd-QF-ToO" secondAttribute="trailing" id="tXw-4y-MXs"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="Hnd-E3-e9e"/>
+                    <connections>
+                        <outlet property="scanButton" destination="1nW-1N-hYR" id="h1W-0d-v6d"/>
+                        <outlet property="webView" destination="kmn-6s-yte" id="xz7-1W-6g9"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="v1W-ih-Ynp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="59" y="110"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="GJy-kk-9Bv">
+            <objects>
+                <navigationController storyboardIdentifier="StartNavigationViewController" toolbarHidden="NO" id="DA4-Fj-vM6" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Pby-I3-11I" customClass="TiqrNavigationBar">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Ti4-Po-JYm" customClass="TiqrToolbar">
+                        <rect key="frame" x="0.0" y="813" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
+                    <connections>
+                        <segue destination="9PQ-bi-OS6" kind="relationship" relationship="rootViewController" id="cwC-lw-0gU"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0Kp-R6-C10" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-794" y="110"/>
+        </scene>
+    </scenes>
+    <color key="tintColor" red="0.18823529410000001" green="0.18823529410000001" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

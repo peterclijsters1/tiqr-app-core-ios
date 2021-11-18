@@ -18,7 +18,7 @@ let package = Package(
         .target(
             name: "TiqrCoreObjC",
             resources: [
-                .process("Resources/General/Settings.plist"),
+                .process("Resources/General/Config.plist"),
                 .process("Resources/Audio/cowbell.wav"),
                 .process("Resources/Views/HTML/start.html")
             ])

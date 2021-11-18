@@ -34,6 +34,8 @@
  * token which remains the same if the device token changed due to a clean
  * install of iOS after which a backup was restored etc.
  */
+#import <UIKit/UIKit.h>
+
 @interface NotificationRegistration : NSObject {
 	NSMutableData *responseData;
 }

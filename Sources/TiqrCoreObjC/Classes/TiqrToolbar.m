@@ -28,6 +28,7 @@
  */
 
 #import "TiqrToolbar.h"
+#import <UIKit/UIKit.h>
 
 @interface TiqrToolbar()
 
@@ -39,8 +40,11 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+
     self.surfnetButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.surfnetButton setImage:[UIImage imageNamed:@"surfnet-logo"] forState:UIControlStateNormal];
+
+    UIImage *image = [UIImage imageNamed:@"surfnet-logo" inBundle:SWIFTPM_MODULE_BUNDLE compatibleWithTraitCollection:nil];
+    [self.surfnetButton setImage:image forState:UIControlStateNormal];
     [self.surfnetButton addTarget:self action:@selector(surfnet) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:self.surfnetButton];
 }

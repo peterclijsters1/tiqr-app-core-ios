@@ -70,7 +70,8 @@
         [self.audioPlayer prepareToPlay];
         self.audioPlayer.delegate = self;
         
-        self.identitiesButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"identities-icon"] style:UIBarButtonItemStylePlain target:self action:@selector(listIdentities)];
+        UIImage *image = [UIImage imageNamed:@"identities-icon" inBundle:SWIFTPM_MODULE_BUNDLE compatibleWithTraitCollection:nil];
+        self.identitiesButtonItem = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(listIdentities)];
         self.navigationItem.rightBarButtonItem = self.identitiesButtonItem;
         
     }
@@ -137,10 +138,18 @@
 
 - (void)promptForCameraSettings {
     NSString *buttonTitle = NSLocalizedStringFromTableInBundle(@"settings_app_name", nil, SWIFTPM_MODULE_BUNDLE, @"Name of the settings app");
+    NSString *string = NSLocalizedStringFromTableInBundle(@"camera_prompt_title", nil, SWIFTPM_MODULE_BUNDLE, @"Camera access prompt title");
+    NSString *message = NSLocalizedStringFromTableInBundle(@"camera_prompt_message", nil, SWIFTPM_MODULE_BUNDLE, @"Camera access prompt message");
+
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:string message:message preferredStyle:UIAlertControllerStyleAlert];
     
+    UIAlertAction *okButton = [UIAlertAction actionWithTitle:buttonTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+    }];
+
+    [alertController addAction: okButton];
+    [self presentViewController:alertController animated:YES completion:nil];
     
-    UIAlertView *settingsPrompt = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"camera_prompt_title", nil, SWIFTPM_MODULE_BUNDLE, @"Camera access prompt title") message:NSLocalizedStringFromTableInBundle(@"camera_prompt_message", nil, SWIFTPM_MODULE_BUNDLE, @"Camera access prompt message") delegate:self cancelButtonTitle:nil otherButtonTitles: buttonTitle, nil];
-    [settingsPrompt show];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -159,10 +168,6 @@
 
 #pragma mark -
 #pragma mark AlertView delegate
-
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
-}
 
 #pragma mark -
 #pragma mark Decoder delegates

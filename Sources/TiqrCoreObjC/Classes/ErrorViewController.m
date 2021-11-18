@@ -30,7 +30,7 @@
 #import "ErrorViewController.h"
 
 #import "ErrorController.h"
-//#import "TiqrAppDelegate.h"
+#import "TiqrCoreManager.h"
 
 @interface ErrorViewController ()
 
@@ -62,8 +62,7 @@
 }
 
 - (void)done {
-    // TODO:
-    //[(TiqrAppDelegate *)[UIApplication sharedApplication].delegate popToStartViewControllerAnimated:YES];
+    [TiqrCoreManager.sharedInstance popToStartViewControllerAnimated:YES];
 }
 
 

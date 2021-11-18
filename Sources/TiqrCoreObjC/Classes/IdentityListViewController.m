@@ -29,7 +29,7 @@
 
 #import "IdentityListViewController.h"
 #import "ScanViewController.h"
-//#import "TiqrAppDelegate.h"
+#import "TiqrCoreManager.h"
 #import "Identity.h"
 #import "IdentityProvider.h"
 #import "IdentityTableViewCell.h"
@@ -134,15 +134,18 @@
         NSString *message = NSLocalizedStringFromTableInBundle(@"confirm_delete", nil, SWIFTPM_MODULE_BUNDLE, @"Are you sure you want to delete this identity?");
         NSString *yesTitle = NSLocalizedStringFromTableInBundle(@"yes_button", nil, SWIFTPM_MODULE_BUNDLE, @"Yes button title");
         NSString *noTitle = NSLocalizedStringFromTableInBundle(@"no_button", nil, SWIFTPM_MODULE_BUNDLE, @"No button title");
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:nil otherButtonTitles:yesTitle, noTitle, nil];
-        [alertView show];
-    
-    }
-}
 
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 0) {
-        [self performDeleteIdentity:self.selectedIdentity];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *yesButton = [UIAlertAction actionWithTitle:yesTitle style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action) {
+            [self performDeleteIdentity:self.selectedIdentity];
+        }];
+        
+        UIAlertAction *noButton = [UIAlertAction actionWithTitle:noTitle style:UIAlertActionStyleCancel handler:nil];
+
+        [alertController addAction:yesButton];
+        [alertController addAction:noButton];
+
+        [self presentViewController:alertController animated:YES completion:nil];
     }
 }
 
@@ -176,7 +179,11 @@
         NSString *message = NSLocalizedStringFromTableInBundle(@"error_auth_unknown_error", nil, SWIFTPM_MODULE_BUNDLE, @"Unexpected error message");
         NSString *okTitle = NSLocalizedStringFromTableInBundle(@"ok_button", nil, SWIFTPM_MODULE_BUNDLE, @"OK button title");
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:okTitle otherButtonTitles:nil];
-        [alertView show];
+
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okButton = [UIAlertAction actionWithTitle:okTitle style:UIAlertActionStyleDefault handler:nil];
+        [alertController addAction: okButton];
+        [self presentViewController:alertController animated:YES completion:nil];
     }
 }
 
@@ -197,15 +204,18 @@
 		identity.sortIndex = [NSNumber numberWithInteger:sortIndex];
 		sortIndex++;
 	}
-	
+
     if (![ServiceContainer.sharedInstance.identityService saveIdentities]) {
         NSString *title = NSLocalizedStringFromTableInBundle(@"error", nil, SWIFTPM_MODULE_BUNDLE, @"Alert title for error");
         NSString *message = NSLocalizedStringFromTableInBundle(@"error_auth_unknown_error", nil, SWIFTPM_MODULE_BUNDLE, @"Unexpected error message");
         NSString *okTitle = NSLocalizedStringFromTableInBundle(@"ok_button", nil, SWIFTPM_MODULE_BUNDLE, @"OK button title");
-		UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:okTitle otherButtonTitles:nil];
-		[alertView show];
+
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okButton = [UIAlertAction actionWithTitle:okTitle style:UIAlertActionStyleDefault handler:nil];
+        [alertController addAction: okButton];
+        [self presentViewController:alertController animated:YES completion:nil];
     }
-	
+
 	self.processingMoveRow = NO;	
 }
 
@@ -228,8 +238,11 @@
         NSString *title = NSLocalizedStringFromTableInBundle(@"error", nil, SWIFTPM_MODULE_BUNDLE, @"Alert title for error");
         NSString *message = NSLocalizedStringFromTableInBundle(@"error_auth_unknown_error", nil, SWIFTPM_MODULE_BUNDLE, @"Unexpected error message");
         NSString *okTitle = NSLocalizedStringFromTableInBundle(@"ok_button", nil, SWIFTPM_MODULE_BUNDLE, @"OK button title");
-		UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:okTitle otherButtonTitles:nil];
-		[alertView show];
+
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okButton = [UIAlertAction actionWithTitle:okTitle style:UIAlertActionStyleDefault handler:nil];
+        [alertController addAction: okButton];
+        [self presentViewController:alertController animated:YES completion:nil];
     }
     
     return _fetchedResultsController;
