@@ -33,6 +33,7 @@
 #import "External/MBProgressHUD.h"
 #import "ErrorViewController.h"
 #import "EnrollmentSummaryViewController.h"
+@import TiqrCore;
 
 @interface EnrollmentConfirmViewController ()
 
@@ -83,6 +84,8 @@
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
+    
+    self.okButton.backgroundColor = [ThemeService shared].theme.brandColor;
 }
 
 

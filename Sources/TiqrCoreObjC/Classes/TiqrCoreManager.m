@@ -42,6 +42,7 @@
 #import "TiqrToolbar.h"
 #import "TiqrNavigationBar.h"
 #import "TiqrConfig.h"
+@import TiqrCore;
 
 @interface TiqrCoreManager ()
     @property (nonatomic, strong) UINavigationController *navigationController;
@@ -62,7 +63,7 @@
         sharedInstance.navigationController = [storyboard instantiateInitialViewController];
 
         if (@available(iOS 13.0, *)) {
-            UIColor *color = [UIColor colorWithRed:138/255.0 green:166/255.0 blue:24/255.0 alpha:1];
+            UIColor *color = [ThemeService shared].theme.brandColor;
 
             UINavigationBarAppearance *navigationBarAppearance = [UINavigationBarAppearance new];
             [navigationBarAppearance configureWithOpaqueBackground];

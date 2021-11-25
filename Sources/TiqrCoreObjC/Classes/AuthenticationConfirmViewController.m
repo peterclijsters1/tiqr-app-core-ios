@@ -37,6 +37,7 @@
 #import "ErrorViewController.h"
 #import "OCRAProtocol.h"
 #import "External/MBProgressHUD.h"
+@import TiqrCore;
 
 @interface AuthenticationConfirmViewController ()
 
@@ -94,6 +95,8 @@
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
+    
+    self.okButton.backgroundColor = [ThemeService shared].theme.brandColor;
 }
 
 - (void)authenticateWithBiometrics {

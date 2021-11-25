@@ -65,15 +65,14 @@
 
         NSURL *fileURL = [NSURL fileURLWithPath:filePath isDirectory:NO];
         [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryAmbient error:nil];
-        
+
         self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:fileURL error:nil];
         [self.audioPlayer prepareToPlay];
         self.audioPlayer.delegate = self;
-        
+
         UIImage *image = [UIImage imageNamed:@"identities-icon" inBundle:SWIFTPM_MODULE_BUNDLE compatibleWithTraitCollection:nil];
         self.identitiesButtonItem = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(listIdentities)];
         self.navigationItem.rightBarButtonItem = self.identitiesButtonItem;
-        
     }
     
     return self;

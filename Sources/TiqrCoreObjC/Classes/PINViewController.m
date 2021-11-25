@@ -30,6 +30,7 @@
 #import "PINViewController.h"
 #import "ErrorController.h"
 #import "NSString+Verhoeff.h"
+@import TiqrCore;
 
 @interface PINViewController ()
 
@@ -105,6 +106,9 @@
         NSForegroundColorAttributeName: [UIColor blackColor]
     }];
     self.pinTextField.defaultTextAttributes = attrs;
+    
+    self.okButton.backgroundColor = [ThemeService shared].theme.brandColor;
+    self.confirmButton.backgroundColor = [ThemeService shared].theme.brandColor;
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {

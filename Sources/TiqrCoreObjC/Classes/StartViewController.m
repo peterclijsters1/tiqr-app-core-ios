@@ -34,6 +34,7 @@
 #import "AboutViewController.h"
 #import "ServiceContainer.h"
 #import <UIKit/UIKit.h>
+@import TiqrCore;
 
 @interface StartViewController () <UIWebViewDelegate>
 
@@ -53,6 +54,7 @@
     NSString *scanButtonTitle = NSLocalizedStringFromTableInBundle(@"scan_button", nil, SWIFTPM_MODULE_BUNDLE, @"Scan button title");
     [self.scanButton setTitle:scanButtonTitle forState:UIControlStateNormal];
     self.scanButton.layer.cornerRadius = 5;
+    self.scanButton.backgroundColor = [ThemeService shared].theme.brandColor;
     
     UIImage *image = [UIImage imageNamed:@"identities-icon" inBundle:SWIFTPM_MODULE_BUNDLE compatibleWithTraitCollection:nil];
     UIBarButtonItem *identitiesButtonItem = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(listIdentities)];
@@ -99,8 +101,21 @@
     NSURL *URL = [NSURL fileURLWithPath:path];
 
     NSString *html = [NSString stringWithContentsOfURL:URL encoding:NSUTF8StringEncoding error:nil];
-    html = [NSString stringWithFormat:html, content];
+    
+    UIFont *font= [ThemeService shared].theme.bodyFont;
+    html = [NSString stringWithFormat:html, @(font.pointSize), font.fontName, content];
     [self.webView loadHTMLString:html baseURL:nil];
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+
+    CGFloat spacing = 5;
+    CGFloat scanButtonWidth = self.scanButton.titleLabel.frame.size.width;
+    CGFloat imageWidth = self.scanButton.currentImage.size.width;
+    CGFloat imageInset = scanButtonWidth + (scanButtonWidth / 2) + imageWidth + spacing;
+    self.scanButton.imageEdgeInsets = UIEdgeInsetsMake(0, imageInset, 0, 0);
+    self.scanButton.titleEdgeInsets = UIEdgeInsetsMake(0, -((imageWidth * 2) + spacing), 0, 0);
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
@@ -149,7 +164,8 @@
 
 - (void)about {
     UIViewController *viewController = [[AboutViewController alloc] init];
-    [self.navigationController presentViewController:viewController animated:YES completion:nil];
+    self.navigationController.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 - (void)listIdentities {

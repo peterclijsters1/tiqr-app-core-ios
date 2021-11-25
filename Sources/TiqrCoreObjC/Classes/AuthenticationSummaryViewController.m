@@ -31,6 +31,7 @@
 #import "TiqrCoreManager.h"
 #import "ServiceContainer.h"
 #import "NSString+LocalizedBiometricString.h"
+@import TiqrCore;
 
 @interface AuthenticationSummaryViewController ()
 
@@ -87,6 +88,8 @@
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
+    
+    self.returnButton.backgroundColor = [ThemeService shared].theme.brandColor;
 }
 
 - (void)viewDidAppear:(BOOL)animated {

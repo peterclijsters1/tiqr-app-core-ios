@@ -32,6 +32,7 @@
 #import "IdentityProvider.h"
 #import "ServiceContainer.h"
 #import "NSString+LocalizedBiometricString.h"
+@import TiqrCore;
 
 @interface IdentityEditViewController ()
 
@@ -77,6 +78,8 @@
     }
     
     self.tableView.tableFooterView = [UIView new];
+    
+    self.deleteButton.backgroundColor = [ThemeService shared].theme.brandColor;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -100,8 +103,8 @@
 
     cell.accessoryType = UITableViewCellAccessoryNone;
     
-    cell.textLabel.font = [UIFont boldSystemFontOfSize:16];
-    cell.detailTextLabel.font = [UIFont systemFontOfSize:16];
+    cell.textLabel.font = [ThemeService shared].theme.bodyFont;
+    cell.detailTextLabel.font = [ThemeService shared].theme.bodyFont;
     cell.detailTextLabel.textColor = [UIColor blackColor];
     cell.accessoryView = nil;
     

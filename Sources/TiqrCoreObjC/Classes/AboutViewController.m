@@ -29,6 +29,7 @@
 
 #import "AboutViewController.h"
 #import "TiqrConfig.h"
+@import TiqrCore;
 
 @interface AboutViewController ()
 
@@ -38,6 +39,7 @@
 @property (nonatomic, strong) IBOutlet UIButton *okButton;
 @property (nonatomic, strong) IBOutlet NSLayoutConstraint *okButtonBottomConstraint;
 @property (nonatomic, strong) IBOutlet UILabel *versionLabel;
+@property (nonatomic, strong) IBOutlet UIButton *appLogo;
 
 @end
 
@@ -48,13 +50,14 @@
     if (self != nil) {
         self.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;    
     }
-    
+
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self.appLogo setImage:[ThemeService shared].theme.aboutLogo forState:UIControlStateNormal];
     self.tiqrProvidedByLabel.text = NSLocalizedStringFromTableInBundle(@"provided_by_title", nil, SWIFTPM_MODULE_BUNDLE, @"tiqr is provided by:");
     self.developedByLabel.text = NSLocalizedStringFromTableInBundle(@"developed_by_title", nil, SWIFTPM_MODULE_BUNDLE, @"Developed by:");
     self.interactionDesignLabel.text = NSLocalizedStringFromTableInBundle(@"interaction_by_title", nil, SWIFTPM_MODULE_BUNDLE, @"Interaction design:");
@@ -68,6 +71,8 @@
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
+
+    self.okButton.backgroundColor = [ThemeService shared].theme.brandColor;
 }
 
 - (IBAction)tiqr {
