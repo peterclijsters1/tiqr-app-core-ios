@@ -107,8 +107,17 @@
     }];
     self.pinTextField.defaultTextAttributes = attrs;
     
-    self.okButton.backgroundColor = [ThemeService shared].theme.brandColor;
-    self.confirmButton.backgroundColor = [ThemeService shared].theme.brandColor;
+    self.okButton.backgroundColor = [ThemeService shared].theme.buttonBackgroundColor;
+    [self.okButton.titleLabel setFont:[ThemeService shared].theme.buttonFont];
+    [self.okButton setTitleColor:[ThemeService shared].theme.buttonTitleColor forState:UIControlStateNormal];
+
+    self.confirmButton.backgroundColor = [ThemeService shared].theme.buttonBackgroundColor;
+    [self.confirmButton.titleLabel setFont:[ThemeService shared].theme.buttonFont];
+    [self.confirmButton setTitleColor:[ThemeService shared].theme.buttonTitleColor forState:UIControlStateNormal];
+    
+    self.subtitleLabel.font = [ThemeService shared].theme.headerFont;
+    self.descriptionLabel.font = [ThemeService shared].theme.bodyFont;
+    self.notesLabel.font = [ThemeService shared].theme.bodyFont;
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {

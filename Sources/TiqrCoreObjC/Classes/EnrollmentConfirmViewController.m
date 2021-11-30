@@ -49,6 +49,7 @@
 @property (nonatomic, strong) IBOutlet UILabel *identityDisplayNameLabel;
 @property (nonatomic, strong) IBOutlet UILabel *identityIdentifierLabel;
 @property (nonatomic, strong) IBOutlet UILabel *enrollmentURLDomainLabel;
+@property (nonatomic, strong) IBOutlet UIButton *cancelButton;
 
 @end
 
@@ -84,8 +85,24 @@
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
-    
-    self.okButton.backgroundColor = [ThemeService shared].theme.brandColor;
+
+    [self.cancelButton setFont:[ThemeService shared].theme.bodyFont];
+
+    self.okButton.backgroundColor = [ThemeService shared].theme.buttonBackgroundColor;
+    [self.okButton.titleLabel setFont:[ThemeService shared].theme.buttonFont];
+    [self.okButton setTitleColor:[ThemeService shared].theme.buttonTitleColor forState:UIControlStateNormal];
+
+    self.confirmAccountLabel.font = [ThemeService shared].theme.headerFont;
+
+    self.activateAccountLabel.font = [ThemeService shared].theme.bodyFont;
+    self.accountDetailsLabel.font = [ThemeService shared].theme.bodyFont;
+    self.identityDisplayNameLabel.font = [ThemeService shared].theme.bodyFont;
+    self.identityIdentifierLabel.font = [ThemeService shared].theme.bodyFont;
+    self.enrollDomainLabel.font = [ThemeService shared].theme.bodyFont;
+
+    self.fullNameLabel.font = [ThemeService shared].theme.bodyBoldFont;
+    self.accountIDLabel.font = [ThemeService shared].theme.bodyBoldFont;
+    self.enrollmentURLDomainLabel.font = [ThemeService shared].theme.bodyBoldFont;
 }
 
 

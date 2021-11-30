@@ -29,20 +29,24 @@
 
 #import "TiqrNavigationBar.h"
 #import <UIKit/UIKit.h>
+@import TiqrCore;
 
 @implementation TiqrNavigationBar
 
 - (void)awakeFromNib {
     [super awakeFromNib];
 
-    UIImage *image = [UIImage imageNamed:@"tiqr-header" inBundle:SWIFTPM_MODULE_BUNDLE compatibleWithTraitCollection:nil];
-    UIImageView *tiqrHeaderView = [[UIImageView alloc] initWithImage:image];
+    UIImageView *tiqrHeaderView = [[UIImageView alloc] initWithImage:[ThemeService shared].theme.topBarIcon];
+    tiqrHeaderView.contentMode = UIViewContentModeScaleAspectFit;
     tiqrHeaderView.translatesAutoresizingMaskIntoConstraints = NO;
     
     [self addSubview:tiqrHeaderView];
 
     [self addConstraint:[NSLayoutConstraint constraintWithItem:tiqrHeaderView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:tiqrHeaderView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+    
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[tiqrHeaderView]-5-|" options:0 metrics:nil views:@{@"tiqrHeaderView" : tiqrHeaderView}]];
+    
+
 }
 
 @end

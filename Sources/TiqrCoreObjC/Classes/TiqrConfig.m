@@ -44,4 +44,8 @@
     return value;
 }
 
++ (NSString *)appName {
+    return [[[NSBundle mainBundle] infoDictionary] objectForKey:(id)kCFBundleNameKey];
+}
+
 @end

@@ -29,6 +29,7 @@
 
 #import "ErrorController.h"
 #import <UIKit/UIKit.h>
+@import TiqrCore;
 
 @interface ErrorController ()
 
@@ -51,6 +52,13 @@
     }
     
     return self;
+}
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+
+    self.titleLabel.font = [ThemeService shared].theme.headerFont;
+    self.messageLabel.font = [ThemeService shared].theme.bodyFont;
 }
 
 - (void)addToView:(UIView *)view {

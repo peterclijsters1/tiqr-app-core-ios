@@ -32,6 +32,7 @@
 #import "IdentityProvider.h"
 #import "ServiceContainer.h"
 #import "NSString+LocalizedBiometricString.h"
+#import "TiqrConfig.h"
 @import TiqrCore;
 
 @interface IdentityEditViewController ()
@@ -79,7 +80,13 @@
     
     self.tableView.tableFooterView = [UIView new];
     
-    self.deleteButton.backgroundColor = [ThemeService shared].theme.brandColor;
+    self.deleteButton.backgroundColor = [ThemeService shared].theme.buttonBackgroundColor;
+    [self.deleteButton.titleLabel setFont:[ThemeService shared].theme.buttonFont];
+    [self.deleteButton setTitleColor:[ThemeService shared].theme.buttonTitleColor forState:UIControlStateNormal];
+    
+    self.blockedWarningLabel.font = [ThemeService shared].theme.bodyBoldFont;
+    self.identityProviderDisplayNameLabel.font = [ThemeService shared].theme.headerFont;
+    self.identityProviderIdentifierLabel.font = [ThemeService shared].theme.bodyFont;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -199,7 +206,7 @@
         [self.navigationController popViewControllerAnimated:YES];
     } else {
 		NSString *title = NSLocalizedStringFromTableInBundle(@"error", nil, SWIFTPM_MODULE_BUNDLE, @"Alert title for error");
-		NSString *message = NSLocalizedStringFromTableInBundle(@"error_auth_unknown_error", nil, SWIFTPM_MODULE_BUNDLE, @"Unexpected error message");
+        NSString *message = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"error_auth_unknown_error", nil, SWIFTPM_MODULE_BUNDLE, @"Unknown error message"), TiqrConfig.appName];
 		NSString *okTitle = NSLocalizedStringFromTableInBundle(@"ok_button", nil, SWIFTPM_MODULE_BUNDLE, @"OK button title");
 
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];

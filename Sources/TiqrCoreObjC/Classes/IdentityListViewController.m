@@ -35,6 +35,8 @@
 #import "IdentityTableViewCell.h"
 #import "IdentityEditViewController.h"
 #import "ServiceContainer.h"
+#import "TiqrConfig.h"
+@import TiqrCore;
 
 @interface IdentityListViewController ()
 
@@ -104,6 +106,11 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     return NSLocalizedStringFromTableInBundle(@"identity_title", nil, SWIFTPM_MODULE_BUNDLE, @"Identity select back button title");
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
+    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
+    header.textLabel.font = [ThemeService shared].theme.bodyFont;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -176,7 +183,7 @@
         }
     } else {
         NSString *title = NSLocalizedStringFromTableInBundle(@"error", nil, SWIFTPM_MODULE_BUNDLE, @"Alert title for error");
-        NSString *message = NSLocalizedStringFromTableInBundle(@"error_auth_unknown_error", nil, SWIFTPM_MODULE_BUNDLE, @"Unexpected error message");
+        NSString *message = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"error_auth_unknown_error", nil, SWIFTPM_MODULE_BUNDLE, @"Unknown error message"), TiqrConfig.appName];
         NSString *okTitle = NSLocalizedStringFromTableInBundle(@"ok_button", nil, SWIFTPM_MODULE_BUNDLE, @"OK button title");
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:okTitle otherButtonTitles:nil];
 
@@ -207,7 +214,7 @@
 
     if (![ServiceContainer.sharedInstance.identityService saveIdentities]) {
         NSString *title = NSLocalizedStringFromTableInBundle(@"error", nil, SWIFTPM_MODULE_BUNDLE, @"Alert title for error");
-        NSString *message = NSLocalizedStringFromTableInBundle(@"error_auth_unknown_error", nil, SWIFTPM_MODULE_BUNDLE, @"Unexpected error message");
+        NSString *message = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"error_auth_unknown_error", nil, SWIFTPM_MODULE_BUNDLE, @"Unknown error message"), TiqrConfig.appName];
         NSString *okTitle = NSLocalizedStringFromTableInBundle(@"ok_button", nil, SWIFTPM_MODULE_BUNDLE, @"OK button title");
 
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
@@ -236,7 +243,7 @@
     if (![_fetchedResultsController performFetch:&error]) {
         NSLog(@"Unexpected error: %@", error);
         NSString *title = NSLocalizedStringFromTableInBundle(@"error", nil, SWIFTPM_MODULE_BUNDLE, @"Alert title for error");
-        NSString *message = NSLocalizedStringFromTableInBundle(@"error_auth_unknown_error", nil, SWIFTPM_MODULE_BUNDLE, @"Unexpected error message");
+        NSString *message = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"error_auth_unknown_error", nil, SWIFTPM_MODULE_BUNDLE, @"Unknown error message"), TiqrConfig.appName];
         NSString *okTitle = NSLocalizedStringFromTableInBundle(@"ok_button", nil, SWIFTPM_MODULE_BUNDLE, @"OK button title");
 
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];

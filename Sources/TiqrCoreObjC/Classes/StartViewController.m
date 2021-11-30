@@ -34,6 +34,7 @@
 #import "AboutViewController.h"
 #import "ServiceContainer.h"
 #import <UIKit/UIKit.h>
+#import "TiqrConfig.h"
 @import TiqrCore;
 
 @interface StartViewController () <UIWebViewDelegate>
@@ -49,13 +50,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     NSString *scanButtonTitle = NSLocalizedStringFromTableInBundle(@"scan_button", nil, SWIFTPM_MODULE_BUNDLE, @"Scan button title");
     [self.scanButton setTitle:scanButtonTitle forState:UIControlStateNormal];
     self.scanButton.layer.cornerRadius = 5;
-    self.scanButton.backgroundColor = [ThemeService shared].theme.brandColor;
-    
+    self.scanButton.backgroundColor = [ThemeService shared].theme.buttonBackgroundColor;
+    [self.scanButton.titleLabel setFont:[ThemeService shared].theme.buttonFont];
+    [self.scanButton setTitleColor:[ThemeService shared].theme.buttonTitleColor forState:UIControlStateNormal];
+
     UIImage *image = [UIImage imageNamed:@"identities-icon" inBundle:SWIFTPM_MODULE_BUNDLE compatibleWithTraitCollection:nil];
     UIBarButtonItem *identitiesButtonItem = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(listIdentities)];
     self.navigationItem.rightBarButtonItem = identitiesButtonItem;
@@ -91,10 +94,11 @@
         content = NSLocalizedStringFromTableInBundle(@"main_text_blocked", nil, SWIFTPM_MODULE_BUNDLE, @"");
     } else if (ServiceContainer.sharedInstance.identityService.identityCount > 0) {
         self.navigationItem.rightBarButtonItem = self.identitiesButtonItem;
-        content = NSLocalizedStringFromTableInBundle(@"main_text_instructions", nil, SWIFTPM_MODULE_BUNDLE, @"");
+        content = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"main_text_instructions", nil, SWIFTPM_MODULE_BUNDLE, @""), TiqrConfig.appName, TiqrConfig.appName];
     } else {
         self.navigationItem.rightBarButtonItem = nil;
-        content = NSLocalizedStringFromTableInBundle(@"main_text_welcome", nil, SWIFTPM_MODULE_BUNDLE, @"");
+        
+        content = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"main_text_welcome", nil, SWIFTPM_MODULE_BUNDLE, @""), TiqrConfig.appName, TiqrConfig.appName];
     }
 
     NSString *path = [SWIFTPM_MODULE_BUNDLE pathForResource:@"start" ofType:@"html"];

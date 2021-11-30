@@ -63,7 +63,7 @@
         sharedInstance.navigationController = [storyboard instantiateInitialViewController];
 
         if (@available(iOS 13.0, *)) {
-            UIColor *color = [ThemeService shared].theme.brandColor;
+            UIColor *color = [ThemeService shared].theme.primaryColor;
 
             UINavigationBarAppearance *navigationBarAppearance = [UINavigationBarAppearance new];
             [navigationBarAppearance configureWithOpaqueBackground];

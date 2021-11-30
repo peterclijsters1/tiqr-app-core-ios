@@ -31,6 +31,7 @@
 #import "ErrorViewController.h"
 #import "External/MBProgressHUD.h"
 #import "ServiceContainer.h"
+#import "TiqrConfig.h"
 
 @interface ScanViewController () <AVAudioPlayerDelegate, AVCaptureMetadataOutputObjectsDelegate, UIAlertViewDelegate>
 
@@ -138,7 +139,7 @@
 - (void)promptForCameraSettings {
     NSString *buttonTitle = NSLocalizedStringFromTableInBundle(@"settings_app_name", nil, SWIFTPM_MODULE_BUNDLE, @"Name of the settings app");
     NSString *string = NSLocalizedStringFromTableInBundle(@"camera_prompt_title", nil, SWIFTPM_MODULE_BUNDLE, @"Camera access prompt title");
-    NSString *message = NSLocalizedStringFromTableInBundle(@"camera_prompt_message", nil, SWIFTPM_MODULE_BUNDLE, @"Camera access prompt message");
+    NSString *message = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"camera_prompt_message", nil, SWIFTPM_MODULE_BUNDLE, @"Camera access prompt message"), TiqrConfig.appName, TiqrConfig.appName];
 
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:string message:message preferredStyle:UIAlertControllerStyleAlert];
     

@@ -31,9 +31,17 @@ import UIKit
 
 @objc
 public protocol TiqrThemeType {
-    var brandColor: UIColor { get }
+    var primaryColor: UIColor { get }
+
     var headerFont: UIFont { get }
+    var bodyBoldFont: UIFont { get }
     var bodyFont: UIFont { get }
-    var aboutLogo: UIImage? { get }
-    var headerLogo: UIImage? { get }
+
+    var buttonFont: UIFont { get }
+    var buttonTitleColor: UIColor { get }
+    var buttonBackgroundColor: UIColor { get }
+
+    var topBarIcon: UIImage? { get }
+    var bottomBarIcon: UIImage? { get }
+    var aboutIcon: UIImage? { get }
 }

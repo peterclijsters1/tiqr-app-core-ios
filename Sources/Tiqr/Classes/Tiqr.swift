@@ -42,6 +42,7 @@ public final class Tiqr: NSObject {
         NotificationCenter.default.addObserver(self, selector: #selector(willEnterForegroundNotification), name: UIApplication.willEnterForegroundNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didEnterBackgroundNotification), name: UIApplication.willTerminateNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(willTerminateNotification), name: UIApplication.didEnterBackgroundNotification, object: nil)
+        
     }
 }
 

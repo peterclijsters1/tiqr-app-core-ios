@@ -28,12 +28,19 @@
  */
 
 import UIKit
-import TiqrCore
 
-public final class SampleTheme: TiqrThemeType {
-    public var brandColor: UIColor =  UIColor(red: 138/255.0, green: 2/255.0, blue: 24/255.0, alpha: 1)
-    public let headerFont: UIFont = UIFont.boldSystemFont(ofSize: 16)
-    public let bodyFont: UIFont = UIFont.systemFont(ofSize: 14)
-    public let aboutLogo: UIImage? = UIImage(named: "tiqr-logo")
-    public let headerLogo: UIImage? = UIImage(named: "tiqr-header")
+final class SampleTheme: TiqrThemeType {
+    let primaryColor: UIColor = .green
+
+    let headerFont: UIFont = .systemFont(ofSize: 22)
+    let bodyBoldFont: UIFont = .boldSystemFont(ofSize: 16)
+    let bodyFont: UIFont = .boldSystemFont(ofSize: 14)
+
+    let buttonFont: UIFont = .systemFont(ofSize: 14)
+    let buttonTitleColor: UIColor = .black
+    let buttonBackgroundColor: UIColor = .green
+
+    let aboutIcon: UIImage? = UIImage(named: "tiqr-logo")
+    let topBarIcon: UIImage? = UIImage(named: "logo_eduID")
+    let bottomBarIcon: UIImage? = UIImage(named: "surfnet-logo")
 }

@@ -30,6 +30,7 @@
 #import "EnrollmentSummaryViewController.h"
 #import "TiqrCoreManager.h"
 #import "ServiceContainer.h"
+@import TiqrCore;
 
 @interface EnrollmentSummaryViewController ()
 
@@ -75,7 +76,11 @@
     self.identityDisplayNameLabel.text = self.challenge.identityDisplayName;
     self.identityIdentifierLabel.text = self.challenge.identityIdentifier;
     self.enrollmentDomainLabel.text = [[NSURL URLWithString:self.challenge.enrollmentUrl] host];
-    
+
+    [self.returnButton.titleLabel setFont:[ThemeService shared].theme.buttonFont];
+    self.returnButton.backgroundColor = [ThemeService shared].theme.buttonBackgroundColor;
+    [self.returnButton setTitleColor:[ThemeService shared].theme.buttonTitleColor forState:UIControlStateNormal];
+
     if (self.challenge.returnUrl != nil) {
         [self.returnButton setTitle:NSLocalizedStringFromTableInBundle(@"return_button", nil, SWIFTPM_MODULE_BUNDLE, @"Return to button title") forState:UIControlStateNormal];
         self.returnButton.hidden = NO;
@@ -84,6 +89,18 @@
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
+
+    self.accountActivatedLabel.font = [ThemeService shared].theme.headerFont;
+
+    self.enrolledLabel.font = [ThemeService shared].theme.bodyFont;
+    self.identityIdentifierLabel.font = [ThemeService shared].theme.bodyFont;
+    self.identityDisplayNameLabel.font = [ThemeService shared].theme.bodyFont;
+    self.accountDetailsLabel.font = [ThemeService shared].theme.bodyFont;
+    self.accountReadyLabel.font = [ThemeService shared].theme.bodyFont;
+
+    self.fullNameLabel.font = [ThemeService shared].theme.bodyBoldFont;
+    self.accountIDLabel.font = [ThemeService shared].theme.bodyBoldFont;
+    self.enrollmentDomainLabel.font = [ThemeService shared].theme.bodyBoldFont;
 }
 
 - (void)done {
