@@ -37,10 +37,10 @@ final class DefaultTheme: TiqrThemeType {
     let bodyFont: UIFont = .boldSystemFont(ofSize: 14)
 
     let buttonFont: UIFont = .systemFont(ofSize: 14)
-    let buttonTitleColor: UIColor = .black
+    let buttonTintColor: UIColor = .black
     let buttonBackgroundColor: UIColor = .green
 
     let aboutIcon: UIImage? = UIImage(named: "tiqr-logo")
     let topBarIcon: UIImage? = UIImage(named: "logo_eduID")
-    let bottomBarIcon: UIImage? = UIImage(named: "surfnet-logo")
+    let bottomBarIcon: UIImage? = UIImage(named: "surf-logo")
 }

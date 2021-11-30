@@ -38,7 +38,7 @@ public protocol TiqrThemeType {
     var bodyFont: UIFont { get }
 
     var buttonFont: UIFont { get }
-    var buttonTitleColor: UIColor { get }
+    var buttonTintColor: UIColor { get }
     var buttonBackgroundColor: UIColor { get }
 
     var topBarIcon: UIImage? { get }

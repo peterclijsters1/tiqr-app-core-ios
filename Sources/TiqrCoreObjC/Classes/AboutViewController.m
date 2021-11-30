@@ -40,6 +40,7 @@
 @property (nonatomic, strong) IBOutlet NSLayoutConstraint *okButtonBottomConstraint;
 @property (nonatomic, strong) IBOutlet UILabel *versionLabel;
 @property (nonatomic, strong) IBOutlet UIButton *appLogo;
+@property (weak, nonatomic) IBOutlet UIButton *surfLogo;
 
 @end
 
@@ -58,7 +59,8 @@
     [super viewDidLoad];
     
     [self.appLogo setImage:[ThemeService shared].theme.aboutIcon forState:UIControlStateNormal];
-    self.tiqrProvidedByLabel.text = NSLocalizedStringFromTableInBundle(@"provided_by_title", nil, SWIFTPM_MODULE_BUNDLE, @"tiqr is provided by:");
+    self.tiqrProvidedByLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"provided_by_title", nil, SWIFTPM_MODULE_BUNDLE, @"tiqr is provided by:"), TiqrConfig.appName];
+
     self.developedByLabel.text = NSLocalizedStringFromTableInBundle(@"developed_by_title", nil, SWIFTPM_MODULE_BUNDLE, @"Developed by:");
     self.interactionDesignLabel.text = NSLocalizedStringFromTableInBundle(@"interaction_by_title", nil, SWIFTPM_MODULE_BUNDLE, @"Interaction design:");
     
@@ -66,8 +68,7 @@
     [self.okButton setTitle:NSLocalizedStringFromTableInBundle(@"ok_button", nil, SWIFTPM_MODULE_BUNDLE, @"OK") forState:UIControlStateNormal];
     self.okButton.layer.cornerRadius = 5;
 
-    NSString *version = [TiqrConfig valueForKey:@"CFBundleShortVersionString"];
-    self.versionLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"app_version", nil, SWIFTPM_MODULE_BUNDLE, @"App version: %@"), version];
+    self.versionLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"app_version", nil, SWIFTPM_MODULE_BUNDLE, @"App version: %@"), TiqrConfig.appVersion];
     
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
@@ -75,12 +76,14 @@
 
     self.okButton.backgroundColor = [ThemeService shared].theme.buttonBackgroundColor;
     [self.okButton.titleLabel setFont:[ThemeService shared].theme.buttonFont];
-    [self.okButton setTitleColor:[ThemeService shared].theme.buttonTitleColor forState:UIControlStateNormal];
+    [self.okButton setTitleColor:[ThemeService shared].theme.buttonTintColor forState:UIControlStateNormal];
 
     self.versionLabel.font = [ThemeService shared].theme.bodyFont;
     self.tiqrProvidedByLabel.font = [ThemeService shared].theme.bodyFont;
     self.developedByLabel.font = [ThemeService shared].theme.bodyFont;
     self.interactionDesignLabel.font = [ThemeService shared].theme.bodyFont;
+    
+    self.surfLogo.imageView.contentMode = UIViewContentModeScaleAspectFit;
 }
 
 - (IBAction)tiqr {

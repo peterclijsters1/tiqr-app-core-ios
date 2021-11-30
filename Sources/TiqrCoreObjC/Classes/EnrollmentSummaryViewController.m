@@ -30,6 +30,7 @@
 #import "EnrollmentSummaryViewController.h"
 #import "TiqrCoreManager.h"
 #import "ServiceContainer.h"
+#import "TiqrConfig.h"
 @import TiqrCore;
 
 @interface EnrollmentSummaryViewController ()
@@ -79,7 +80,7 @@
 
     [self.returnButton.titleLabel setFont:[ThemeService shared].theme.buttonFont];
     self.returnButton.backgroundColor = [ThemeService shared].theme.buttonBackgroundColor;
-    [self.returnButton setTitleColor:[ThemeService shared].theme.buttonTitleColor forState:UIControlStateNormal];
+    [self.returnButton setTitleColor:[ThemeService shared].theme.buttonTintColor forState:UIControlStateNormal];
 
     if (self.challenge.returnUrl != nil) {
         [self.returnButton setTitle:NSLocalizedStringFromTableInBundle(@"return_button", nil, SWIFTPM_MODULE_BUNDLE, @"Return to button title") forState:UIControlStateNormal];

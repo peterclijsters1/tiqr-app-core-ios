@@ -79,6 +79,9 @@
                 sharedInstance.navigationController.toolbar.scrollEdgeAppearance = toolbarAppearance;
             }
         }
+        
+        sharedInstance.navigationController.navigationBar.tintColor = [ThemeService shared].theme.buttonTintColor;
+        sharedInstance.navigationController.toolbar.tintColor = [ThemeService shared].theme.buttonTintColor;
 
     });
     return sharedInstance;

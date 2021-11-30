@@ -82,7 +82,7 @@
     
     self.deleteButton.backgroundColor = [ThemeService shared].theme.buttonBackgroundColor;
     [self.deleteButton.titleLabel setFont:[ThemeService shared].theme.buttonFont];
-    [self.deleteButton setTitleColor:[ThemeService shared].theme.buttonTitleColor forState:UIControlStateNormal];
+    [self.deleteButton setTitleColor:[ThemeService shared].theme.buttonTintColor forState:UIControlStateNormal];
     
     self.blockedWarningLabel.font = [ThemeService shared].theme.bodyBoldFont;
     self.identityProviderDisplayNameLabel.font = [ThemeService shared].theme.headerFont;

@@ -36,6 +36,7 @@
 #import "SecretService.h"
 #import "Identity.h"
 #import "IdentityProvider.h"
+#import "TiqrConfig.h"
 
 #define kChosenCipherKeySize kCCKeySizeAES256
 

@@ -30,6 +30,7 @@
 #import "EnrollmentPINViewController.h"
 #import "EnrollmentPINVerificationViewController.h"
 #import "ServiceContainer.h"
+#import "TiqrConfig.h"
 
 @interface EnrollmentPINViewController ()
 

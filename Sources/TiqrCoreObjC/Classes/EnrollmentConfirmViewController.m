@@ -33,6 +33,7 @@
 #import "External/MBProgressHUD.h"
 #import "ErrorViewController.h"
 #import "EnrollmentSummaryViewController.h"
+#import "TiqrConfig.h"
 @import TiqrCore;
 
 @interface EnrollmentConfirmViewController ()
@@ -90,7 +91,7 @@
 
     self.okButton.backgroundColor = [ThemeService shared].theme.buttonBackgroundColor;
     [self.okButton.titleLabel setFont:[ThemeService shared].theme.buttonFont];
-    [self.okButton setTitleColor:[ThemeService shared].theme.buttonTitleColor forState:UIControlStateNormal];
+    [self.okButton setTitleColor:[ThemeService shared].theme.buttonTintColor forState:UIControlStateNormal];
 
     self.confirmAccountLabel.font = [ThemeService shared].theme.headerFont;
 

@@ -36,6 +36,7 @@
 #import "ErrorViewController.h"
 #import "OCRAProtocol.h"
 #import "ServiceContainer.h"
+#import "TiqrConfig.h"
 
 @interface AuthenticationPINViewController ()
 

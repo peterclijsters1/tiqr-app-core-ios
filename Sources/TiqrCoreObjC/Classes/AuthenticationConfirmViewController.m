@@ -37,6 +37,7 @@
 #import "ErrorViewController.h"
 #import "OCRAProtocol.h"
 #import "External/MBProgressHUD.h"
+#import "TiqrConfig.h"
 @import TiqrCore;
 
 @interface AuthenticationConfirmViewController ()
@@ -99,7 +100,7 @@
     
     self.okButton.backgroundColor = [ThemeService shared].theme.buttonBackgroundColor;
     [self.okButton.titleLabel setFont:[ThemeService shared].theme.buttonFont];
-    [self.okButton setTitleColor:[ThemeService shared].theme.buttonTitleColor forState:UIControlStateNormal];
+    [self.okButton setTitleColor:[ThemeService shared].theme.buttonTintColor forState:UIControlStateNormal];
 
     self.loginConfirmLabel.font = [ThemeService shared].theme.headerFont;
 

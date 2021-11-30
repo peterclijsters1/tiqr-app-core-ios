@@ -31,6 +31,7 @@
 #import "TiqrCoreManager.h"
 #import "ServiceContainer.h"
 #import "NSString+LocalizedBiometricString.h"
+#import "TiqrConfig.h"
 @import TiqrCore;
 
 @interface AuthenticationSummaryViewController ()
@@ -91,7 +92,7 @@
     
     self.returnButton.backgroundColor = [ThemeService shared].theme.buttonBackgroundColor;
     [self.returnButton.titleLabel setFont:[ThemeService shared].theme.buttonFont];
-    [self.returnButton setTitleColor:[ThemeService shared].theme.buttonTitleColor forState:UIControlStateNormal];
+    [self.returnButton setTitleColor:[ThemeService shared].theme.buttonTintColor forState:UIControlStateNormal];
 
     self.loginConfirmLabel.font = [ThemeService shared].theme.headerFont;
 

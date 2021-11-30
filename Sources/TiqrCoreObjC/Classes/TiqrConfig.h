@@ -33,5 +33,6 @@
 
 + (NSString *)valueForKey:(NSString *)string;
 @property (class, copy) NSString *appName;
+@property (class, copy) NSString *appVersion;
 
 @end
