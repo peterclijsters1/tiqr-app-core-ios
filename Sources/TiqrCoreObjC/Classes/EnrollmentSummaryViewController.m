@@ -65,7 +65,7 @@
     self.accountReadyLabel.text = NSLocalizedStringFromTableInBundle(@"account_ready", nil, SWIFTPM_MODULE_BUNDLE, @"Your account is ready to be used.");
     self.accountActivatedLabel.text = NSLocalizedStringFromTableInBundle(@"account_activated", nil, SWIFTPM_MODULE_BUNDLE, @"Your account is activated!");
     self.fullNameLabel.text = NSLocalizedStringFromTableInBundle(@"full_name", nil, SWIFTPM_MODULE_BUNDLE, @"Full name");
-    self.accountIDLabel.text = NSLocalizedStringFromTableInBundle(@"id", nil, SWIFTPM_MODULE_BUNDLE, @"Tiqr account ID");
+    self.accountIDLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"id", nil, SWIFTPM_MODULE_BUNDLE, @"Tiqr account ID"), TiqrConfig.appName];
     self.accountDetailsLabel.text = NSLocalizedStringFromTableInBundle(@"account_details_title", nil, SWIFTPM_MODULE_BUNDLE, @"Account details");
     
     self.enrolledLabel.text = NSLocalizedStringFromTableInBundle(@"enrolled_following_domain", nil, SWIFTPM_MODULE_BUNDLE, @"You are enrolled for the following domain:");

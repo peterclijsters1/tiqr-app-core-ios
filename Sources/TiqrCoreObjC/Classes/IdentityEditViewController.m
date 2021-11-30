@@ -119,7 +119,7 @@
         cell.textLabel.text = NSLocalizedStringFromTableInBundle(@"full_name", nil, SWIFTPM_MODULE_BUNDLE, @"Username label");
         cell.detailTextLabel.text = self.identity.displayName;
     } else if (indexPath.row == 1) {
-        cell.textLabel.text = NSLocalizedStringFromTableInBundle(@"id", nil, SWIFTPM_MODULE_BUNDLE, @"User ID label");
+        cell.textLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"id", nil, SWIFTPM_MODULE_BUNDLE, @"Tiqr account ID"), TiqrConfig.appName];
         cell.detailTextLabel.text = self.identity.identifier;
     } else if (indexPath.row == 2) {
         cell.textLabel.text = NSLocalizedStringFromTableInBundle(@"information", nil, SWIFTPM_MODULE_BUNDLE, @"Info label");

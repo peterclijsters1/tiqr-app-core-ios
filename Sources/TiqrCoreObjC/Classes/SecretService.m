@@ -335,7 +335,9 @@
     
     LAContext *context = [[LAContext alloc] init];
     
-    [context evaluateAccessControl:sacObject operation:LAAccessControlOperationCreateItem localizedReason:NSLocalizedStringFromTableInBundle(@"touch_id_reason", nil, SWIFTPM_MODULE_BUNDLE, @"Tiqr wants to save the identity") reply:^(BOOL success, NSError * _Nullable error) {
+    NSString *reason = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"touch_id_reason", nil, SWIFTPM_MODULE_BUNDLE, @"Tiqr wants to save the identity"), TiqrConfig.appName];
+    
+    [context evaluateAccessControl:sacObject operation:LAAccessControlOperationCreateItem localizedReason:reason reply:^(BOOL success, NSError * _Nullable error) {
         
         if (success) {
             NSDictionary *data = @{

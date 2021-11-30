@@ -32,5 +32,5 @@ import UIKit
 @objcMembers
 public final class ThemeService: NSObject {
     public static let shared: ThemeService = ThemeService()
-    public var theme: TiqrThemeType = SampleTheme()
+    public var theme: TiqrThemeType = DefaultTheme()
 }

@@ -29,7 +29,7 @@
 
 import UIKit
 
-final class SampleTheme: TiqrThemeType {
+final class DefaultTheme: TiqrThemeType {
     let primaryColor: UIColor = .green
 
     let headerFont: UIFont = .systemFont(ofSize: 22)
