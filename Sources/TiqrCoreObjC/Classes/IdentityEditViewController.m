@@ -82,7 +82,7 @@
     
     self.deleteButton.backgroundColor = [ThemeService shared].theme.buttonBackgroundColor;
     [self.deleteButton.titleLabel setFont:[ThemeService shared].theme.buttonFont];
-    [self.deleteButton setTitleColor:[ThemeService shared].theme.buttonTitleColor forState:UIControlStateNormal];
+    [self.deleteButton setTitleColor:[ThemeService shared].theme.buttonTintColor forState:UIControlStateNormal];
     
     self.blockedWarningLabel.font = [ThemeService shared].theme.bodyBoldFont;
     self.identityProviderDisplayNameLabel.font = [ThemeService shared].theme.headerFont;
@@ -119,7 +119,7 @@
         cell.textLabel.text = NSLocalizedStringFromTableInBundle(@"full_name", nil, SWIFTPM_MODULE_BUNDLE, @"Username label");
         cell.detailTextLabel.text = self.identity.displayName;
     } else if (indexPath.row == 1) {
-        cell.textLabel.text = NSLocalizedStringFromTableInBundle(@"id", nil, SWIFTPM_MODULE_BUNDLE, @"User ID label");
+        cell.textLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"id", nil, SWIFTPM_MODULE_BUNDLE, @"Tiqr account ID"), TiqrConfig.appName];
         cell.detailTextLabel.text = self.identity.identifier;
     } else if (indexPath.row == 2) {
         cell.textLabel.text = NSLocalizedStringFromTableInBundle(@"information", nil, SWIFTPM_MODULE_BUNDLE, @"Info label");

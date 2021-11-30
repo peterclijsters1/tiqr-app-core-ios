@@ -30,6 +30,7 @@
 #import "EnrollmentSummaryViewController.h"
 #import "TiqrCoreManager.h"
 #import "ServiceContainer.h"
+#import "TiqrConfig.h"
 @import TiqrCore;
 
 @interface EnrollmentSummaryViewController ()
@@ -65,7 +66,7 @@
     self.accountReadyLabel.text = NSLocalizedStringFromTableInBundle(@"account_ready", nil, SWIFTPM_MODULE_BUNDLE, @"Your account is ready to be used.");
     self.accountActivatedLabel.text = NSLocalizedStringFromTableInBundle(@"account_activated", nil, SWIFTPM_MODULE_BUNDLE, @"Your account is activated!");
     self.fullNameLabel.text = NSLocalizedStringFromTableInBundle(@"full_name", nil, SWIFTPM_MODULE_BUNDLE, @"Full name");
-    self.accountIDLabel.text = NSLocalizedStringFromTableInBundle(@"id", nil, SWIFTPM_MODULE_BUNDLE, @"Tiqr account ID");
+    self.accountIDLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"id", nil, SWIFTPM_MODULE_BUNDLE, @"Tiqr account ID"), TiqrConfig.appName];
     self.accountDetailsLabel.text = NSLocalizedStringFromTableInBundle(@"account_details_title", nil, SWIFTPM_MODULE_BUNDLE, @"Account details");
     
     self.enrolledLabel.text = NSLocalizedStringFromTableInBundle(@"enrolled_following_domain", nil, SWIFTPM_MODULE_BUNDLE, @"You are enrolled for the following domain:");
@@ -79,7 +80,7 @@
 
     [self.returnButton.titleLabel setFont:[ThemeService shared].theme.buttonFont];
     self.returnButton.backgroundColor = [ThemeService shared].theme.buttonBackgroundColor;
-    [self.returnButton setTitleColor:[ThemeService shared].theme.buttonTitleColor forState:UIControlStateNormal];
+    [self.returnButton setTitleColor:[ThemeService shared].theme.buttonTintColor forState:UIControlStateNormal];
 
     if (self.challenge.returnUrl != nil) {
         [self.returnButton setTitle:NSLocalizedStringFromTableInBundle(@"return_button", nil, SWIFTPM_MODULE_BUNDLE, @"Return to button title") forState:UIControlStateNormal];

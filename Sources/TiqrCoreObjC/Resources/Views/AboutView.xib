@@ -9,10 +9,12 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AboutViewController">
             <connections>
+                <outlet property="appLogo" destination="11" id="rtq-wV-3q4"/>
                 <outlet property="developedByLabel" destination="5" id="30"/>
                 <outlet property="interactionDesignLabel" destination="25" id="31"/>
                 <outlet property="okButton" destination="8bT-Wx-H7J" id="EpK-w4-Pz8"/>
                 <outlet property="okButtonBottomConstraint" destination="ivO-v3-pAM" id="VtT-NZ-dly"/>
+                <outlet property="surfLogo" destination="15" id="mP0-1X-L3k"/>
                 <outlet property="tiqrProvidedByLabel" destination="13" id="32"/>
                 <outlet property="versionLabel" destination="Q7W-OY-vTR" id="jUN-Nc-qch"/>
                 <outlet property="view" destination="1" id="3"/>
@@ -41,12 +43,16 @@
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="tiqr is provided by:" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="13">
                             <rect key="frame" x="95.5" y="0.0" width="129" height="17"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                            <color key="textColor" red="0.54165369272232056" green="0.65141624212265015" blue="0.094028428196907043" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="textColor"/>
                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="15" userLabel="Surfnet Button">
-                            <rect key="frame" x="88.5" y="27" width="143" height="43"/>
-                            <state key="normal" image="surfnet-logo">
+                        <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="15" userLabel="Surfnet Button">
+                            <rect key="frame" x="110" y="27" width="100" height="60"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="100" id="cYO-EF-Ewc"/>
+                                <constraint firstAttribute="height" constant="60" id="e1N-Xc-FcM"/>
+                            </constraints>
+                            <state key="normal" image="surf-logo">
                                 <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
                             <connections>
@@ -78,7 +84,7 @@
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Developed by:" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="5">
                             <rect key="frame" x="111" y="0.0" width="98" height="17"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                            <color key="textColor" red="0.54165369272232056" green="0.65141624212265015" blue="0.094028428196907043" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="textColor"/>
                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </label>
                     </subviews>
@@ -96,7 +102,7 @@
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Interaction design:" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="25">
                             <rect key="frame" x="95" y="0.0" width="130.5" height="17"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                            <color key="textColor" red="0.54165369272232056" green="0.65141624212265015" blue="0.094028428196907043" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="textColor"/>
                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="26" userLabel="Stroomt Button">
@@ -164,13 +170,13 @@
                 <constraint firstAttribute="trailing" secondItem="Q4F-vZ-NtQ" secondAttribute="trailing" id="xFY-E8-MJ9"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-162.31884057971016" y="349.55357142857139"/>
+            <point key="canvasLocation" x="-163.19999999999999" y="349.02548725637183"/>
         </view>
     </objects>
     <resources>
         <image name="egeniq-logo" width="150" height="41.5"/>
         <image name="stroomt-logo" width="132" height="40"/>
-        <image name="surfnet-logo" width="143" height="43"/>
+        <image name="surf-logo" width="74" height="38"/>
         <image name="tiqr-logo" width="114.5" height="50"/>
     </resources>
 </document>

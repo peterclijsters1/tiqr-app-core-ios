@@ -33,6 +33,7 @@
 #import "External/MBProgressHUD.h"
 #import "ErrorViewController.h"
 #import "EnrollmentSummaryViewController.h"
+#import "TiqrConfig.h"
 @import TiqrCore;
 
 @interface EnrollmentConfirmViewController ()
@@ -70,7 +71,7 @@
     self.activateAccountLabel.text = NSLocalizedStringFromTableInBundle(@"activate_following_account", nil, SWIFTPM_MODULE_BUNDLE, @"Do you want to activate the following account");
     self.enrollDomainLabel.text = NSLocalizedStringFromTableInBundle(@"enroll_following_domain", nil, SWIFTPM_MODULE_BUNDLE, @"You will enroll to the following domain");
     self.fullNameLabel.text = NSLocalizedStringFromTableInBundle(@"full_name", nil, SWIFTPM_MODULE_BUNDLE, @"Full name");
-    self.accountIDLabel.text = NSLocalizedStringFromTableInBundle(@"id", nil, SWIFTPM_MODULE_BUNDLE, @"Tiqr account ID");
+    self.accountIDLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"id", nil, SWIFTPM_MODULE_BUNDLE, @"Tiqr account ID"), TiqrConfig.appName];
     self.accountDetailsLabel.text = NSLocalizedStringFromTableInBundle(@"account_details_title", nil, SWIFTPM_MODULE_BUNDLE, "Account details");
     
     [self.okButton setTitle:NSLocalizedStringFromTableInBundle(@"ok_button", nil, SWIFTPM_MODULE_BUNDLE, @"OK") forState:UIControlStateNormal];
@@ -90,7 +91,7 @@
 
     self.okButton.backgroundColor = [ThemeService shared].theme.buttonBackgroundColor;
     [self.okButton.titleLabel setFont:[ThemeService shared].theme.buttonFont];
-    [self.okButton setTitleColor:[ThemeService shared].theme.buttonTitleColor forState:UIControlStateNormal];
+    [self.okButton setTitleColor:[ThemeService shared].theme.buttonTintColor forState:UIControlStateNormal];
 
     self.confirmAccountLabel.font = [ThemeService shared].theme.headerFont;
 

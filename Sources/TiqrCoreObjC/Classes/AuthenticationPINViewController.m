@@ -36,6 +36,7 @@
 #import "ErrorViewController.h"
 #import "OCRAProtocol.h"
 #import "ServiceContainer.h"
+#import "TiqrConfig.h"
 
 @interface AuthenticationPINViewController ()
 
@@ -60,7 +61,8 @@
     [super viewDidLoad];
     
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
-    self.subtitle = NSLocalizedStringFromTableInBundle(@"login_intro", nil, SWIFTPM_MODULE_BUNDLE, @"Authentication PIN title");
+    self.subtitle = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"login_intro", nil, SWIFTPM_MODULE_BUNDLE, @"Authentication PIN title"), TiqrConfig.appName];
+
     self.pinDescription = NSLocalizedStringFromTableInBundle(@"enter_four_digit_pin", nil, SWIFTPM_MODULE_BUNDLE, @"You need to enter your 4-digit PIN to login.");
 }
 

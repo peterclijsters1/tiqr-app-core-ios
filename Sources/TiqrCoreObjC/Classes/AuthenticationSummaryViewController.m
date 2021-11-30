@@ -31,6 +31,7 @@
 #import "TiqrCoreManager.h"
 #import "ServiceContainer.h"
 #import "NSString+LocalizedBiometricString.h"
+#import "TiqrConfig.h"
 @import TiqrCore;
 
 @interface AuthenticationSummaryViewController ()
@@ -70,7 +71,7 @@
     self.loginInformationLabel.text = NSLocalizedStringFromTableInBundle(@"loggedin_with_account", nil, SWIFTPM_MODULE_BUNDLE, @"Login information message");
     self.toLabel.text = NSLocalizedStringFromTableInBundle(@"to_service_provider", nil, SWIFTPM_MODULE_BUNDLE, @"to:");
     self.accountLabel.text = NSLocalizedStringFromTableInBundle(@"full_name", nil, SWIFTPM_MODULE_BUNDLE, @"Account");
-    self.accountIDLabel.text = NSLocalizedStringFromTableInBundle(@"id", nil, SWIFTPM_MODULE_BUNDLE, @"Tiqr account ID");
+    self.accountIDLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"id", nil, SWIFTPM_MODULE_BUNDLE, @"Tiqr account ID"), TiqrConfig.appName];
 
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done)];
     self.navigationItem.leftBarButtonItem = backButton;
@@ -91,7 +92,7 @@
     
     self.returnButton.backgroundColor = [ThemeService shared].theme.buttonBackgroundColor;
     [self.returnButton.titleLabel setFont:[ThemeService shared].theme.buttonFont];
-    [self.returnButton setTitleColor:[ThemeService shared].theme.buttonTitleColor forState:UIControlStateNormal];
+    [self.returnButton setTitleColor:[ThemeService shared].theme.buttonTintColor forState:UIControlStateNormal];
 
     self.loginConfirmLabel.font = [ThemeService shared].theme.headerFont;
 

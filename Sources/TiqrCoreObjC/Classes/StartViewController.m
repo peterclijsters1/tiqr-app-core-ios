@@ -57,7 +57,8 @@
     self.scanButton.layer.cornerRadius = 5;
     self.scanButton.backgroundColor = [ThemeService shared].theme.buttonBackgroundColor;
     [self.scanButton.titleLabel setFont:[ThemeService shared].theme.buttonFont];
-    [self.scanButton setTitleColor:[ThemeService shared].theme.buttonTitleColor forState:UIControlStateNormal];
+    [self.scanButton setTitleColor:[ThemeService shared].theme.buttonTintColor forState:UIControlStateNormal];
+    [self.scanButton setTintColor:[ThemeService shared].theme.buttonTintColor];
 
     UIImage *image = [UIImage imageNamed:@"identities-icon" inBundle:SWIFTPM_MODULE_BUNDLE compatibleWithTraitCollection:nil];
     UIBarButtonItem *identitiesButtonItem = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(listIdentities)];
@@ -114,7 +115,7 @@
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
 
-    CGFloat spacing = 5;
+    CGFloat spacing = 10;
     CGFloat scanButtonWidth = self.scanButton.titleLabel.frame.size.width;
     CGFloat imageWidth = self.scanButton.currentImage.size.width;
     CGFloat imageInset = scanButtonWidth + (scanButtonWidth / 2) + imageWidth + spacing;

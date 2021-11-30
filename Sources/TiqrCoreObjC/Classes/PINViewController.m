@@ -109,11 +109,11 @@
     
     self.okButton.backgroundColor = [ThemeService shared].theme.buttonBackgroundColor;
     [self.okButton.titleLabel setFont:[ThemeService shared].theme.buttonFont];
-    [self.okButton setTitleColor:[ThemeService shared].theme.buttonTitleColor forState:UIControlStateNormal];
+    [self.okButton setTitleColor:[ThemeService shared].theme.buttonTintColor forState:UIControlStateNormal];
 
     self.confirmButton.backgroundColor = [ThemeService shared].theme.buttonBackgroundColor;
     [self.confirmButton.titleLabel setFont:[ThemeService shared].theme.buttonFont];
-    [self.confirmButton setTitleColor:[ThemeService shared].theme.buttonTitleColor forState:UIControlStateNormal];
+    [self.confirmButton setTitleColor:[ThemeService shared].theme.buttonTintColor forState:UIControlStateNormal];
     
     self.subtitleLabel.font = [ThemeService shared].theme.headerFont;
     self.descriptionLabel.font = [ThemeService shared].theme.bodyFont;

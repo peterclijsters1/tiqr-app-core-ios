@@ -37,6 +37,7 @@
 #import "ErrorViewController.h"
 #import "OCRAProtocol.h"
 #import "External/MBProgressHUD.h"
+#import "TiqrConfig.h"
 @import TiqrCore;
 
 @interface AuthenticationConfirmViewController ()
@@ -77,7 +78,7 @@
     self.loggedInAsLabel.text = NSLocalizedStringFromTableInBundle(@"you_will_be_logged_in_as", nil, SWIFTPM_MODULE_BUNDLE, @"You will be logged in as:");
     self.toLabel.text = NSLocalizedStringFromTableInBundle(@"to_service_provider", nil, SWIFTPM_MODULE_BUNDLE, @"to:");
     self.accountLabel.text = NSLocalizedStringFromTableInBundle(@"full_name", nil, SWIFTPM_MODULE_BUNDLE, @"Account");
-    self.accountIDLabel.text = NSLocalizedStringFromTableInBundle(@"id", nil, SWIFTPM_MODULE_BUNDLE, @"Tiqr account ID");
+    self.accountIDLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"id", nil, SWIFTPM_MODULE_BUNDLE, @"Tiqr account ID"), TiqrConfig.appName];
     [self.okButton setTitle:NSLocalizedStringFromTableInBundle(@"ok_button", nil, SWIFTPM_MODULE_BUNDLE, @"OK") forState:UIControlStateNormal];
     self.okButton.layer.cornerRadius = 5;
     self.okButtonBottomConstraint.constant = 41;
@@ -99,7 +100,7 @@
     
     self.okButton.backgroundColor = [ThemeService shared].theme.buttonBackgroundColor;
     [self.okButton.titleLabel setFont:[ThemeService shared].theme.buttonFont];
-    [self.okButton setTitleColor:[ThemeService shared].theme.buttonTitleColor forState:UIControlStateNormal];
+    [self.okButton setTitleColor:[ThemeService shared].theme.buttonTintColor forState:UIControlStateNormal];
 
     self.loginConfirmLabel.font = [ThemeService shared].theme.headerFont;
 
