@@ -29,6 +29,7 @@
 
 #import "AboutViewController.h"
 #import "TiqrConfig.h"
+@import TiqrCore;
 
 @interface AboutViewController ()
 
@@ -38,6 +39,7 @@
 @property (nonatomic, strong) IBOutlet UIButton *okButton;
 @property (nonatomic, strong) IBOutlet NSLayoutConstraint *okButtonBottomConstraint;
 @property (nonatomic, strong) IBOutlet UILabel *versionLabel;
+@property (nonatomic, strong) IBOutlet UIButton *appLogo;
 
 @end
 
@@ -48,17 +50,19 @@
     if (self != nil) {
         self.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;    
     }
-    
+
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self.appLogo setImage:[ThemeService shared].theme.aboutIcon forState:UIControlStateNormal];
     self.tiqrProvidedByLabel.text = NSLocalizedStringFromTableInBundle(@"provided_by_title", nil, SWIFTPM_MODULE_BUNDLE, @"tiqr is provided by:");
     self.developedByLabel.text = NSLocalizedStringFromTableInBundle(@"developed_by_title", nil, SWIFTPM_MODULE_BUNDLE, @"Developed by:");
     self.interactionDesignLabel.text = NSLocalizedStringFromTableInBundle(@"interaction_by_title", nil, SWIFTPM_MODULE_BUNDLE, @"Interaction design:");
     
+    [self.okButton.titleLabel setFont:[ThemeService shared].theme.buttonFont];
     [self.okButton setTitle:NSLocalizedStringFromTableInBundle(@"ok_button", nil, SWIFTPM_MODULE_BUNDLE, @"OK") forState:UIControlStateNormal];
     self.okButton.layer.cornerRadius = 5;
 
@@ -68,6 +72,15 @@
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
+
+    self.okButton.backgroundColor = [ThemeService shared].theme.buttonBackgroundColor;
+    [self.okButton.titleLabel setFont:[ThemeService shared].theme.buttonFont];
+    [self.okButton setTitleColor:[ThemeService shared].theme.buttonTitleColor forState:UIControlStateNormal];
+
+    self.versionLabel.font = [ThemeService shared].theme.bodyFont;
+    self.tiqrProvidedByLabel.font = [ThemeService shared].theme.bodyFont;
+    self.developedByLabel.font = [ThemeService shared].theme.bodyFont;
+    self.interactionDesignLabel.font = [ThemeService shared].theme.bodyFont;
 }
 
 - (IBAction)tiqr {

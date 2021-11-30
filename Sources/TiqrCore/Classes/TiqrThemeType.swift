@@ -27,25 +27,21 @@
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "TiqrConfig.h"
+import UIKit
 
-@interface TiqrConfig()
+@objc
+public protocol TiqrThemeType {
+    var primaryColor: UIColor { get }
 
-@end
+    var headerFont: UIFont { get }
+    var bodyBoldFont: UIFont { get }
+    var bodyFont: UIFont { get }
 
-@implementation TiqrConfig
+    var buttonFont: UIFont { get }
+    var buttonTitleColor: UIColor { get }
+    var buttonBackgroundColor: UIColor { get }
 
-+ (NSString *)valueForKey:(NSString *)string {
-
-    NSString *path = [SWIFTPM_MODULE_BUNDLE pathForResource:@"Config" ofType:@"plist"];
-    NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:path];
-    NSString *value = [dictionary objectForKey:string];
-    
-    return value;
+    var topBarIcon: UIImage? { get }
+    var bottomBarIcon: UIImage? { get }
+    var aboutIcon: UIImage? { get }
 }
-
-+ (NSString *)appName {
-    return [[[NSBundle mainBundle] infoDictionary] objectForKey:(id)kCFBundleNameKey];
-}
-
-@end

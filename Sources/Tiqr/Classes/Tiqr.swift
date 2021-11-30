@@ -28,11 +28,12 @@
  */
 
 import UIKit
+import TiqrCore
 import TiqrCoreObjC
 
 @objc
-public final class TiqrCore: NSObject {
-    public static let shared = TiqrCore()
+public final class Tiqr: NSObject {
+    public static let shared = Tiqr()
     private let tiqrCoreManager = TiqrCoreManager()
 
     private override init() {
@@ -41,10 +42,11 @@ public final class TiqrCore: NSObject {
         NotificationCenter.default.addObserver(self, selector: #selector(willEnterForegroundNotification), name: UIApplication.willEnterForegroundNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didEnterBackgroundNotification), name: UIApplication.willTerminateNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(willTerminateNotification), name: UIApplication.didEnterBackgroundNotification, object: nil)
+        
     }
 }
 
-private extension TiqrCore {
+private extension Tiqr {
 
     @objc func willEnterForegroundNotification() {
         TiqrCoreManager.sharedInstance().popToRootViewController(animated: true)
@@ -59,10 +61,14 @@ private extension TiqrCore {
     }
 }
 
-public extension TiqrCore {
+public extension Tiqr {
     @available(iOS 13.0, *)
-    func startWithOptions(options: UIScene.ConnectionOptions) -> UINavigationController {
+    func startWithOptions(options: UIScene.ConnectionOptions, theme: TiqrThemeType?) -> UINavigationController {
         let userInfo = options.notificationResponse?.notification.request.content.userInfo
+
+        if let theme = theme {
+            ThemeService.shared.theme = theme
+        }
         return TiqrCoreManager.sharedInstance().start(options: userInfo)
     }
 

@@ -27,25 +27,20 @@
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "TiqrConfig.h"
+import UIKit
 
-@interface TiqrConfig()
+final class SampleTheme: TiqrThemeType {
+    let primaryColor: UIColor = .green
 
-@end
+    let headerFont: UIFont = .systemFont(ofSize: 22)
+    let bodyBoldFont: UIFont = .boldSystemFont(ofSize: 16)
+    let bodyFont: UIFont = .boldSystemFont(ofSize: 14)
 
-@implementation TiqrConfig
+    let buttonFont: UIFont = .systemFont(ofSize: 14)
+    let buttonTitleColor: UIColor = .black
+    let buttonBackgroundColor: UIColor = .green
 
-+ (NSString *)valueForKey:(NSString *)string {
-
-    NSString *path = [SWIFTPM_MODULE_BUNDLE pathForResource:@"Config" ofType:@"plist"];
-    NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:path];
-    NSString *value = [dictionary objectForKey:string];
-    
-    return value;
+    let aboutIcon: UIImage? = UIImage(named: "tiqr-logo")
+    let topBarIcon: UIImage? = UIImage(named: "logo_eduID")
+    let bottomBarIcon: UIImage? = UIImage(named: "surfnet-logo")
 }
-
-+ (NSString *)appName {
-    return [[[NSBundle mainBundle] infoDictionary] objectForKey:(id)kCFBundleNameKey];
-}
-
-@end

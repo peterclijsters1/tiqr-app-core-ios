@@ -27,25 +27,10 @@
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "TiqrConfig.h"
+import UIKit
 
-@interface TiqrConfig()
-
-@end
-
-@implementation TiqrConfig
-
-+ (NSString *)valueForKey:(NSString *)string {
-
-    NSString *path = [SWIFTPM_MODULE_BUNDLE pathForResource:@"Config" ofType:@"plist"];
-    NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:path];
-    NSString *value = [dictionary objectForKey:string];
-    
-    return value;
+@objcMembers
+public final class ThemeService: NSObject {
+    public static let shared: ThemeService = ThemeService()
+    public var theme: TiqrThemeType = SampleTheme()
 }
-
-+ (NSString *)appName {
-    return [[[NSBundle mainBundle] infoDictionary] objectForKey:(id)kCFBundleNameKey];
-}
-
-@end

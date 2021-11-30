@@ -29,6 +29,7 @@
 
 #import "TiqrToolbar.h"
 #import <UIKit/UIKit.h>
+@import TiqrCore;
 
 @interface TiqrToolbar()
 
@@ -43,20 +44,22 @@
 
     self.surfnetButton = [UIButton buttonWithType:UIButtonTypeCustom];
 
-    UIImage *image = [UIImage imageNamed:@"surfnet-logo" inBundle:SWIFTPM_MODULE_BUNDLE compatibleWithTraitCollection:nil];
+    UIImage *image = [ThemeService shared].theme.bottomBarIcon;
     [self.surfnetButton setImage:image forState:UIControlStateNormal];
+    self.surfnetButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
     [self.surfnetButton addTarget:self action:@selector(surfnet) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:self.surfnetButton];
+
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
 
-    self.surfnetButton.frame = CGRectMake(self.frame.size.width - 109, 6, 109, 32);
+    self.surfnetButton.frame = CGRectMake(self.frame.size.width - self.surfnetButton.bounds.size.width - 12, 6, 109, 32);
 }
 
 - (void)surfnet {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.surfnet.nl/en/"]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.surf.nl/en/"]];
 }
 
 @end

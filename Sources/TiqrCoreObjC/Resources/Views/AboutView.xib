@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -41,13 +39,13 @@
                     <rect key="frame" x="0.0" y="95" width="320" height="85.5"/>
                     <subviews>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="tiqr is provided by:" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="13">
-                            <rect key="frame" x="96" y="0.0" width="129" height="17"/>
+                            <rect key="frame" x="95.5" y="0.0" width="129" height="17"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                             <color key="textColor" red="0.54165369272232056" green="0.65141624212265015" blue="0.094028428196907043" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="15" userLabel="Surfnet Button">
-                            <rect key="frame" x="89" y="27" width="143" height="43"/>
+                            <rect key="frame" x="88.5" y="27" width="143" height="43"/>
                             <state key="normal" image="surfnet-logo">
                                 <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
@@ -66,7 +64,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Oz3-51-JvV">
-                    <rect key="frame" x="0.0" y="190" width="320" height="86"/>
+                    <rect key="frame" x="0.0" y="190.5" width="320" height="86"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="12" userLabel="Egeniq Button">
                             <rect key="frame" x="85" y="27" width="150" height="41"/>
@@ -78,7 +76,7 @@
                             </connections>
                         </button>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Developed by:" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="5">
-                            <rect key="frame" x="111.5" y="0.0" width="98" height="17"/>
+                            <rect key="frame" x="111" y="0.0" width="98" height="17"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                             <color key="textColor" red="0.54165369272232056" green="0.65141624212265015" blue="0.094028428196907043" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -93,7 +91,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yVO-Gp-2Jf">
-                    <rect key="frame" x="0.0" y="286" width="320" height="85.5"/>
+                    <rect key="frame" x="0.0" y="286.5" width="320" height="85.5"/>
                     <subviews>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Interaction design:" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="25">
                             <rect key="frame" x="95" y="0.0" width="130.5" height="17"/>
@@ -119,7 +117,7 @@
                         <constraint firstItem="25" firstAttribute="centerX" secondItem="yVO-Gp-2Jf" secondAttribute="centerX" id="wlM-Hb-2eh"/>
                     </constraints>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8bT-Wx-H7J">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8bT-Wx-H7J">
                     <rect key="frame" x="60" y="392" width="200" height="44"/>
                     <color key="backgroundColor" red="0.54165369272232056" green="0.65141624212265015" blue="0.094028428196907043" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
@@ -136,7 +134,7 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="App version: 2.5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q7W-OY-vTR">
-                    <rect key="frame" x="118" y="451" width="85.5" height="13.5"/>
+                    <rect key="frame" x="117.5" y="451" width="85.5" height="13.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
@@ -166,13 +164,13 @@
                 <constraint firstAttribute="trailing" secondItem="Q4F-vZ-NtQ" secondAttribute="trailing" id="xFY-E8-MJ9"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-112" y="522"/>
+            <point key="canvasLocation" x="-162.31884057971016" y="349.55357142857139"/>
         </view>
     </objects>
     <resources>
-        <image name="egeniq-logo" width="150" height="41"/>
+        <image name="egeniq-logo" width="150" height="41.5"/>
         <image name="stroomt-logo" width="132" height="40"/>
         <image name="surfnet-logo" width="143" height="43"/>
-        <image name="tiqr-logo" width="114" height="50"/>
+        <image name="tiqr-logo" width="114.5" height="50"/>
     </resources>
 </document>

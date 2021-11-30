@@ -28,15 +28,16 @@
                                             <outlet property="delegate" destination="9PQ-bi-OS6" id="1ve-dQ-TqS"/>
                                         </connections>
                                     </webView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1nW-1N-hYR">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1nW-1N-hYR">
                                         <rect key="frame" x="107" y="725" width="200" height="44"/>
                                         <color key="backgroundColor" red="0.54165369269999997" green="0.65141624210000004" blue="0.0940284282" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="S5V-wM-Ueh"/>
                                             <constraint firstAttribute="width" constant="200" id="nV9-8Y-tBh"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <state key="normal" title="Scannen">
+                                        <inset key="titleEdgeInsets" minX="-48" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <inset key="imageEdgeInsets" minX="124" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="Scannen" image="scan">
                                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
@@ -98,6 +99,7 @@
     </scenes>
     <color key="tintColor" red="0.18823529410000001" green="0.18823529410000001" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
     <resources>
+        <image name="scan" width="24" height="24"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

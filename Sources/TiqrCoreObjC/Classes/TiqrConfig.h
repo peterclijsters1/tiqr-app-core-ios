@@ -32,5 +32,6 @@
 @interface TiqrConfig : NSObject
 
 + (NSString *)valueForKey:(NSString *)string;
+@property (class, copy) NSString *appName;
 
 @end

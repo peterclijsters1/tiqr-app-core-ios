@@ -32,6 +32,7 @@
 #import "Identity.h"
 #import "IdentityTableViewCell.h"
 #import "ServiceContainer.h"
+@import TiqrCore;
 
 @interface AuthenticationIdentityViewController ()
 
@@ -78,6 +79,10 @@
     return NSLocalizedStringFromTableInBundle(@"select_identity_title", nil, SWIFTPM_MODULE_BUNDLE, @"Select Identity");
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
+    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
+    header.textLabel.font = [ThemeService shared].theme.bodyFont;
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"Cell";
@@ -90,7 +95,7 @@
         [cell setIdentity:identity];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
-    
+
     return cell;
 }
 

@@ -37,6 +37,7 @@
 #import "ErrorViewController.h"
 #import "OCRAProtocol.h"
 #import "External/MBProgressHUD.h"
+@import TiqrCore;
 
 @interface AuthenticationConfirmViewController ()
 
@@ -80,10 +81,11 @@
     [self.okButton setTitle:NSLocalizedStringFromTableInBundle(@"ok_button", nil, SWIFTPM_MODULE_BUNDLE, @"OK") forState:UIControlStateNormal];
     self.okButton.layer.cornerRadius = 5;
     self.okButtonBottomConstraint.constant = 41;
-    
+
     [self.usePincodeButton setTitle:NSLocalizedStringFromTableInBundle(@"pin_fallback_button", nil, SWIFTPM_MODULE_BUNDLE, @"Use pincode") forState:UIControlStateNormal];
     self.usePincodeButton.hidden = YES;
-    
+    [self.usePincodeButton.titleLabel setFont:[ThemeService shared].theme.bodyFont];
+
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
 
 	self.identityDisplayNameLabel.text = self.challenge.identity.displayName;
@@ -94,6 +96,22 @@
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
+    
+    self.okButton.backgroundColor = [ThemeService shared].theme.buttonBackgroundColor;
+    [self.okButton.titleLabel setFont:[ThemeService shared].theme.buttonFont];
+    [self.okButton setTitleColor:[ThemeService shared].theme.buttonTitleColor forState:UIControlStateNormal];
+
+    self.loginConfirmLabel.font = [ThemeService shared].theme.headerFont;
+
+    self.loggedInAsLabel.font = [ThemeService shared].theme.bodyFont;
+    self.identityDisplayNameLabel.font = [ThemeService shared].theme.bodyFont;
+    self.identityIdentifierLabel.font = [ThemeService shared].theme.bodyFont;
+    self.toLabel.font = [ThemeService shared].theme.bodyFont;
+    self.serviceProviderDisplayNameLabel.font = [ThemeService shared].theme.bodyFont;
+    self.serviceProviderIdentifierLabel.font = [ThemeService shared].theme.bodyFont;
+
+    self.accountLabel.font = [ThemeService shared].theme.bodyBoldFont;
+    self.accountIDLabel.font = [ThemeService shared].theme.bodyBoldFont;
 }
 
 - (void)authenticateWithBiometrics {

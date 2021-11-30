@@ -31,6 +31,7 @@
 #import "TiqrCoreManager.h"
 #import "ServiceContainer.h"
 #import "NSString+LocalizedBiometricString.h"
+@import TiqrCore;
 
 @interface AuthenticationSummaryViewController ()
 
@@ -87,6 +88,23 @@
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
+    
+    self.returnButton.backgroundColor = [ThemeService shared].theme.buttonBackgroundColor;
+    [self.returnButton.titleLabel setFont:[ThemeService shared].theme.buttonFont];
+    [self.returnButton setTitleColor:[ThemeService shared].theme.buttonTitleColor forState:UIControlStateNormal];
+
+    self.loginConfirmLabel.font = [ThemeService shared].theme.headerFont;
+
+    self.loginInformationLabel.font = [ThemeService shared].theme.bodyFont;
+    self.identityIdentifierLabel.font = [ThemeService shared].theme.bodyFont;
+    self.identityDisplayNameLabel.font = [ThemeService shared].theme.bodyFont;
+    self.toLabel.font = [ThemeService shared].theme.bodyFont;
+    self.serviceProviderDisplayNameLabel.font = [ThemeService shared].theme.bodyFont;
+    self.serviceProviderIdentifierLabel.font = [ThemeService shared].theme.bodyFont;
+
+    self.accountLabel.font = [ThemeService shared].theme.bodyBoldFont;
+    self.accountIDLabel.font = [ThemeService shared].theme.bodyBoldFont;
+
 }
 
 - (void)viewDidAppear:(BOOL)animated {

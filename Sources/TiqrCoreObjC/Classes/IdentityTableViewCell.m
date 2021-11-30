@@ -29,6 +29,7 @@
 
 #import "IdentityTableViewCell.h"
 #import "IdentityProvider.h"
+@import TiqrCore;
 
 @interface IdentityTableViewCell ()
 
@@ -43,15 +44,15 @@
     if (self) {
 		self.imageView.contentMode = UIViewContentModeScaleAspectFit;
 		self.imageView.bounds = CGRectMake(5.0, 5.0, 10.0, 10.0);
-        
+
         self.blockedLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, 100.0, 20.0)];
-        self.blockedLabel.font = [UIFont boldSystemFontOfSize:16.0];
+        self.blockedLabel.font = [ThemeService shared].theme.headerFont;
         self.blockedLabel.text = NSLocalizedStringFromTableInBundle(@"identity_blocked", nil, SWIFTPM_MODULE_BUNDLE, @"Blocked cell label");
         self.blockedLabel.textColor = [UIColor redColor];
         [self addSubview:self.blockedLabel];
-        
-        self.textLabel.font = [UIFont boldSystemFontOfSize:16];
-        self.detailTextLabel.font = [UIFont systemFontOfSize:14];
+
+        self.textLabel.font = [ThemeService shared].theme.headerFont;
+        self.detailTextLabel.font = [ThemeService shared].theme.bodyFont;
         
         // Remove seperator inset
         if ([self respondsToSelector:@selector(setSeparatorInset:)]) {

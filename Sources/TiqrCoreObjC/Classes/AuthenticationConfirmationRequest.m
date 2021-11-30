@@ -101,7 +101,7 @@ typedef void (^CompletionBlock)(BOOL success, NSError *error);
         } else {
             NSInteger code = TIQRACRUnknownError;
             NSString *title = NSLocalizedStringFromTableInBundle(@"unknown_error", nil, SWIFTPM_MODULE_BUNDLE, @"Unknown error title");
-            NSString *message = NSLocalizedStringFromTableInBundle(@"error_auth_unknown_error", nil, SWIFTPM_MODULE_BUNDLE, @"Unknown error message");
+            NSString *message = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"error_auth_unknown_error", nil, SWIFTPM_MODULE_BUNDLE, @"Unknown error message"), TiqrConfig.appName];
             NSNumber *attemptsLeft = nil;
             
             switch ([responseCode intValue]) {
@@ -159,7 +159,7 @@ typedef void (^CompletionBlock)(BOOL success, NSError *error);
                 default: {
                     code = TIQRACUnknownError;
                     title = NSLocalizedStringFromTableInBundle(@"error_auth_unknown_reponsecode", nil, SWIFTPM_MODULE_BUNDLE, @"UNKNOWN_RESPONSE_CODE error title");
-                    message = NSLocalizedStringFromTableInBundle(@"error_auth_unknown_reponsecode_message", nil, SWIFTPM_MODULE_BUNDLE, @"UNKNOWN_RESPONSE_CODE error message");
+                    message = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"error_auth_unknown_reponsecode_message", nil, SWIFTPM_MODULE_BUNDLE, @"UNKNOWN_RESPONSE_CODE error message"), TiqrConfig.appName];
                 }
             }
             
@@ -186,7 +186,7 @@ typedef void (^CompletionBlock)(BOOL success, NSError *error);
         } else {
             NSInteger code = TIQRACRUnknownError;
             NSString *title = NSLocalizedStringFromTableInBundle(@"unknown_error", nil, SWIFTPM_MODULE_BUNDLE, @"Unknown error title");
-            NSString *message = NSLocalizedStringFromTableInBundle(@"error_auth_unknown_error", nil, SWIFTPM_MODULE_BUNDLE, @"Unknown error message");
+            NSString *message = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"error_auth_unknown_error", nil, SWIFTPM_MODULE_BUNDLE, @"Unknown error message"), TiqrConfig.appName];
             NSNumber *attemptsLeft = nil;
             if ([response isEqualToString:@"ACCOUNT_BLOCKED"]) {
                 code = TIQRACRAccountBlockedError;

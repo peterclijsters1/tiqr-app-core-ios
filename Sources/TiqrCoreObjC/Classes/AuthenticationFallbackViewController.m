@@ -31,6 +31,7 @@
 #import "TiqrCoreManager.h"
 #import "ServiceContainer.h"
 #import <UIKit/UIKit.h>
+@import TiqrCore;
 
 @interface AuthenticationFallbackViewController ()
 
@@ -77,6 +78,17 @@
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
+
+    self.errorTitleLabel.font = [ThemeService shared].theme.headerFont;
+    self.oneTimePasswordLabel.font = [ThemeService shared].theme.headerFont;
+
+    self.errorInstructionLabel.font = [ThemeService shared].theme.bodyFont;
+    self.yourIdLabel.font = [ThemeService shared].theme.bodyFont;
+    self.oneTimeLoginCodeLabel.font = [ThemeService shared].theme.bodyFont;
+    self.unverifiedPinLabel.font = [ThemeService shared].theme.bodyFont;
+    self.retryLabel.font = [ThemeService shared].theme.bodyFont;
+
+    self.identityIdentifierLabel.font = [ThemeService shared].theme.bodyBoldFont;
 }
 
 - (void)done {

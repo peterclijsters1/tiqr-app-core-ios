@@ -4,19 +4,23 @@
 import PackageDescription
 
 let package = Package(
-    name: "TiqrCore",
+    name: "Tiqr",
     defaultLocalization: "en",
     products: [
         .library(
-            name: "TiqrCore",
-            targets: ["TiqrCore"]),
+            name: "Tiqr",
+            targets: ["Tiqr"]),
     ],
     targets: [
         .target(
-            name: "TiqrCore",
-            dependencies: ["TiqrCoreObjC"]),
+            name: "Tiqr",
+            dependencies: ["TiqrCoreObjC", "TiqrCore"]),
+        .target(
+            name: "TiqrCore"
+        ),
         .target(
             name: "TiqrCoreObjC",
+            dependencies: ["TiqrCore"],
             resources: [
                 .process("Resources/General/Config.plist"),
                 .process("Resources/Audio/cowbell.wav"),
