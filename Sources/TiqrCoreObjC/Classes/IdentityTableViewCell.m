@@ -46,12 +46,12 @@
 		self.imageView.bounds = CGRectMake(5.0, 5.0, 10.0, 10.0);
 
         self.blockedLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, 100.0, 20.0)];
-        self.blockedLabel.font = [ThemeService shared].theme.headerFont;
+        self.blockedLabel.font = [ThemeService shared].theme.bodyBoldFont;
         self.blockedLabel.text = NSLocalizedStringFromTableInBundle(@"identity_blocked", nil, SWIFTPM_MODULE_BUNDLE, @"Blocked cell label");
         self.blockedLabel.textColor = [UIColor redColor];
         [self addSubview:self.blockedLabel];
 
-        self.textLabel.font = [ThemeService shared].theme.headerFont;
+        self.textLabel.font = [ThemeService shared].theme.bodyBoldFont;
         self.detailTextLabel.font = [ThemeService shared].theme.bodyFont;
         
         // Remove seperator inset
