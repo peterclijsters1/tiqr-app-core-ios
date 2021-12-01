@@ -85,7 +85,7 @@
     [self.deleteButton setTitleColor:[ThemeService shared].theme.buttonTintColor forState:UIControlStateNormal];
     
     self.blockedWarningLabel.font = [ThemeService shared].theme.bodyBoldFont;
-    self.identityProviderDisplayNameLabel.font = [ThemeService shared].theme.headerFont;
+    self.identityProviderDisplayNameLabel.font = [ThemeService shared].theme.bodyBoldFont;
     self.identityProviderIdentifierLabel.font = [ThemeService shared].theme.bodyFont;
 }
 
@@ -110,7 +110,7 @@
 
     cell.accessoryType = UITableViewCellAccessoryNone;
     
-    cell.textLabel.font = [ThemeService shared].theme.bodyFont;
+    cell.textLabel.font = [ThemeService shared].theme.bodyBoldFont;
     cell.detailTextLabel.font = [ThemeService shared].theme.bodyFont;
     cell.detailTextLabel.textColor = [UIColor blackColor];
     cell.accessoryView = nil;

@@ -169,8 +169,7 @@
 
 - (void)about {
     UIViewController *viewController = [[AboutViewController alloc] init];
-    self.navigationController.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:viewController animated:YES];
+    [self.navigationController presentViewController:viewController animated:YES completion:nil];
 }
 
 - (void)listIdentities {
