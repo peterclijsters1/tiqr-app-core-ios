@@ -32,7 +32,7 @@
 @interface TiqrConfig : NSObject
 
 + (NSString *)valueForKey:(NSString *)string;
-@property (class, copy) NSString *appName;
-@property (class, copy) NSString *appVersion;
+@property (class, copy, readonly) NSString *appName;
+@property (class, copy, readonly) NSString *appVersion;
 
 @end

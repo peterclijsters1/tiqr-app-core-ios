@@ -72,6 +72,13 @@ public extension Tiqr {
         return TiqrCoreManager.sharedInstance().start(options: userInfo)
     }
 
+    func startWithOptions(options: [UIApplication.LaunchOptionsKey: Any]?, theme: TiqrThemeType?) -> UINavigationController {
+        if let theme = theme {
+            ThemeService.shared.theme = theme
+        }
+        return TiqrCoreManager.sharedInstance().start(options: options)
+    }
+
     func registerDeviceToken(token: Data) {
         NotificationRegistration.sharedInstance().sendRequest(withDeviceToken: token)
     }
