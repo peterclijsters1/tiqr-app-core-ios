@@ -13,7 +13,7 @@ Tiqr, the open source authentication solution for smartphones and Web Applicatio
 
 The [Swift Package Manager](https://swift.org/package-manager/) is a tool for managing the distribution of Swift code. It’s integrated with the Swift build system to automate the process of downloading, compiling, and linking dependencies.
 
-To integrate **Tiqr** click File -> Add Packages -> and enter package URL:
+To integrate **Tiqr** click File -> Add Packages -> and enter the package URL:
 
 ```
 https://github.com/SURFnet/tiqr-app-core-ios
@@ -22,6 +22,8 @@ https://github.com/SURFnet/tiqr-app-core-ios
 Select Tiqr and press Add Package
 
 ## Usage
+
+Make the navigationController returned by ```Tiqr.shared.startWithOptions()``` your rootViewController:
 
 ```
 func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -33,7 +35,7 @@ func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options conn
 }
 ```
 
-for push notification support add
+for push notification support add the following to your AppDelegate:
 
 ```
 func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
