@@ -159,8 +159,6 @@ NSString *const TIQRECErrorDomain = @"org.tiqr.ec";
     
 }
 
-
-
 - (BOOL)isValidMetadata:(NSDictionary *)metadata {
     // TODO: service => identityProvider 
 	if ([metadata valueForKey:@"service"] == nil ||
