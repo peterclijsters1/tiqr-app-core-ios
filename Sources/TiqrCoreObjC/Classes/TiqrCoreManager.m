@@ -62,22 +62,27 @@
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:SWIFTPM_MODULE_BUNDLE];
         sharedInstance.navigationController = [storyboard instantiateInitialViewController];
 
+        UIColor *primaryColor = [ThemeService shared].theme.primaryColor;
+        
         if (@available(iOS 13.0, *)) {
-            UIColor *color = [ThemeService shared].theme.primaryColor;
-
             UINavigationBarAppearance *navigationBarAppearance = [UINavigationBarAppearance new];
             [navigationBarAppearance configureWithOpaqueBackground];
-            navigationBarAppearance.backgroundColor = color;
+            navigationBarAppearance.backgroundColor = primaryColor;
             sharedInstance.navigationController.navigationBar.standardAppearance = navigationBarAppearance;
             sharedInstance.navigationController.navigationBar.scrollEdgeAppearance = navigationBarAppearance;
 
             UIToolbarAppearance *toolbarAppearance = [UIToolbarAppearance new];
             [toolbarAppearance configureWithOpaqueBackground];
-            toolbarAppearance.backgroundColor = color;
+            toolbarAppearance.backgroundColor = primaryColor;
             sharedInstance.navigationController.toolbar.standardAppearance = toolbarAppearance;
             if (@available(iOS 15.0, *)) {
                 sharedInstance.navigationController.toolbar.scrollEdgeAppearance = toolbarAppearance;
             }
+        } else {
+            sharedInstance.navigationController.navigationBar.barTintColor = primaryColor;
+            sharedInstance.navigationController.navigationBar.tintColor = [ThemeService shared].theme.buttonTintColor;
+            sharedInstance.navigationController.toolbar.barTintColor = primaryColor;
+            sharedInstance.navigationController.toolbar.tintColor = [ThemeService shared].theme.buttonTintColor;
         }
         
         sharedInstance.navigationController.navigationBar.tintColor = [ThemeService shared].theme.buttonTintColor;
