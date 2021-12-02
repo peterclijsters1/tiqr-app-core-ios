@@ -108,7 +108,13 @@
     NSString *html = [NSString stringWithContentsOfURL:URL encoding:NSUTF8StringEncoding error:nil];
     
     UIFont *font= [ThemeService shared].theme.bodyFont;
-    html = [NSString stringWithFormat:html, @(font.pointSize), font.fontName, content];
+    NSString *fontName = @"";
+
+    if (![font.fontName hasPrefix:@"."]) {
+        fontName = font.fontName;
+    }
+
+    html = [NSString stringWithFormat:html, @(font.pointSize), fontName, content];
     [self.webView loadHTMLString:html baseURL:nil];
 }
 
