@@ -118,17 +118,6 @@
     [self.webView loadHTMLString:html baseURL:nil];
 }
 
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
-
-    CGFloat spacing = 10;
-    CGFloat scanButtonWidth = self.scanButton.titleLabel.frame.size.width;
-    CGFloat imageWidth = self.scanButton.currentImage.size.width;
-    CGFloat imageInset = scanButtonWidth + (scanButtonWidth / 2) + imageWidth + spacing;
-    self.scanButton.imageEdgeInsets = UIEdgeInsetsMake(0, imageInset, 0, 0);
-    self.scanButton.titleEdgeInsets = UIEdgeInsetsMake(0, -((imageWidth * 2) + spacing), 0, 0);
-}
-
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
 	if (navigationType == UIWebViewNavigationTypeLinkClicked) {
 		[[UIApplication sharedApplication] openURL:[request URL]];
