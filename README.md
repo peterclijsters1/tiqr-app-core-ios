@@ -35,6 +35,28 @@ func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options conn
 }
 ```
 
+Pass in your theme class based on TiqrThemeType to customize the appearance.
+
+```
+final class Theme: TiqrThemeType {
+    let primaryColor: UIColor = UIColor(named: "PrimaryColor")!
+
+    let headerFont: UIFont = .boldSystemFont(ofSize: 20)
+    let bodyBoldFont: UIFont = .boldSystemFont(ofSize: 16)
+    let bodyFont: UIFont = .systemFont(ofSize: 16)
+
+    let buttonFont: UIFont = .systemFont(ofSize: 16)
+    let buttonTintColor: UIColor = .black
+    let buttonBackgroundColor: UIColor = UIColor(named: "PrimaryColor")!
+
+    let aboutIcon: UIImage? = UIImage(named: "aboutIcon")
+    let topBarIcon: UIImage? = UIImage(named: "topBarIcon")
+    let bottomBarIcon: UIImage? = UIImage(named: "bottomBarIcon")
+}
+
+```
+
+
 for push notification support add the following to your AppDelegate:
 
 ```
