@@ -4,18 +4,18 @@ Tiqr, the open source authentication solution for smartphones and Web Applicatio
 
 ## Requirements
 
-- iOS 11.0 + 
+- iOS 11.0 +
 - Swift 5 +
 
 ## Installation
 
-#### Swift Package Manager
+### Swift Package Manager
 
 The [Swift Package Manager](https://swift.org/package-manager/) is a tool for managing the distribution of Swift code. It’s integrated with the Swift build system to automate the process of downloading, compiling, and linking dependencies.
 
 To integrate **Tiqr** click File -> Add Packages -> and enter the package URL:
 
-```
+```text
 https://github.com/SURFnet/tiqr-app-core-ios
 ```
 
@@ -25,7 +25,7 @@ Select Tiqr and press Add Package
 
 Make the navigationController returned by ```Tiqr.shared.startWithOptions()``` your rootViewController:
 
-```
+```swift
 func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
     guard let windowScene = (scene as? UIWindowScene) else { return }
 
@@ -37,7 +37,7 @@ func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options conn
 
 Pass in your theme class based on TiqrThemeType to customize the appearance.
 
-```
+```swift
 final class Theme: TiqrThemeType {
     let primaryColor: UIColor = UIColor(named: "PrimaryColor")!
 
@@ -56,10 +56,9 @@ final class Theme: TiqrThemeType {
 
 ```
 
-
 for push notification support add the following to your AppDelegate:
 
-```
+```swift
 func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     let center = UNUserNotificationCenter.current()
     center.delegate = self
