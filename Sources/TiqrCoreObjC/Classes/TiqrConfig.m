@@ -36,12 +36,27 @@
 @implementation TiqrConfig
 
 + (NSString *)valueForKey:(NSString *)string {
-
     NSString *path = [SWIFTPM_MODULE_BUNDLE pathForResource:@"Config" ofType:@"plist"];
     NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:path];
     NSString *value = [dictionary objectForKey:string];
     
     return value;
+}
+
++ (BOOL)isValidAuthenticationScheme:(NSString *)scheme {
+    NSString *authenticationKey = @"TIQRAuthenticationURLScheme";
+    NSString *coreScheme = [TiqrConfig valueForKey:authenticationKey];
+    NSString *appScheme = [[[NSBundle mainBundle] infoDictionary] objectForKey:authenticationKey];
+
+    return ([scheme isEqualToString:coreScheme] || (appScheme && [appScheme isEqualToString:coreScheme]));
+}
+
++ (BOOL)isValidEnrollmentScheme:(NSString *)scheme {
+    NSString *enrollmentKey = @"TIQREnrollmentURLScheme";
+    NSString *coreScheme = [TiqrConfig valueForKey:enrollmentKey];
+    NSString *appScheme = [[[NSBundle mainBundle] infoDictionary] objectForKey:enrollmentKey];
+
+    return ([scheme isEqualToString:coreScheme] || (appScheme && [appScheme isEqualToString:coreScheme]));
 }
 
 + (NSString *)appName {

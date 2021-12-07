@@ -62,13 +62,11 @@ NSString *const TIQRECErrorDomain = @"org.tiqr.ec";
 }
 
 + (EnrollmentChallenge *)challengeWithChallengeString:(NSString *)challengeString allowFiles:(BOOL)allowFiles error:(NSError **)error {
-    
-    NSString *scheme = [TiqrConfig valueForKey:@"TIQREnrollmentURLScheme"];
     NSURL *fullURL = [NSURL URLWithString:challengeString];
     
     EnrollmentChallenge *challenge = [[EnrollmentChallenge alloc] init];
     
-    if (fullURL == nil || ![fullURL.scheme isEqualToString:scheme]) {
+    if (fullURL == nil || ![TiqrConfig isValidEnrollmentScheme:fullURL.scheme]) {
         NSString *errorTitle = NSLocalizedStringFromTableInBundle(@"error_enroll_invalid_qr_code", nil, SWIFTPM_MODULE_BUNDLE, @"Invalid QR tag title");
         NSString *errorMessage = NSLocalizedStringFromTableInBundle(@"error_enroll_invalid_response", nil, SWIFTPM_MODULE_BUNDLE, @"Invalid QR tag message");
         NSDictionary *details = @{NSLocalizedDescriptionKey: errorTitle, NSLocalizedFailureReasonErrorKey: errorMessage};

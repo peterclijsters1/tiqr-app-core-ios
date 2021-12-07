@@ -61,10 +61,6 @@
 - (void)startChallengeFromScanResult:(NSString *)scanResult completionHandler:(void (^)(TIQRChallengeType, NSObject *, NSError *))completionHandler {
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-        NSString *authenticationScheme = [TiqrConfig valueForKey:@"TIQRAuthenticationURLScheme"];
-        NSString *enrollmentScheme = [TiqrConfig valueForKey:@"TIQREnrollmentURLScheme"];
-        
         TIQRChallengeType type = TIQRChallengeTypeInvalid;
         NSObject *challengeObject = nil;
         NSURL *url = nil;
@@ -74,14 +70,14 @@
         }
 
         NSError *error = nil;
-        if (url != nil && [url.scheme isEqualToString:authenticationScheme]) {
+        if (url != nil && [TiqrConfig isValidAuthenticationScheme:url.scheme]) {
             AuthenticationChallenge *challenge = [AuthenticationChallenge challengeWithChallengeString:scanResult error:&error];
             
             if (!error) {
                 type = TIQRChallengeTypeAuthentication;
                 challengeObject = challenge;
             }
-        } else if (url != nil && [url.scheme isEqualToString:enrollmentScheme]) {
+        } else if (url != nil && [TiqrConfig isValidEnrollmentScheme:url.scheme]) {
             EnrollmentChallenge *challenge = [EnrollmentChallenge challengeWithChallengeString:scanResult allowFiles:NO error:&error];
             
             if (!error) {

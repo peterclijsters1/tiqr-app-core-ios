@@ -58,16 +58,14 @@ NSString *const TIQRACErrorDomain = @"org.tiqr.ac";
 }
 
 + (AuthenticationChallenge *)challengeWithChallengeString:(NSString *)challengeString error:(NSError **)error {
-    
-    NSString *scheme = [TiqrConfig valueForKey:@"TIQRAuthenticationURLScheme"];
 
 	NSURL *url = [NSURL URLWithString:challengeString];
     
     AuthenticationChallenge *challenge = [[AuthenticationChallenge alloc] init];
     
     IdentityService *identityService = ServiceContainer.sharedInstance.identityService;
-        
-	if (url == nil || ![url.scheme isEqualToString:scheme] || [url.pathComponents count] < 3) {
+
+	if (url == nil || ![TiqrConfig isValidAuthenticationScheme:url.scheme] || [url.pathComponents count] < 3) {
         NSString *errorTitle = NSLocalizedStringFromTableInBundle(@"error_auth_invalid_qr_code", nil, SWIFTPM_MODULE_BUNDLE, @"Invalid QR tag title");
         NSString *errorMessage = NSLocalizedStringFromTableInBundle(@"error_auth_invalid_challenge_message", nil, SWIFTPM_MODULE_BUNDLE, @"Invalid QR tag message");
         NSDictionary *details = @{NSLocalizedDescriptionKey: errorTitle, NSLocalizedFailureReasonErrorKey: errorMessage};
