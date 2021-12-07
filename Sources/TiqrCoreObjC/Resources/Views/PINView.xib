@@ -117,9 +117,6 @@
                                 <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
-                            <state key="disabled">
-                                <color key="titleColor" red="0.57796422820000004" green="0.63775510199999996" blue="0.13434731599999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </state>
                             <state key="highlighted">
                                 <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>

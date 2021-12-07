@@ -98,8 +98,8 @@
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.egeniq.com/?utm_source=tiqr&utm_medium=referral&utm_campaign=about"]];    
 }
 
-- (IBAction)stroomt {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.stroomt.com/"]];
+- (IBAction)keenDesign {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.keen.design"]];
 }
 
 - (IBAction)done {

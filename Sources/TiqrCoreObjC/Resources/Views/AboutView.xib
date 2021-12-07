@@ -108,13 +108,13 @@
                             <nil key="textColor"/>
                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="26" userLabel="Stroomt Button">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="26">
                             <rect key="frame" x="79.5" y="27" width="161" height="34"/>
                             <state key="normal" image="keen_design">
                                 <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
                             <connections>
-                                <action selector="stroomt" destination="-1" eventType="touchUpInside" id="28"/>
+                                <action selector="keenDesign" destination="-1" eventType="touchUpInside" id="28"/>
                             </connections>
                         </button>
                     </subviews>

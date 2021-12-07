@@ -110,6 +110,7 @@
     self.okButton.backgroundColor = [ThemeService shared].theme.buttonBackgroundColor;
     [self.okButton.titleLabel setFont:[ThemeService shared].theme.buttonFont];
     [self.okButton setTitleColor:[ThemeService shared].theme.buttonTintColor forState:UIControlStateNormal];
+    [self.okButton setTitleColor:[[ThemeService shared].theme.buttonTintColor colorWithAlphaComponent:0.4] forState:UIControlStateDisabled];
 
     self.confirmButton.backgroundColor = [ThemeService shared].theme.buttonBackgroundColor;
     [self.confirmButton.titleLabel setFont:[ThemeService shared].theme.buttonFont];
