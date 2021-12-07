@@ -70,11 +70,10 @@
                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </label>
                         <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RZY-QZ-ut9">
-                            <rect key="frame" x="60" y="352" width="200" height="37"/>
+                            <rect key="frame" x="32" y="345" width="256" height="44"/>
                             <color key="backgroundColor" red="0.54165369272232056" green="0.65141624212265015" blue="0.094028428196907043" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="37" id="9wy-4k-G4O"/>
-                                <constraint firstAttribute="width" constant="200" id="ssc-Cs-hUA"/>
+                                <constraint firstAttribute="height" constant="44" id="9wy-4k-G4O"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <state key="normal" title="OK">
@@ -106,6 +105,7 @@
                     </subviews>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
+                        <constraint firstItem="RZY-QZ-ut9" firstAttribute="width" secondItem="aVf-bR-meH" secondAttribute="width" multiplier="0.8" id="06H-fS-pRZ"/>
                         <constraint firstItem="eEz-qJ-vho" firstAttribute="top" secondItem="dfZ-37-Onm" secondAttribute="bottom" constant="37" id="0XW-7W-Cp3"/>
                         <constraint firstItem="eEz-qJ-vho" firstAttribute="leading" secondItem="0r6-dR-2cm" secondAttribute="leading" id="13I-W7-lvH"/>
                         <constraint firstItem="v9b-r8-S5W" firstAttribute="leading" secondItem="aVf-bR-meH" secondAttribute="leading" constant="15" id="1df-V5-Pe5"/>

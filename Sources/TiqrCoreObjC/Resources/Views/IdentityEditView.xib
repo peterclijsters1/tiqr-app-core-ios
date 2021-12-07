@@ -55,11 +55,10 @@ and needs to be reactivated. </string>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7">
-                    <rect key="frame" x="107" y="808" width="200" height="44"/>
+                    <rect key="frame" x="41.5" y="808" width="331" height="44"/>
                     <color key="backgroundColor" red="0.54165369272232056" green="0.65141624212265015" blue="0.094028428196907043" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="ZZv-UC-Gcr"/>
-                        <constraint firstAttribute="width" constant="200" id="e2j-p4-ste"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <state key="normal" title="Delete">
@@ -85,6 +84,7 @@ and needs to be reactivated. </string>
                 <constraint firstAttribute="trailing" secondItem="6" secondAttribute="trailing" id="VxV-Df-Irb"/>
                 <constraint firstAttribute="bottom" secondItem="7" secondAttribute="bottom" constant="44" id="ZBa-R4-Lge"/>
                 <constraint firstItem="6" firstAttribute="top" secondItem="21" secondAttribute="bottom" constant="24" id="b8x-wg-mhB"/>
+                <constraint firstItem="7" firstAttribute="width" secondItem="1" secondAttribute="width" multiplier="0.8" id="gPF-X3-Yyk"/>
                 <constraint firstItem="7" firstAttribute="top" secondItem="25" secondAttribute="bottom" id="oXM-a4-kQ7"/>
                 <constraint firstItem="20" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="15" id="opn-xQ-821"/>
                 <constraint firstItem="25" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="yUQ-3k-fhe"/>

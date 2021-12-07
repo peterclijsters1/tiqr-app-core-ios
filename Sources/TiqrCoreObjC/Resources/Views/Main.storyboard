@@ -29,11 +29,10 @@
                                         </connections>
                                     </webView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1nW-1N-hYR">
-                                        <rect key="frame" x="107" y="725" width="200" height="44"/>
+                                        <rect key="frame" x="41.5" y="725" width="331" height="44"/>
                                         <color key="backgroundColor" red="0.54165369269999997" green="0.65141624210000004" blue="0.0940284282" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="S5V-wM-Ueh"/>
-                                            <constraint firstAttribute="width" constant="200" id="nV9-8Y-tBh"/>
                                         </constraints>
                                         <state key="normal" title="Scannen">
                                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -62,6 +61,7 @@
                             <constraint firstItem="xJd-QF-ToO" firstAttribute="top" secondItem="Ku0-OK-M7X" secondAttribute="top" id="WPf-cI-1wF"/>
                             <constraint firstItem="xJd-QF-ToO" firstAttribute="leading" secondItem="Ku0-OK-M7X" secondAttribute="leading" id="ccI-YH-UUc"/>
                             <constraint firstAttribute="trailing" secondItem="xJd-QF-ToO" secondAttribute="trailing" id="tXw-4y-MXs"/>
+                            <constraint firstItem="1nW-1N-hYR" firstAttribute="width" secondItem="Ku0-OK-M7X" secondAttribute="width" multiplier="0.8" id="yRs-sG-z1D"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Hnd-E3-e9e"/>

@@ -127,10 +127,9 @@
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8bT-Wx-H7J">
-                    <rect key="frame" x="60" y="392" width="200" height="44"/>
+                    <rect key="frame" x="32" y="392" width="256" height="44"/>
                     <color key="backgroundColor" red="0.54165369272232056" green="0.65141624212265015" blue="0.094028428196907043" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="200" id="8Ak-wb-XB0"/>
                         <constraint firstAttribute="height" constant="44" id="zmN-7l-qIj"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -159,6 +158,7 @@
                 <constraint firstItem="yVO-Gp-2Jf" firstAttribute="top" secondItem="Oz3-51-JvV" secondAttribute="bottom" constant="10" id="PhR-Fi-LlZ"/>
                 <constraint firstItem="Oz3-51-JvV" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="R93-Ob-Kc1"/>
                 <constraint firstAttribute="trailing" secondItem="11" secondAttribute="trailing" constant="20" id="UGq-iv-cUh"/>
+                <constraint firstItem="8bT-Wx-H7J" firstAttribute="width" secondItem="1" secondAttribute="width" multiplier="0.8" id="byu-9L-tKp"/>
                 <constraint firstItem="Q4F-vZ-NtQ" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="dOk-PY-22L"/>
                 <constraint firstItem="Q7W-OY-vTR" firstAttribute="centerX" secondItem="1" secondAttribute="centerX" id="eVN-9s-eE4"/>
                 <constraint firstItem="Oz3-51-JvV" firstAttribute="top" secondItem="Q4F-vZ-NtQ" secondAttribute="bottom" constant="10" id="eXV-gN-Onz"/>

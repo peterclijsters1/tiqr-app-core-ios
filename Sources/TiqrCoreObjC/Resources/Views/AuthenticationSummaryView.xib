@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -70,11 +70,10 @@
                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </label>
                         <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nwF-oz-iaH">
-                            <rect key="frame" x="60" y="352" width="200" height="37"/>
+                            <rect key="frame" x="32" y="345" width="256" height="44"/>
                             <color key="backgroundColor" red="0.54165369272232056" green="0.65141624212265015" blue="0.094028428196907043" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="37" id="d5L-tj-agZ"/>
-                                <constraint firstAttribute="width" constant="200" id="z9k-0N-C5P"/>
+                                <constraint firstAttribute="height" constant="44" id="d5L-tj-agZ"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <state key="normal" title="OK">
@@ -137,6 +136,7 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="2BE-Ps-1Hc" firstAttribute="leading" secondItem="gnc-8V-DGV" secondAttribute="leading" id="8rM-Dp-YCD"/>
+                <constraint firstItem="nwF-oz-iaH" firstAttribute="width" secondItem="gnc-8V-DGV" secondAttribute="width" multiplier="0.8" id="C4A-P3-nYI"/>
                 <constraint firstAttribute="trailing" secondItem="o6a-cd-JcA" secondAttribute="trailing" constant="15" id="Dab-aR-yjO"/>
                 <constraint firstItem="o6a-cd-JcA" firstAttribute="top" secondItem="gnc-8V-DGV" secondAttribute="top" constant="19" id="KEN-Ae-ZgG"/>
                 <constraint firstItem="2BE-Ps-1Hc" firstAttribute="top" secondItem="o6a-cd-JcA" secondAttribute="bottom" constant="11" id="NEa-ov-BDl"/>
