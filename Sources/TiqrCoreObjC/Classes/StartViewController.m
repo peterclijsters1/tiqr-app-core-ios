@@ -108,13 +108,19 @@
     NSString *html = [NSString stringWithContentsOfURL:URL encoding:NSUTF8StringEncoding error:nil];
     
     UIFont *font= [ThemeService shared].theme.bodyFont;
+    UIFont *boldFont= [ThemeService shared].theme.bodyBoldFont;
     NSString *fontName = @"";
+    NSString *boldFontName = @"";
 
     if (![font.fontName hasPrefix:@"."]) {
         fontName = font.fontName;
     }
 
-    html = [NSString stringWithFormat:html, @(font.pointSize), fontName, content];
+    if (![boldFont.fontName hasPrefix:@"."]) {
+        boldFontName = boldFont.fontName;
+    }
+
+    html = [NSString stringWithFormat:html, @(font.pointSize), fontName, @(boldFont.pointSize), boldFontName, content];
     [self.webView loadHTMLString:html baseURL:nil];
 }
 
