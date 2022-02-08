@@ -74,16 +74,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-    self.loginConfirmLabel.text = NSLocalizedStringFromTableInBundle(@"confirm_authentication", nil, SWIFTPM_MODULE_BUNDLE, @"Are you sure you want to login?");
-    self.loggedInAsLabel.text = NSLocalizedStringFromTableInBundle(@"you_will_be_logged_in_as", nil, SWIFTPM_MODULE_BUNDLE, @"You will be logged in as:");
-    self.toLabel.text = NSLocalizedStringFromTableInBundle(@"to_service_provider", nil, SWIFTPM_MODULE_BUNDLE, @"to:");
-    self.accountLabel.text = NSLocalizedStringFromTableInBundle(@"full_name", nil, SWIFTPM_MODULE_BUNDLE, @"Account");
-    self.accountIDLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"id", nil, SWIFTPM_MODULE_BUNDLE, @"Tiqr account ID"), TiqrConfig.appName];
-    [self.okButton setTitle:NSLocalizedStringFromTableInBundle(@"ok_button", nil, SWIFTPM_MODULE_BUNDLE, @"OK") forState:UIControlStateNormal];
+    self.loginConfirmLabel.text = [Localization localize:@"confirm_authentication" comment:@"Are you sure you want to login?"];
+    self.loggedInAsLabel.text = [Localization localize:@"you_will_be_logged_in_as" comment:@"You will be logged in as:"];
+    self.toLabel.text = [Localization localize:@"to_service_provider" comment:@"to:"];
+    self.accountLabel.text = [Localization localize:@"full_name" comment:@"Account"];
+    self.accountIDLabel.text = [NSString stringWithFormat:[Localization localize:@"id" comment:@"Tiqr account ID"], TiqrConfig.appName];
+    [self.okButton setTitle:[Localization localize:@"ok_button" comment:@"OK"] forState:UIControlStateNormal];
     self.okButton.layer.cornerRadius = 5;
     self.okButtonBottomConstraint.constant = 41;
 
-    [self.usePincodeButton setTitle:NSLocalizedStringFromTableInBundle(@"pin_fallback_button", nil, SWIFTPM_MODULE_BUNDLE, @"Use pincode") forState:UIControlStateNormal];
+    [self.usePincodeButton setTitle:[Localization localize:@"pin_fallback_button" comment:@"Use pincode"] forState:UIControlStateNormal];
     self.usePincodeButton.hidden = YES;
     [self.usePincodeButton.titleLabel setFont:[ThemeService shared].theme.bodyFont];
 
@@ -118,11 +118,11 @@
 - (void)authenticateWithBiometrics {
     SecretService *secretService = ServiceContainer.sharedInstance.secretService;
 
-    NSMutableString *touchIDPrompt = [NSLocalizedStringFromTableInBundle(@"you_will_be_logged_in_as", nil, SWIFTPM_MODULE_BUNDLE, @"You will be logged in as:") mutableCopy];
+    NSMutableString *touchIDPrompt = [[Localization localize:@"you_will_be_logged_in_as" comment:@"You will be logged in as:"] mutableCopy];
     [touchIDPrompt appendString:@" "];
     [touchIDPrompt appendString:self.challenge.identity.displayName];
     [touchIDPrompt appendString:@"\n"];
-    [touchIDPrompt appendString:NSLocalizedStringFromTableInBundle(@"to_service_provider", nil, SWIFTPM_MODULE_BUNDLE, @"to:")];
+    [touchIDPrompt appendString:[Localization localize:@"to_service_provider" comment:@"to:"]];
     [touchIDPrompt appendString:@" "];
     [touchIDPrompt appendString:self.challenge.serviceProviderDisplayName];
 

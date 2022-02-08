@@ -61,10 +61,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.deleteButton setTitle:NSLocalizedStringFromTableInBundle(@"delete_button", nil, SWIFTPM_MODULE_BUNDLE, @"Delete") forState:UIControlStateNormal];
+    [self.deleteButton setTitle:[Localization localize:@"delete_button" comment:@"Delete"] forState:UIControlStateNormal];
     self.deleteButton.layer.cornerRadius = 5;
     
-    self.blockedWarningLabel.text = NSLocalizedStringFromTableInBundle(@"identity_blocked_message", nil, SWIFTPM_MODULE_BUNDLE, @"Warning this account is blocked and needs to be reactivated.");
+    self.blockedWarningLabel.text = [Localization localize:@"identity_blocked_message" comment:@"Warning this account is blocked and needs to be reactivated."];
     
     self.identityProviderLogoImageView.image = [UIImage imageWithData:self.identity.identityProvider.logo];
     self.identityProviderIdentifierLabel.text = self.identity.identityProvider.identifier;
@@ -116,13 +116,13 @@
     cell.accessoryView = nil;
     
     if (indexPath.row == 0) {
-        cell.textLabel.text = NSLocalizedStringFromTableInBundle(@"full_name", nil, SWIFTPM_MODULE_BUNDLE, @"Username label");
+        cell.textLabel.text = [Localization localize:@"full_name" comment:@"Username label"];
         cell.detailTextLabel.text = self.identity.displayName;
     } else if (indexPath.row == 1) {
-        cell.textLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"id", nil, SWIFTPM_MODULE_BUNDLE, @"Tiqr account ID"), TiqrConfig.appName];
+        cell.textLabel.text = [NSString stringWithFormat:[Localization localize:@"id" comment:@"Tiqr account ID"], TiqrConfig.appName];
         cell.detailTextLabel.text = self.identity.identifier;
     } else if (indexPath.row == 2) {
-        cell.textLabel.text = NSLocalizedStringFromTableInBundle(@"information", nil, SWIFTPM_MODULE_BUNDLE, @"Info label");
+        cell.textLabel.text = [Localization localize:@"information" comment:@"Info label"];
         cell.detailTextLabel.text = self.identity.identityProvider.infoUrl;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     } else if (indexPath.row == 3) {
@@ -164,10 +164,10 @@
 }
 
 - (IBAction)deleteIdentity {
-    NSString *title = NSLocalizedStringFromTableInBundle(@"confirm_delete_title", nil, SWIFTPM_MODULE_BUNDLE, @"Sure?");
-    NSString *message = NSLocalizedStringFromTableInBundle(@"confirm_delete", nil, SWIFTPM_MODULE_BUNDLE, @"Are you sure you want to delete this identity?");
-    NSString *yesTitle = NSLocalizedStringFromTableInBundle(@"yes_button", nil, SWIFTPM_MODULE_BUNDLE, @"Yes button title");
-    NSString *noTitle = NSLocalizedStringFromTableInBundle(@"no_button", nil, SWIFTPM_MODULE_BUNDLE, @"No button title");
+    NSString *title = [Localization localize:@"confirm_delete_title" comment:@"Sure?"];
+    NSString *message = [Localization localize:@"confirm_delete" comment:@"Are you sure you want to delete this identity?"];
+    NSString *yesTitle = [Localization localize:@"yes_button" comment:@"Yes button title"];
+    NSString *noTitle = [Localization localize:@"no_button" comment:@"No button title"];
 
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *yesButton = [UIAlertAction actionWithTitle:yesTitle style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action) {
@@ -205,9 +205,9 @@
         
         [self.navigationController popViewControllerAnimated:YES];
     } else {
-		NSString *title = NSLocalizedStringFromTableInBundle(@"error", nil, SWIFTPM_MODULE_BUNDLE, @"Alert title for error");
-        NSString *message = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"error_auth_unknown_error", nil, SWIFTPM_MODULE_BUNDLE, @"Unknown error message"), TiqrConfig.appName];
-		NSString *okTitle = NSLocalizedStringFromTableInBundle(@"ok_button", nil, SWIFTPM_MODULE_BUNDLE, @"OK button title");
+		NSString *title = [Localization localize:@"error" comment:@"Alert title for error"];
+        NSString *message = [NSString stringWithFormat:[Localization localize:@"error_auth_unknown_error" comment:@"Unknown error message"], TiqrConfig.appName];
+		NSString *okTitle = [Localization localize:@"ok_button" comment:@"OK button title"];
 
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *okButton = [UIAlertAction actionWithTitle:okTitle style:UIAlertActionStyleDefault handler:nil];

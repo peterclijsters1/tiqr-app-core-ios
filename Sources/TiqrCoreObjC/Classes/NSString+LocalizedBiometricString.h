@@ -10,7 +10,7 @@
 #define NSString_LocalizedBiometricString_h
 
 #define LocalizedBiometricString(touchIDKey, faceIDKey) \
-ServiceContainer.sharedInstance.secretService.biometricType == SecretServiceBiometricTypeFaceID ? NSLocalizedStringFromTableInBundle(faceIDKey, nil, SWIFTPM_MODULE_BUNDLE, @"") : NSLocalizedStringFromTableInBundle(touchIDKey, nil, SWIFTPM_MODULE_BUNDLE, @"")
+ServiceContainer.sharedInstance.secretService.biometricType == SecretServiceBiometricTypeFaceID ? [Localization localize:faceIDKey comment:@""] : [Localization localize:touchIDKey comment:@""]
 
 
 #endif /* NSString_LocalizedBiometricString_h */

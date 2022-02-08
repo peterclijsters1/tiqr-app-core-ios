@@ -67,14 +67,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.confirmAccountLabel.text = NSLocalizedStringFromTableInBundle(@"confirm_account_activation", nil, SWIFTPM_MODULE_BUNDLE, @"Confirm account activation");
-    self.activateAccountLabel.text = NSLocalizedStringFromTableInBundle(@"activate_following_account", nil, SWIFTPM_MODULE_BUNDLE, @"Do you want to activate the following account");
-    self.enrollDomainLabel.text = NSLocalizedStringFromTableInBundle(@"enroll_following_domain", nil, SWIFTPM_MODULE_BUNDLE, @"You will enroll to the following domain");
-    self.fullNameLabel.text = NSLocalizedStringFromTableInBundle(@"full_name", nil, SWIFTPM_MODULE_BUNDLE, @"Full name");
-    self.accountIDLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"id", nil, SWIFTPM_MODULE_BUNDLE, @"Tiqr account ID"), TiqrConfig.appName];
-    self.accountDetailsLabel.text = NSLocalizedStringFromTableInBundle(@"account_details_title", nil, SWIFTPM_MODULE_BUNDLE, "Account details");
+    self.confirmAccountLabel.text = [Localization localize:@"confirm_account_activation" comment:@"Confirm account activation"];
+    self.activateAccountLabel.text = [Localization localize:@"activate_following_account" comment:@"Do you want to activate the following account"];
+    self.enrollDomainLabel.text = [Localization localize:@"enroll_following_domain" comment:@"You will enroll to the following domain"];
+    self.fullNameLabel.text = [Localization localize:@"full_name" comment:@"Full name"];
+    self.accountIDLabel.text = [NSString stringWithFormat:[Localization localize:@"id" comment:@"Tiqr account ID"], TiqrConfig.appName];
+    self.accountDetailsLabel.text = [Localization localize:@"account_details_title" comment:@"Account details"];
     
-    [self.okButton setTitle:NSLocalizedStringFromTableInBundle(@"ok_button", nil, SWIFTPM_MODULE_BUNDLE, @"OK") forState:UIControlStateNormal];
+    [self.okButton setTitle:[Localization localize:@"ok_button" comment:@"OK"] forState:UIControlStateNormal];
     self.okButton.layer.cornerRadius = 5;
     
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];

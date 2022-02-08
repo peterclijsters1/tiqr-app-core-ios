@@ -31,6 +31,7 @@
 #import "NotificationRegistration.h"
 #import "NSData+Hex.h"
 #import "TiqrConfig.h"
+@import TiqrCore;
 
 NSString *const TIQRECRErrorDomain = @"org.tiqr.ecr";
 
@@ -100,8 +101,8 @@ typedef void (^CompletionBlock)(BOOL success, NSError *error);
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)connectionError {
     self.data = nil;
     
-    NSString *title = NSLocalizedStringFromTableInBundle(@"no_connection", nil, SWIFTPM_MODULE_BUNDLE, @"No connection error title");
-    NSString *message = NSLocalizedStringFromTableInBundle(@"internet_connection_required", nil, SWIFTPM_MODULE_BUNDLE, @"No connection error message");
+    NSString *title = [Localization localize:@"no_connection" comment:@"No connection error title"];
+    NSString *message = [Localization localize:@"internet_connection_required" comment:@"No connection error message"];
     NSMutableDictionary *details = [NSMutableDictionary dictionary];
     [details setValue:title forKey:NSLocalizedDescriptionKey];
     [details setValue:message forKey:NSLocalizedFailureReasonErrorKey];    
@@ -122,13 +123,13 @@ typedef void (^CompletionBlock)(BOOL success, NSError *error);
         if ([responseCode intValue] == EnrollmentChallengeResponseCodeSuccess) {
             self.completionBlock(true, nil);
         } else {
-            NSString *title = NSLocalizedStringFromTableInBundle(@"enroll_error_title", nil, SWIFTPM_MODULE_BUNDLE, @"Enrollment error title");
+            NSString *title = [Localization localize:@"enroll_error_title" comment:@"Enrollment error title"];
             NSString *message = nil;
             NSString *serverMessage = [result valueForKey:@"message"];
             if (serverMessage) {
                 message = serverMessage;
             } else {
-                message = NSLocalizedStringFromTableInBundle(@"unknown_enroll_error_message", nil, SWIFTPM_MODULE_BUNDLE, @"Unknown error message");
+                message = [Localization localize:@"unknown_enroll_error_message" comment:@"Unknown error message"];
             }
             
             NSMutableDictionary *details = [NSMutableDictionary dictionary];
@@ -146,8 +147,8 @@ typedef void (^CompletionBlock)(BOOL success, NSError *error);
             self.completionBlock(true, nil);
         } else {
             // TODO: server should return different error codes
-            NSString *title = NSLocalizedStringFromTableInBundle(@"unknown_error", nil, SWIFTPM_MODULE_BUNDLE, @"Unknown error title");
-            NSString *message = NSLocalizedStringFromTableInBundle(@"unknown_enroll_error_message", nil, SWIFTPM_MODULE_BUNDLE, @"Unknown error message");
+            NSString *title = [Localization localize:@"unknown_error" comment:@"Unknown error title"];
+            NSString *message = [Localization localize:@"unknown_enroll_error_message" comment:@"Unknown error message"];
             
             NSMutableDictionary *details = [NSMutableDictionary dictionary];
             [details setValue:title forKey:NSLocalizedDescriptionKey];

@@ -10,6 +10,7 @@
 
 #import "OCRA.h"
 #import <CommonCrypto/CommonHMAC.h>
+@import TiqrCore;
 
 @implementation OCRA
 
@@ -74,8 +75,8 @@ static const int powers10[] = { 1, 10, 100, 1000, 10000, 100000, 1000000, 100000
     
     // The number of digits can't be larger than 10, because we'll use it as an index for the powers10 const array later on
     if (codeDigits > 10) {
-        NSString *errorTitle = NSLocalizedStringFromTableInBundle(@"Error", nil, SWIFTPM_MODULE_BUNDLE, @"Error title");
-        NSString *errorMessage = NSLocalizedStringFromTableInBundle(@"The number of digits defined for the OTP can't be larger than 10.", nil, SWIFTPM_MODULE_BUNDLE, @"Error message");
+        NSString *errorTitle = [Localization localize:@"Error" comment:@"Error title"];
+        NSString *errorMessage = [Localization localize:@"The number of digits defined for the OTP can't be larger than 10." comment:@"Error message"];
         NSDictionary *details = @{NSLocalizedDescriptionKey: errorTitle, NSLocalizedFailureReasonErrorKey: errorMessage};
         *error = [[NSError alloc] initWithDomain: @"org.example.ErrorDomain" code:OCRANumberOfDigitsTooLargeError userInfo:details];
         return nil;

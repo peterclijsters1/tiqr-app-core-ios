@@ -30,6 +30,7 @@
 #import "AuthenticationConfirmationRequest.h"
 #import "NotificationRegistration.h"
 #import "TiqrConfig.h"
+@import TiqrCore;
 
 NSString *const TIQRACRErrorDomain = @"org.tiqr.acr";
 NSString *const TIQRACRAttemptsLeftErrorKey = @"AttempsLeftErrorKey";
@@ -77,8 +78,8 @@ typedef void (^CompletionBlock)(BOOL success, NSError *error);
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)connectionError {
     self.data = nil;
     
-    NSString *title = NSLocalizedStringFromTableInBundle(@"no_connection", nil, SWIFTPM_MODULE_BUNDLE, @"No connection error title");
-    NSString *message = NSLocalizedStringFromTableInBundle(@"no_active_internet_connection.", nil, SWIFTPM_MODULE_BUNDLE, @"You appear to have no active Internet connection.");
+    NSString *title = [Localization localize:@"no_connection" comment:@"No connection error title"];
+    NSString *message = [Localization localize:@"no_active_internet_connection." comment:@"You appear to have no active Internet connection."];
     NSMutableDictionary *details = [NSMutableDictionary dictionary];
     [details setValue:title forKey:NSLocalizedDescriptionKey];
     [details setValue:message forKey:NSLocalizedFailureReasonErrorKey];    
@@ -100,8 +101,8 @@ typedef void (^CompletionBlock)(BOOL success, NSError *error);
             self.completionBlock(true, nil);
         } else {
             NSInteger code = TIQRACRUnknownError;
-            NSString *title = NSLocalizedStringFromTableInBundle(@"unknown_error", nil, SWIFTPM_MODULE_BUNDLE, @"Unknown error title");
-            NSString *message = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"error_auth_unknown_error", nil, SWIFTPM_MODULE_BUNDLE, @"Unknown error message"), TiqrConfig.appName];
+            NSString *title = [Localization localize:@"unknown_error" comment:@"Unknown error title"];
+            NSString *message = [NSString stringWithFormat:[Localization localize:@"error_auth_unknown_error" comment:@"Unknown error message"], TiqrConfig.appName];
             NSNumber *attemptsLeft = nil;
             
             switch ([responseCode intValue]) {
@@ -109,57 +110,57 @@ typedef void (^CompletionBlock)(BOOL success, NSError *error);
                     if ([result valueForKey:@"duration"] != nil) {
                         NSNumber *duration = @([[result valueForKey:@"duration"] intValue]);
                         code = TIQRACRAccountBlockedErrorTemporary;
-                        title = NSLocalizedStringFromTableInBundle(@"error_auth_account_blocked_temporary_title", nil, SWIFTPM_MODULE_BUNDLE, @"INVALID_RESPONSE error title (account blocked temporary)");
-                        message = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"error_auth_account_blocked_temporary_message", nil, SWIFTPM_MODULE_BUNDLE, @"INVALID_RESPONSE error message (account blocked temporary"), duration];
+                        title = [Localization localize:@"error_auth_account_blocked_temporary_title" comment:@"INVALID_RESPONSE error title (account blocked temporary)"];
+                        message = [NSString stringWithFormat:[Localization localize:@"error_auth_account_blocked_temporary_message" comment:@"INVALID_RESPONSE error message (account blocked temporary"], duration];
                     } else {
                         code = TIQRACRAccountBlockedError;
-                        title = NSLocalizedStringFromTableInBundle(@"error_auth_account_blocked_title", nil, SWIFTPM_MODULE_BUNDLE, @"INVALID_RESPONSE error title (0 attempts left)");
-                        message = NSLocalizedStringFromTableInBundle(@"error_auth_account_blocked_message", nil, SWIFTPM_MODULE_BUNDLE, @"INVALID_RESPONSE error message (0 attempts left)");
+                        title = [Localization localize:@"error_auth_account_blocked_title" comment:@"INVALID_RESPONSE error title (0 attempts left)"];
+                        message = [Localization localize:@"error_auth_account_blocked_message" comment:@"INVALID_RESPONSE error message (0 attempts left)"];
                     }
                 } break;
                     
                 case AuthenticationChallengeResponseCodeInvalidChallenge: {
                     code = TIQRACRInvalidChallengeError;
-                    title = NSLocalizedStringFromTableInBundle(@"error_auth_invalid_challenge_title", nil, SWIFTPM_MODULE_BUNDLE, @"INVALID_CHALLENGE error title");
-                    message = NSLocalizedStringFromTableInBundle(@"error_auth_invalid_challenge_message", nil, SWIFTPM_MODULE_BUNDLE, @"INVALID_CHALLENGE error message");
+                    title = [Localization localize:@"error_auth_invalid_challenge_title" comment:@"INVALID_CHALLENGE error title"];
+                    message = [Localization localize:@"error_auth_invalid_challenge_message" comment:@"INVALID_CHALLENGE error message"];
                 } break;
                     
                 case AuthenticationChallengeResponseCodeInvalidRequest: {
                     code = TIQRACRInvalidRequestError;
-                    title = NSLocalizedStringFromTableInBundle(@"error_auth_invalid_request_title", nil, SWIFTPM_MODULE_BUNDLE, @"INVALID_REQUEST error title");
-                    message = NSLocalizedStringFromTableInBundle(@"error_auth_invalid_request_message", nil, SWIFTPM_MODULE_BUNDLE, @"INVALID_REQUEST error message");
+                    title = [Localization localize:@"error_auth_invalid_request_title" comment:@"INVALID_REQUEST error title"];
+                    message = [Localization localize:@"error_auth_invalid_request_message" comment:@"INVALID_REQUEST error message"];
                 } break;
                     
                 case AuthenticationChallengeResponseCodeInvalidUsernamePasswordPin: {                    code = TIQRACRInvalidResponseError;
                     if ([result valueForKey:@"attemptsLeft"] != nil) {
                         attemptsLeft = @([[result valueForKey:@"attemptsLeft"] intValue]);
                         if ([attemptsLeft intValue] > 1) {
-                            title = NSLocalizedStringFromTableInBundle(@"error_auth_wrong_pin", nil, SWIFTPM_MODULE_BUNDLE, @"INVALID_RESPONSE error title (> 1 attempts left)");
-                            message = NSLocalizedStringFromTableInBundle(@"error_auth_x_attempts_left", nil, SWIFTPM_MODULE_BUNDLE, @"INVALID_RESPONSE error message (> 1 attempts left)");
+                            title = [Localization localize:@"error_auth_wrong_pin" comment:@"INVALID_RESPONSE error title (> 1 attempts left)"];
+                            message = [Localization localize:@"error_auth_x_attempts_left" comment:@"INVALID_RESPONSE error message (> 1 attempts left)"];
                             message = [NSString stringWithFormat:message, [attemptsLeft intValue]];
                         } else if ([attemptsLeft intValue] == 1) {
-                            title = NSLocalizedStringFromTableInBundle(@"error_auth_wrong_pin", nil, SWIFTPM_MODULE_BUNDLE, @"INVALID_RESPONSE error title (1 attempt left)");
-                            message = NSLocalizedStringFromTableInBundle(@"error_auth_one_attempt_left", nil, SWIFTPM_MODULE_BUNDLE, @"INVALID_RESPONSE error message (1 attempt left)");
+                            title = [Localization localize:@"error_auth_wrong_pin" comment:@"INVALID_RESPONSE error title (1 attempt left)"];
+                            message = [Localization localize:@"error_auth_one_attempt_left" comment:@"INVALID_RESPONSE error message (1 attempt left)"];
                         } else {
-                            title = NSLocalizedStringFromTableInBundle(@"error_auth_account_blocked_title", nil, SWIFTPM_MODULE_BUNDLE, @"INVALID_RESPONSE error title (0 attempts left)");
-                            message = NSLocalizedStringFromTableInBundle(@"error_auth_account_blocked_message", nil, SWIFTPM_MODULE_BUNDLE, @"INVALID_RESPONSE error message (0 attempts left)");
+                            title = [Localization localize:@"error_auth_account_blocked_title" comment:@"INVALID_RESPONSE error title (0 attempts left)"];
+                            message = [Localization localize:@"error_auth_account_blocked_message" comment:@"INVALID_RESPONSE error message (0 attempts left)"];
                         }
                     } else {
-                        title = NSLocalizedStringFromTableInBundle(@"error_auth_wrong_pin", nil, SWIFTPM_MODULE_BUNDLE, @"INVALID_RESPONSE error title (infinite attempts left)");
-                        message = NSLocalizedStringFromTableInBundle(@"error_auth_infinite_attempts_left", nil, SWIFTPM_MODULE_BUNDLE, @"INVALID_RESPONSE erorr message (infinite attempts left)");
+                        title = [Localization localize:@"error_auth_wrong_pin" comment:@"INVALID_RESPONSE error title (infinite attempts left)"];
+                        message = [Localization localize:@"error_auth_infinite_attempts_left" comment:@"INVALID_RESPONSE erorr message (infinite attempts left)"];
                     }
                 } break;
                 
                 case AuthenticationChallengeResponseCodeInvalidUser: {
                     code = TIQRACRInvalidUserError;
-                    title = NSLocalizedStringFromTableInBundle(@"error_auth_invalid_account", nil, SWIFTPM_MODULE_BUNDLE, @"INVALID_USERID error title");
-                    message = NSLocalizedStringFromTableInBundle(@"error_auth_invalid_account_message", nil, SWIFTPM_MODULE_BUNDLE, @"INVALID_USERID error message");
+                    title = [Localization localize:@"error_auth_invalid_account" comment:@"INVALID_USERID error title"];
+                    message = [Localization localize:@"error_auth_invalid_account_message" comment:@"INVALID_USERID error message"];
                 } break;
                     
                 default: {
                     code = TIQRACUnknownError;
-                    title = NSLocalizedStringFromTableInBundle(@"error_auth_unknown_reponsecode", nil, SWIFTPM_MODULE_BUNDLE, @"UNKNOWN_RESPONSE_CODE error title");
-                    message = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"error_auth_unknown_reponsecode_message", nil, SWIFTPM_MODULE_BUNDLE, @"UNKNOWN_RESPONSE_CODE error message"), TiqrConfig.appName];
+                    title = [Localization localize:@"error_auth_unknown_reponsecode" comment:@"UNKNOWN_RESPONSE_CODE error title"];
+                    message = [NSString stringWithFormat:[Localization localize:@"error_auth_unknown_reponsecode_message" comment:@"UNKNOWN_RESPONSE_CODE error message"], TiqrConfig.appName];
                 }
             }
             
@@ -185,39 +186,39 @@ typedef void (^CompletionBlock)(BOOL success, NSError *error);
             self.completionBlock(true, nil);
         } else {
             NSInteger code = TIQRACRUnknownError;
-            NSString *title = NSLocalizedStringFromTableInBundle(@"unknown_error", nil, SWIFTPM_MODULE_BUNDLE, @"Unknown error title");
-            NSString *message = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"error_auth_unknown_error", nil, SWIFTPM_MODULE_BUNDLE, @"Unknown error message"), TiqrConfig.appName];
+            NSString *title = [Localization localize:@"unknown_error" comment:@"Unknown error title"];
+            NSString *message = [NSString stringWithFormat:[Localization localize:@"error_auth_unknown_error" comment:@"Unknown error message"], TiqrConfig.appName];
             NSNumber *attemptsLeft = nil;
             if ([response isEqualToString:@"ACCOUNT_BLOCKED"]) {
                 code = TIQRACRAccountBlockedError;
-                title = NSLocalizedStringFromTableInBundle(@"error_auth_account_blocked_title", nil, SWIFTPM_MODULE_BUNDLE, @"INVALID_RESPONSE error title (0 attempts left)");
-                message = NSLocalizedStringFromTableInBundle(@"error_auth_account_blocked_message", nil, SWIFTPM_MODULE_BUNDLE, @"INVALID_RESPONSE error message (0 attempts left)");
+                title = [Localization localize:@"error_auth_account_blocked_title" comment:@"INVALID_RESPONSE error title (0 attempts left)"];
+                message = [Localization localize:@"error_auth_account_blocked_message" comment:@"INVALID_RESPONSE error message (0 attempts left)"];
             } else if ([response isEqualToString:@"INVALID_CHALLENGE"]) {
                 code = TIQRACRInvalidChallengeError;
-                title = NSLocalizedStringFromTableInBundle(@"error_auth_invalid_challenge_title", nil, SWIFTPM_MODULE_BUNDLE, @"INVALID_CHALLENGE error title");
-                message = NSLocalizedStringFromTableInBundle(@"error_auth_invalid_challenge_message", nil, SWIFTPM_MODULE_BUNDLE, @"INVALID_CHALLENGE error message");
+                title = [Localization localize:@"error_auth_invalid_challenge_title" comment:@"INVALID_CHALLENGE error title"];
+                message = [Localization localize:@"error_auth_invalid_challenge_message" comment:@"INVALID_CHALLENGE error message"];
             } else if ([response isEqualToString:@"INVALID_REQUEST"]) {
                 code = TIQRACRInvalidRequestError;
-                title = NSLocalizedStringFromTableInBundle(@"error_auth_invalid_request_title", nil, SWIFTPM_MODULE_BUNDLE, @"INVALID_REQUEST error title");
-                message = NSLocalizedStringFromTableInBundle(@"error_auth_invalid_request_message", nil, SWIFTPM_MODULE_BUNDLE, @"INVALID_REQUEST error message");
+                title = [Localization localize:@"error_auth_invalid_request_title" comment:@"INVALID_REQUEST error title"];
+                message = [Localization localize:@"error_auth_invalid_request_message" comment:@"INVALID_REQUEST error message"];
             } else if ([response length]>=17 && [[response substringToIndex:17] isEqualToString:@"INVALID_RESPONSE:"]) {
                 attemptsLeft = @([[response substringFromIndex:17] intValue]);
                 code = TIQRACRInvalidResponseError;
                 if ([attemptsLeft intValue] > 1) {
-                    title = NSLocalizedStringFromTableInBundle(@"error_auth_wrong_pin", nil, SWIFTPM_MODULE_BUNDLE, @"INVALID_RESPONSE error title (> 1 attempts left)");
-                    message = NSLocalizedStringFromTableInBundle(@"error_auth_x_attempts_left", nil, SWIFTPM_MODULE_BUNDLE, @"INVALID_RESPONSE error message (> 1 attempts left)");
+                    title = [Localization localize:@"error_auth_wrong_pin" comment:@"INVALID_RESPONSE error title (> 1 attempts left)"];
+                    message = [Localization localize:@"error_auth_x_attempts_left" comment:@"INVALID_RESPONSE error message (> 1 attempts left)"];
                     message = [NSString stringWithFormat:message, [attemptsLeft intValue]];
                 } else if ([attemptsLeft intValue] == 1) {
-                    title = NSLocalizedStringFromTableInBundle(@"error_auth_wrong_pin", nil, SWIFTPM_MODULE_BUNDLE, @"INVALID_RESPONSE error title (1 attempt left)");
-                    message = NSLocalizedStringFromTableInBundle(@"error_auth_one_attempt_left", nil, SWIFTPM_MODULE_BUNDLE, @"INVALID_RESPONSE error message (1 attempt left)");
+                    title = [Localization localize:@"error_auth_wrong_pin" comment:@"INVALID_RESPONSE error title (1 attempt left)"];
+                    message = [Localization localize:@"error_auth_one_attempt_left" comment:@"INVALID_RESPONSE error message (1 attempt left)"];
                 } else {
-                    title = NSLocalizedStringFromTableInBundle(@"error_auth_account_blocked_title", nil, SWIFTPM_MODULE_BUNDLE, @"INVALID_RESPONSE error title (0 attempts left)");
-                    message = NSLocalizedStringFromTableInBundle(@"error_auth_account_blocked_message", nil, SWIFTPM_MODULE_BUNDLE, @"INVALID_RESPONSE error message (0 attempts left)");
+                    title = [Localization localize:@"error_auth_account_blocked_title" comment:@"INVALID_RESPONSE error title (0 attempts left)"];
+                    message = [Localization localize:@"error_auth_account_blocked_message" comment:@"INVALID_RESPONSE error message (0 attempts left)"];
                 }
             } else if ([response isEqualToString:@"INVALID_USERID"]) {
                 code = TIQRACRInvalidUserError;
-                title = NSLocalizedStringFromTableInBundle(@"error_auth_invalid_account", nil, SWIFTPM_MODULE_BUNDLE, @"INVALID_USERID error title");
-                message = NSLocalizedStringFromTableInBundle(@"error_auth_invalid_account_message", nil, SWIFTPM_MODULE_BUNDLE, @"INVALID_USERID error message");
+                title = [Localization localize:@"error_auth_invalid_account" comment:@"INVALID_USERID error title"];
+                message = [Localization localize:@"error_auth_invalid_account_message" comment:@"INVALID_USERID error message"];
             }
             
             NSMutableDictionary *details = [NSMutableDictionary dictionary];

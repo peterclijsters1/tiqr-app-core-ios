@@ -59,16 +59,16 @@
     [super viewDidLoad];
     
     [self.appLogo setImage:[ThemeService shared].theme.aboutIcon forState:UIControlStateNormal];
-    self.tiqrProvidedByLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"provided_by_title", nil, SWIFTPM_MODULE_BUNDLE, @"tiqr is provided by:"), TiqrConfig.appName];
+    self.tiqrProvidedByLabel.text = [NSString stringWithFormat:[Localization localize:@"provided_by_title" comment:@"tiqr is provided by:"], TiqrConfig.appName];
 
-    self.developedByLabel.text = NSLocalizedStringFromTableInBundle(@"developed_by_title", nil, SWIFTPM_MODULE_BUNDLE, @"Developed by:");
-    self.interactionDesignLabel.text = NSLocalizedStringFromTableInBundle(@"interaction_by_title", nil, SWIFTPM_MODULE_BUNDLE, @"Interaction design:");
+    self.developedByLabel.text = [Localization localize:@"developed_by_title" comment:@"Developed by:"];
+    self.interactionDesignLabel.text = [Localization localize:@"interaction_by_title" comment:@"Interaction design:"];
     
     [self.okButton.titleLabel setFont:[ThemeService shared].theme.buttonFont];
-    [self.okButton setTitle:NSLocalizedStringFromTableInBundle(@"ok_button", nil, SWIFTPM_MODULE_BUNDLE, @"OK") forState:UIControlStateNormal];
+    [self.okButton setTitle:[Localization localize:@"ok_button" comment:@"OK"] forState:UIControlStateNormal];
     self.okButton.layer.cornerRadius = 5;
 
-    self.versionLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"app_version", nil, SWIFTPM_MODULE_BUNDLE, @"App version: %@"), TiqrConfig.appVersion];
+    self.versionLabel.text = [NSString stringWithFormat:[Localization localize:@"app_version" comment:@"App version: %@"], TiqrConfig.appVersion];
     
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
         self.edgesForExtendedLayout = UIRectEdgeNone;

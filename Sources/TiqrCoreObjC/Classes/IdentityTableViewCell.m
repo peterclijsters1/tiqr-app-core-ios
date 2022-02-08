@@ -47,7 +47,7 @@
 
         self.blockedLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, 100.0, 20.0)];
         self.blockedLabel.font = [ThemeService shared].theme.bodyBoldFont;
-        self.blockedLabel.text = NSLocalizedStringFromTableInBundle(@"identity_blocked", nil, SWIFTPM_MODULE_BUNDLE, @"Blocked cell label");
+        self.blockedLabel.text = [Localization localize:@"identity_blocked" comment:@"Blocked cell label"];
         self.blockedLabel.textColor = [UIColor redColor];
         [self addSubview:self.blockedLabel];
 

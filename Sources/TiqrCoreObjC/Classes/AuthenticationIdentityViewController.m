@@ -76,7 +76,7 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return NSLocalizedStringFromTableInBundle(@"select_identity_title", nil, SWIFTPM_MODULE_BUNDLE, @"Select Identity");
+    return [Localization localize:@"select_identity_title" comment:@"Select Identity"];
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
