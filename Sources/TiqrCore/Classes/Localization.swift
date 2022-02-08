@@ -32,10 +32,7 @@ import UIKit
 @objcMembers
 public class Localization: NSObject {
     public static func localize(_ key: String, comment: String?) -> String {
-        let appValue = NSLocalizedString(key, tableName: nil, bundle: Bundle.main, value: "", comment: comment ?? "")
-        guard key == appValue else { return appValue}
-
         let moduleValue = NSLocalizedString(key, tableName: nil, bundle: Bundle.module, value: "", comment: comment ?? "")
-        return moduleValue
+        return NSLocalizedString(key, tableName: nil, bundle: Bundle.main, value: moduleValue, comment: comment ?? "")
     }
 }
