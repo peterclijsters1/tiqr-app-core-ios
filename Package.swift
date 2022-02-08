@@ -16,8 +16,7 @@ let package = Package(
             name: "Tiqr",
             dependencies: ["TiqrCoreObjC", "TiqrCore"]),
         .target(
-            name: "TiqrCore",
-            resources: [.process("Resources/")]
+            name: "TiqrCore"
         ),
         .target(
             name: "TiqrCoreObjC",
