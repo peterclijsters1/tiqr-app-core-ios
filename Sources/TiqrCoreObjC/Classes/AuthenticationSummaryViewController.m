@@ -67,11 +67,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.loginConfirmLabel.text = NSLocalizedStringFromTableInBundle(@"successfully_logged_in", nil, SWIFTPM_MODULE_BUNDLE, @"Login succes confirmation message");
-    self.loginInformationLabel.text = NSLocalizedStringFromTableInBundle(@"loggedin_with_account", nil, SWIFTPM_MODULE_BUNDLE, @"Login information message");
-    self.toLabel.text = NSLocalizedStringFromTableInBundle(@"to_service_provider", nil, SWIFTPM_MODULE_BUNDLE, @"to:");
-    self.accountLabel.text = NSLocalizedStringFromTableInBundle(@"full_name", nil, SWIFTPM_MODULE_BUNDLE, @"Account");
-    self.accountIDLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"id", nil, SWIFTPM_MODULE_BUNDLE, @"Tiqr account ID"), TiqrConfig.appName];
+    self.loginConfirmLabel.text = [Localization localize:@"successfully_logged_in" comment:@"Login succes confirmation message"];
+    self.loginInformationLabel.text = [Localization localize:@"loggedin_with_account" comment:@"Login information message"];
+    self.toLabel.text = [Localization localize:@"to_service_provider" comment:@"to:"];
+    self.accountLabel.text = [Localization localize:@"full_name" comment:@"Account"];
+    self.accountIDLabel.text = [NSString stringWithFormat:[Localization localize:@"id" comment:@"Tiqr account ID"], TiqrConfig.appName];
 
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done)];
     self.navigationItem.leftBarButtonItem = backButton;
@@ -82,7 +82,7 @@
 	self.serviceProviderIdentifierLabel.text = self.challenge.serviceProviderIdentifier;
     
     if (self.challenge.returnUrl != nil) {
-        [self.returnButton setTitle:NSLocalizedStringFromTableInBundle(@"return_button", nil, SWIFTPM_MODULE_BUNDLE, @"Return to button title") forState:UIControlStateNormal];
+        [self.returnButton setTitle:[Localization localize:@"return_button" comment:@"Return to button title"] forState:UIControlStateNormal];
         self.returnButton.hidden = NO;
     }
     
@@ -117,14 +117,14 @@
         [self.challenge.identity.shouldAskToEnrollInBiometricID boolValue] &&
         self.PIN) {
         
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTableInBundle(@"upgrade_to_biometric_id", nil, SWIFTPM_MODULE_BUNDLE, @"Upgrade account to TouchID alert title")  message:LocalizedBiometricString(@"upgrade_to_touch_id_message", @"upgrade_to_face_id_message") preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:[Localization localize:@"upgrade_to_biometric_id" comment:@"Upgrade account to TouchID alert title"] message:LocalizedBiometricString(@"upgrade_to_touch_id_message", @"upgrade_to_face_id_message") preferredStyle:UIAlertControllerStyleAlert];
         
-        [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedStringFromTableInBundle(@"upgrade", nil, SWIFTPM_MODULE_BUNDLE, @"Upgrade (to TouchID)") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [alert addAction:[UIAlertAction actionWithTitle:[Localization localize:@"upgrade" comment:@"Upgrade (to TouchID)"] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [ServiceContainer.sharedInstance.identityService upgradeIdentityToTouchID:self.challenge.identity withPIN:self.PIN];
             self.PIN = nil;
         }]];
         
-        [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedStringFromTableInBundle(@"cancel", nil, SWIFTPM_MODULE_BUNDLE, @"Cancel") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        [alert addAction:[UIAlertAction actionWithTitle:[Localization localize:@"cancel" comment:@"Cancel"] style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
             self.challenge.identity.shouldAskToEnrollInBiometricID = @NO;
             [ServiceContainer.sharedInstance.identityService saveIdentities];
         }]];

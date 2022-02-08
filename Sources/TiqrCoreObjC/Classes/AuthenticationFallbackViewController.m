@@ -63,12 +63,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-    self.errorTitleLabel.text = NSLocalizedStringFromTableInBundle(@"authentication_fallback_title", nil, SWIFTPM_MODULE_BUNDLE, @"You appear to be offline");
-    self.errorInstructionLabel.text = NSLocalizedStringFromTableInBundle(@"authentication_fallback_description", nil, SWIFTPM_MODULE_BUNDLE, @"Don\'t worry! Click the QR tag on the\nwebsite. You will be asked to enter the\nfollowing one-time credentials:");
-    self.yourIdLabel.text = NSLocalizedStringFromTableInBundle(@"fallback_identifier_label", nil, SWIFTPM_MODULE_BUNDLE, @"Your ID is:");
-    self.oneTimeLoginCodeLabel.text = NSLocalizedStringFromTableInBundle(@"otp_label", nil, SWIFTPM_MODULE_BUNDLE, @"One time password:");
-    self.unverifiedPinLabel.text = NSLocalizedStringFromTableInBundle(@"note_pin_not_verified_title", nil, SWIFTPM_MODULE_BUNDLE, @"Note: your PIN has not been verified yet.");
-    self.retryLabel.text = NSLocalizedStringFromTableInBundle(@"note_pin_not_verified", nil, SWIFTPM_MODULE_BUNDLE, @"If you can\'t login with the credentials above, scan\nagain and enter the correct PIN code.");
+    self.errorTitleLabel.text = [Localization localize:@"authentication_fallback_title" comment:@"You appear to be offline"];
+    self.errorInstructionLabel.text = [Localization localize:@"authentication_fallback_description" comment:@"Don\'t worry! Click the QR tag on the\nwebsite. You will be asked to enter the\nfollowing one-time credentials:"];
+    self.yourIdLabel.text = [Localization localize:@"fallback_identifier_label" comment:@"Your ID is:"];
+    self.oneTimeLoginCodeLabel.text = [Localization localize:@"otp_label" comment:@"One time password:"];
+    self.unverifiedPinLabel.text = [Localization localize:@"note_pin_not_verified_title" comment:@"Note: your PIN has not been verified yet."];
+    self.retryLabel.text = [Localization localize:@"note_pin_not_verified" comment:@"If you can\'t login with the credentials above, scan\nagain and enter the correct PIN code."];
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done)];        
 	

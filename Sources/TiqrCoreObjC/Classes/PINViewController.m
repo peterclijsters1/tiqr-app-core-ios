@@ -85,7 +85,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.confirmButton setTitle:NSLocalizedStringFromTableInBundle(@"ok_button", nil, SWIFTPM_MODULE_BUNDLE, @"OK Button") forState:UIControlStateNormal];
+    [self.confirmButton setTitle:[Localization localize:@"ok_button" comment:@"OK Button"] forState:UIControlStateNormal];
 
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
         self.edgesForExtendedLayout = UIRectEdgeNone;

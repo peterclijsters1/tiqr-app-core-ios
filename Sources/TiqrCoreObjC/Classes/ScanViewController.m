@@ -32,6 +32,7 @@
 #import "External/MBProgressHUD.h"
 #import "ServiceContainer.h"
 #import "TiqrConfig.h"
+@import TiqrCore;
 
 @interface ScanViewController () <AVAudioPlayerDelegate, AVCaptureMetadataOutputObjectsDelegate, UIAlertViewDelegate>
 
@@ -96,7 +97,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.instructionLabel.text = NSLocalizedStringFromTableInBundle(@"msg_default_status", nil, SWIFTPM_MODULE_BUNDLE, @"QR Code scan instruction");
+    self.instructionLabel.text = [Localization localize:@"msg_default_status" comment:@"QR Code scan instruction"];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -137,9 +138,9 @@
 }
 
 - (void)promptForCameraSettings {
-    NSString *buttonTitle = NSLocalizedStringFromTableInBundle(@"settings_app_name", nil, SWIFTPM_MODULE_BUNDLE, @"Name of the settings app");
-    NSString *string = NSLocalizedStringFromTableInBundle(@"camera_prompt_title", nil, SWIFTPM_MODULE_BUNDLE, @"Camera access prompt title");
-    NSString *message = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"camera_prompt_message", nil, SWIFTPM_MODULE_BUNDLE, @"Camera access prompt message"), TiqrConfig.appName, TiqrConfig.appName];
+    NSString *buttonTitle = [Localization localize:@"settings_app_name" comment:@"Name of the settings app"];
+    NSString *string = [Localization localize:@"camera_prompt_title" comment:@"Camera access prompt title"];
+    NSString *message = [NSString stringWithFormat:[Localization localize:@"camera_prompt_message" comment:@"Camera access prompt message"], TiqrConfig.appName, TiqrConfig.appName];
 
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:string message:message preferredStyle:UIAlertControllerStyleAlert];
     

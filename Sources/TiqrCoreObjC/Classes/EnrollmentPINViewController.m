@@ -31,6 +31,7 @@
 #import "EnrollmentPINVerificationViewController.h"
 #import "ServiceContainer.h"
 #import "TiqrConfig.h"
+@import TiqrCore;
 
 @interface EnrollmentPINViewController ()
 
@@ -54,10 +55,10 @@
     [super viewDidLoad];
 
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
-    self.subtitle = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"enrollment_pin_intro", nil, SWIFTPM_MODULE_BUNDLE, @"Enrollment PIN title"), TiqrConfig.appName];
+    self.subtitle = [NSString stringWithFormat:[Localization localize:@"enrollment_pin_intro" comment:@"Enrollment PIN title"], TiqrConfig.appName];
 
-    self.pinDescription = NSLocalizedStringFromTableInBundle(@"enrollment_pin_message", nil, SWIFTPM_MODULE_BUNDLE, @"You need a PIN code for this account. If you don't yet have a PIN code for %@ please choose one.");
-    self.pinNotes = NSLocalizedStringFromTableInBundle(@"remember_pincode_notice", nil, SWIFTPM_MODULE_BUNDLE, @"Remember your PIN, it cannot be changed!");
+    self.pinDescription = [Localization localize:@"enrollment_pin_message" comment:@"You need a PIN code for this account. If you don't yet have a PIN code for %@ please choose one."];
+    self.pinNotes = [Localization localize:@"remember_pincode_notice" comment:@"Remember your PIN, it cannot be changed!"];
 }
 
 - (void)PINViewController:(PINViewController *)pinViewController didFinishWithPIN:(NSString *)PIN {

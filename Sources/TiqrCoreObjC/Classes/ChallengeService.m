@@ -37,6 +37,7 @@
 #import "OCRAWrapper_v1.h"
 #import "OCRAProtocol.h"
 #import "TiqrConfig.h"
+@import TiqrCore;
 
 @interface ChallengeService ()
 
@@ -85,8 +86,8 @@
                 challengeObject = challenge;
             }
         } else {
-            NSString *errorTitle = NSLocalizedStringFromTableInBundle(@"error_auth_invalid_qr_code", nil, SWIFTPM_MODULE_BUNDLE, @"Invalid QR tag title");
-            NSString *errorMessage = NSLocalizedStringFromTableInBundle(@"error_auth_invalid_challenge_message", nil, SWIFTPM_MODULE_BUNDLE, @"Unable to interpret the scanned QR tag. Please try again. If the problem persists, please contact the website adminstrator");
+            NSString *errorTitle = [Localization localize:@"error_auth_invalid_qr_code" comment:@"Invalid QR tag title"];
+            NSString *errorMessage = [Localization localize:@"error_auth_invalid_challenge_message" comment:@"Unable to interpret the scanned QR tag. Please try again. If the problem persists, please contact the website adminstrator"];
             NSDictionary *details = @{NSLocalizedDescriptionKey: errorTitle, NSLocalizedFailureReasonErrorKey: errorMessage};
             
             error = [NSError errorWithDomain:TIQRECErrorDomain code:TIQRACInvalidQRTagError userInfo:details];
@@ -129,8 +130,8 @@
     if (![self.identityService saveIdentities]) {
         [self.identityService rollbackIdentities];
         
-        NSString *errorTitle = NSLocalizedStringFromTableInBundle(@"error_enroll_failed_to_store_identity_title", nil, SWIFTPM_MODULE_BUNDLE, @"Account cannot be saved title");
-        NSString *errorMessage = NSLocalizedStringFromTableInBundle(@"error_enroll_failed_to_store_identity", nil, SWIFTPM_MODULE_BUNDLE, @"Account cannot be saved message");
+        NSString *errorTitle = [Localization localize:@"error_enroll_failed_to_store_identity_title" comment:@"Account cannot be saved title"];
+        NSString *errorMessage = [Localization localize:@"error_enroll_failed_to_store_identity" comment:@"Account cannot be saved message"];
         NSDictionary *details = @{NSLocalizedDescriptionKey: errorTitle, NSLocalizedFailureReasonErrorKey: errorMessage};
         
         NSError *error = [NSError errorWithDomain:TIQRECErrorDomain code:TIQRECUnknownError userInfo:details];
@@ -169,8 +170,8 @@
         
         [self.secretService setSecret:challenge.identitySecret usingTouchIDforIdentity:challenge.identity withCompletionHandler:^(BOOL success) {
             if (!success) {
-                NSString *errorTitle = NSLocalizedStringFromTableInBundle(@"error_enroll_failed_to_store_identity_title", nil, SWIFTPM_MODULE_BUNDLE, @"Account cannot be saved title");
-                NSString *errorMessage = NSLocalizedStringFromTableInBundle(@"error_enroll_failed_to_generate_secret", nil, SWIFTPM_MODULE_BUNDLE, @"Failed to generate identity secret. Please contact support.");
+                NSString *errorTitle = [Localization localize:@"error_enroll_failed_to_store_identity_title" comment:@"Account cannot be saved title"];
+                NSString *errorMessage = [Localization localize:@"error_enroll_failed_to_generate_secret" comment:@"Failed to generate identity secret. Please contact support."];
                 NSDictionary *details = @{NSLocalizedDescriptionKey: errorTitle, NSLocalizedFailureReasonErrorKey: errorMessage};
                 
                 NSError *error = [NSError errorWithDomain:TIQRECErrorDomain code:TIQRECUnknownError userInfo:details];

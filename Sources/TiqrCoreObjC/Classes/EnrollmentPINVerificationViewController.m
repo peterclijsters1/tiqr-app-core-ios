@@ -35,6 +35,7 @@
 #import "External/MBProgressHUD.h"
 #import "ServiceContainer.h"
 #import "NSString+LocalizedBiometricString.h"
+@import TiqrCore;
 
 @interface EnrollmentPINVerificationViewController ()
 
@@ -61,16 +62,16 @@
     [super viewDidLoad];
 
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
-    self.subtitle = NSLocalizedStringFromTableInBundle(@"login_verify_intro", nil, SWIFTPM_MODULE_BUNDLE, @"Enrollment PIN verification title");
-    self.pinDescription = NSLocalizedStringFromTableInBundle(@"login_verify_message", nil, SWIFTPM_MODULE_BUNDLE, @"Enter your PIN code again for verification. Please note the animal icon. This will help you remember your PIN code.");
-    self.pinNotes = NSLocalizedStringFromTableInBundle(@"remember_pincode_notice", nil, SWIFTPM_MODULE_BUNDLE, @"Remember your PIN, it cannot be changed!");
+    self.subtitle = [Localization localize:@"login_verify_intro" comment:@"Enrollment PIN verification title"];
+    self.pinDescription = [Localization localize:@"login_verify_message" comment:@"Enter your PIN code again for verification. Please note the animal icon. This will help you remember your PIN code."];
+    self.pinNotes = [Localization localize:@"remember_pincode_notice" comment:@"Remember your PIN, it cannot be changed!"];
 }
 
 - (void)PINViewController:(PINViewController *)viewController didFinishWithPIN:(NSString *)PIN {
     if (![PIN isEqualToString:self.PIN]) {
         [self clear];
-        NSString *errorTitle = NSLocalizedStringFromTableInBundle(@"passwords_dont_match_title", nil, SWIFTPM_MODULE_BUNDLE, @"Error title if PIN's don't match");
-        NSString *errorMessage = NSLocalizedStringFromTableInBundle(@"passwords_dont_match", nil, SWIFTPM_MODULE_BUNDLE, @"Error message if PINs don't match");
+        NSString *errorTitle = [Localization localize:@"passwords_dont_match_title" comment:@"Error title if PIN's don't match"];
+        NSString *errorMessage = [Localization localize:@"passwords_dont_match" comment:@"Error message if PINs don't match"];
         [self showErrorWithTitle:errorTitle message:errorMessage];
         [self.view endEditing:YES];
         return;
@@ -79,13 +80,13 @@
     [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     
     if (ServiceContainer.sharedInstance.secretService.biometricIDAvailable) {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTableInBundle(@"upgrade_to_biometric_id", nil, SWIFTPM_MODULE_BUNDLE, @"Upgrade account to TouchID alert title")  message:LocalizedBiometricString(@"upgrade_to_touch_id_message", @"upgrade_to_face_id_message") preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:[Localization localize:@"upgrade_to_biometric_id" comment:@"Upgrade account to TouchID alert title"]  message:LocalizedBiometricString(@"upgrade_to_touch_id_message", @"upgrade_to_face_id_message") preferredStyle:UIAlertControllerStyleAlert];
         
-        [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedStringFromTableInBundle(@"upgrade", nil, SWIFTPM_MODULE_BUNDLE, @"Upgrade (to TouchID)") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [alert addAction:[UIAlertAction actionWithTitle:[Localization localize:@"upgrade" comment:@"Upgrade (to TouchID)"] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [self completeEnrollmentWith:PIN usingBiometrics:YES];
         }]];
         
-        [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedStringFromTableInBundle(@"cancel", nil, SWIFTPM_MODULE_BUNDLE, @"Cancel") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        [alert addAction:[UIAlertAction actionWithTitle:[Localization localize:@"cancel" comment:@"Cancel"] style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
             [self completeEnrollmentWith:PIN usingBiometrics:NO];
         }]];
         

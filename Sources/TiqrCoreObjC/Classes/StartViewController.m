@@ -52,7 +52,7 @@
     [super viewDidLoad];
 
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
-    NSString *scanButtonTitle = NSLocalizedStringFromTableInBundle(@"scan_button", nil, SWIFTPM_MODULE_BUNDLE, @"Scan button title");
+    NSString *scanButtonTitle = [Localization localize:@"scan_button" comment:@"Scan button title"];
     [self.scanButton setTitle:scanButtonTitle forState:UIControlStateNormal];
     self.scanButton.layer.cornerRadius = 5;
     self.scanButton.backgroundColor = [ThemeService shared].theme.buttonBackgroundColor;
@@ -90,16 +90,17 @@
         self.webView.frame = CGRectMake(0.0, self.errorController.view.frame.size.height, self.webView.frame.size.width, self.view.frame.size.height - self.errorController.view.frame.size.height);
         self.errorController.view.hidden = NO;
         self.navigationItem.rightBarButtonItem = self.identitiesButtonItem;
-        self.errorController.title = NSLocalizedStringFromTableInBundle(@"error_auth_account_blocked_title", nil, SWIFTPM_MODULE_BUNDLE, @"Accounts blocked error title");
-        self.errorController.message = NSLocalizedStringFromTableInBundle(@"to_many_attempts", nil, SWIFTPM_MODULE_BUNDLE, @"Accounts blocked error message");
-        content = NSLocalizedStringFromTableInBundle(@"main_text_blocked", nil, SWIFTPM_MODULE_BUNDLE, @"");
+        self.errorController.title = [Localization localize:@"error_auth_account_blocked_title" comment:@"Accounts blocked error title"];
+        self.errorController.message = [Localization localize:@"to_many_attempts" comment:@"Accounts blocked error message"];
+        content = [Localization localize:@"main_text_blocked" comment:nil];
     } else if (ServiceContainer.sharedInstance.identityService.identityCount > 0) {
         self.navigationItem.rightBarButtonItem = self.identitiesButtonItem;
-        content = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"main_text_instructions", nil, SWIFTPM_MODULE_BUNDLE, @""), TiqrConfig.appName, TiqrConfig.appName];
+        content = [NSString stringWithFormat:[Localization localize:@"main_text_instructions" comment:nil], TiqrConfig.appName, TiqrConfig.appName];
     } else {
         self.navigationItem.rightBarButtonItem = nil;
         
-        content = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"main_text_welcome", nil, SWIFTPM_MODULE_BUNDLE, @""), TiqrConfig.appName, TiqrConfig.appName];
+        NSString *string = [Localization localize:@"main_text_welcome" comment:@"main_text_welcome"];
+        content = [NSString stringWithFormat:[Localization localize:@"main_text_welcome" comment:nil], TiqrConfig.appName, TiqrConfig.appName];
     }
 
     NSString *path = [SWIFTPM_MODULE_BUNDLE pathForResource:@"start" ofType:@"html"];
@@ -137,9 +138,9 @@
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];	
     if (ServiceContainer.sharedInstance.identityService.identityCount > 0 &&
         [defaults objectForKey:@"show_instructions_preference"] == nil) {
-		NSString *message = NSLocalizedStringFromTableInBundle(@"show_instructions_preference_message", nil, SWIFTPM_MODULE_BUNDLE, @"Do you want to see these instructions when you start the application in the future? You can always open the instructions from the Scan window or change this behavior in Settings.");
-		NSString *yesTitle = NSLocalizedStringFromTableInBundle(@"yes_button", nil, SWIFTPM_MODULE_BUNDLE, @"Yes button title");
-		NSString *noTitle = NSLocalizedStringFromTableInBundle(@"no_button", nil, SWIFTPM_MODULE_BUNDLE, @"No button title");		
+		NSString *message = [Localization localize:@"show_instructions_preference_message" comment:@"Do you want to see these instructions when you start the application in the future? You can always open the instructions from the Scan window or change this behavior in Settings."];
+		NSString *yesTitle = [Localization localize:@"yes_button" comment:@"Yes button title"];
+		NSString *noTitle = [Localization localize:@"no_button" comment:@"No button title"];
 
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *yesButton = [UIAlertAction actionWithTitle:yesTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {

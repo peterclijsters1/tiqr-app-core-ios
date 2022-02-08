@@ -29,6 +29,7 @@
 
 #import "OCRA_v1.h"
 #import <CommonCrypto/CommonHMAC.h>
+@import TiqrCore;
 
 @implementation OCRA_v1
 
@@ -99,8 +100,8 @@ static const int powers10[] = { 1, 10, 100, 1000, 10000, 100000, 1000000, 100000
 
     // The codeDigits variable is used later on as an index to the powers10 array, and thus cannot be larger than 10
     if (codeDigits > 10) {
-        NSString *errorTitle = NSLocalizedStringFromTableInBundle(@"Server incompatible", nil, SWIFTPM_MODULE_BUNDLE, @"Server incompatible title");
-        NSString *errorMessage = NSLocalizedStringFromTableInBundle(@"The server is incompatible with this version of the app.", nil, SWIFTPM_MODULE_BUNDLE, @"Server incompatible message");
+        NSString *errorTitle = [Localization localize:@"Server incompatible" comment:@"Server incompatible title"];
+        NSString *errorMessage = [Localization localize:@"The server is incompatible with this version of the app." comment:@"Server incompatible message"];
         NSDictionary *details = @{NSLocalizedDescriptionKey: errorTitle, NSLocalizedFailureReasonErrorKey: errorMessage};
         *error = [[NSError alloc] initWithDomain: @"org.example.tiqr.ErrorDomain" code:OCRAServerIncompatibleError userInfo:details];
         return nil;

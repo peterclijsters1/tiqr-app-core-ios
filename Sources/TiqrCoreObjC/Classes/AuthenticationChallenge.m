@@ -31,6 +31,7 @@
 #import "NSString+DecodeURL.h"
 #import "ServiceContainer.h"
 #import "TiqrConfig.h"
+@import TiqrCore;
 
 NSString *const TIQRACErrorDomain = @"org.tiqr.ac";
 
@@ -66,8 +67,8 @@ NSString *const TIQRACErrorDomain = @"org.tiqr.ac";
     IdentityService *identityService = ServiceContainer.sharedInstance.identityService;
 
 	if (url == nil || ![TiqrConfig isValidAuthenticationScheme:url.scheme] || [url.pathComponents count] < 3) {
-        NSString *errorTitle = NSLocalizedStringFromTableInBundle(@"error_auth_invalid_qr_code", nil, SWIFTPM_MODULE_BUNDLE, @"Invalid QR tag title");
-        NSString *errorMessage = NSLocalizedStringFromTableInBundle(@"error_auth_invalid_challenge_message", nil, SWIFTPM_MODULE_BUNDLE, @"Invalid QR tag message");
+        NSString *errorTitle = [Localization localize:@"error_auth_invalid_qr_code" comment:@"Invalid QR tag title"];
+        NSString *errorMessage = [Localization localize:@"error_auth_invalid_challenge_message" comment:@"Invalid QR tag message"];
         NSDictionary *details = @{NSLocalizedDescriptionKey: errorTitle, NSLocalizedFailureReasonErrorKey: errorMessage};
         [NSError errorWithDomain:TIQRACErrorDomain code:TIQRACInvalidQRTagError userInfo:details];
         [self applyError:[NSError errorWithDomain:TIQRACErrorDomain code:TIQRACInvalidQRTagError userInfo:details] toError:error];
@@ -76,8 +77,8 @@ NSString *const TIQRACErrorDomain = @"org.tiqr.ac";
 
 	IdentityProvider *identityProvider = [identityService findIdentityProviderWithIdentifier:url.host];
 	if (identityProvider == nil) {
-        NSString *errorTitle = NSLocalizedStringFromTableInBundle(@"error_auth_unknown_identity", nil, SWIFTPM_MODULE_BUNDLE, @"No account title");
-        NSString *errorMessage = NSLocalizedStringFromTableInBundle(@"error_auth_no_identities_for_identity_provider", nil, SWIFTPM_MODULE_BUNDLE, @"No account message");
+        NSString *errorTitle = [Localization localize:@"error_auth_unknown_identity" comment:@"No account title"];
+        NSString *errorMessage = [Localization localize:@"error_auth_no_identities_for_identity_provider" comment:@"No account message"];
         NSDictionary *details = @{NSLocalizedDescriptionKey: errorTitle, NSLocalizedFailureReasonErrorKey: errorMessage};
         [self applyError:[NSError errorWithDomain:TIQRACErrorDomain code:TIQRACUnknownIdentityProviderError userInfo:details] toError:error];
         return nil;
@@ -86,8 +87,8 @@ NSString *const TIQRACErrorDomain = @"org.tiqr.ac";
 	if (url.user != nil) {
 		Identity *identity = [identityService findIdentityWithIdentifier:url.user forIdentityProvider:identityProvider];
 		if (identity == nil) {
-            NSString *errorTitle = NSLocalizedStringFromTableInBundle(@"error_auth_invalid_account", nil, SWIFTPM_MODULE_BUNDLE, @"Unknown account title");
-            NSString *errorMessage = NSLocalizedStringFromTableInBundle(@"error_auth_invalid_account_message", nil, SWIFTPM_MODULE_BUNDLE, @"Unknown account message");
+            NSString *errorTitle = [Localization localize:@"error_auth_invalid_account" comment:@"Unknown account title"];
+            NSString *errorMessage = [Localization localize:@"error_auth_invalid_account_message" comment:@"Unknown account message"];
             NSDictionary *details = @{NSLocalizedDescriptionKey: errorTitle, NSLocalizedFailureReasonErrorKey: errorMessage};
             [self applyError:[NSError errorWithDomain:TIQRACErrorDomain code:TIQRACUnknownIdentityError userInfo:details] toError:error];
             return nil;
@@ -98,8 +99,8 @@ NSString *const TIQRACErrorDomain = @"org.tiqr.ac";
 	} else {
         NSArray *identities = [identityService findIdentitiesForIdentityProvider:identityProvider];
 		if (identities == nil || [identities count] == 0) {
-            NSString *errorTitle = NSLocalizedStringFromTableInBundle(@"error_auth_invalid_account", nil, SWIFTPM_MODULE_BUNDLE, @"No account title");
-            NSString *errorMessage = NSLocalizedStringFromTableInBundle(@"error_auth_invalid_account_message", nil, SWIFTPM_MODULE_BUNDLE, @"No account message");
+            NSString *errorTitle = [Localization localize:@"error_auth_invalid_account" comment:@"No account title"];
+            NSString *errorMessage = [Localization localize:@"error_auth_invalid_account_message" comment:@"No account message"];
             NSDictionary *details = @{NSLocalizedDescriptionKey: errorTitle, NSLocalizedFailureReasonErrorKey: errorMessage};
             
             [self applyError:[NSError errorWithDomain:TIQRACErrorDomain code:TIQRACZeroIdentitiesForIdentityProviderError userInfo:details] toError:error];
@@ -111,8 +112,8 @@ NSString *const TIQRACErrorDomain = @"org.tiqr.ac";
 	}
 	
     if (challenge.identity != nil && [challenge.identity.blocked boolValue]) {
-        NSString *errorTitle = NSLocalizedStringFromTableInBundle(@"error_auth_account_blocked_title", nil, SWIFTPM_MODULE_BUNDLE, @"Account blocked title");
-        NSString *errorMessage = NSLocalizedStringFromTableInBundle(@"error_auth_account_blocked_message", nil, SWIFTPM_MODULE_BUNDLE, @"Account blocked message");
+        NSString *errorTitle = [Localization localize:@"error_auth_account_blocked_title" comment:@"Account blocked title"];
+        NSString *errorMessage = [Localization localize:@"error_auth_account_blocked_message" comment:@"Account blocked message"];
         NSDictionary *details = @{NSLocalizedDescriptionKey: errorTitle, NSLocalizedFailureReasonErrorKey: errorMessage};
         
         [self applyError:[NSError errorWithDomain:TIQRACErrorDomain code:TIQRACIdentityBlockedError userInfo:details] toError:error];
@@ -125,7 +126,7 @@ NSString *const TIQRACErrorDomain = @"org.tiqr.ac";
     if ([url.pathComponents count] > 3) {
         challenge.serviceProviderDisplayName = url.pathComponents[3];
     } else {
-        challenge.serviceProviderDisplayName = NSLocalizedStringFromTableInBundle(@"error_auth_unknown_identity_provider", nil, SWIFTPM_MODULE_BUNDLE, @"Unknown");
+        challenge.serviceProviderDisplayName = [Localization localize:@"error_auth_unknown_identity_provider" comment:@"Unknown"];
     }
     challenge.serviceProviderIdentifier = @"";
     
