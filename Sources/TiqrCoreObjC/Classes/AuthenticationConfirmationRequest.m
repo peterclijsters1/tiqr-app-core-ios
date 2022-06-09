@@ -255,6 +255,7 @@ typedef void (^CompletionBlock)(BOOL success, NSError *error);
 	[request setHTTPMethod:@"POST"];
 	[request setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [request setValue:[TiqrUserAgent getUserAgent] forHTTPHeaderField:@"User-Agent"];
     [request setValue:version forHTTPHeaderField:@"X-TIQR-Protocol-Version"];
     
     self.data = [NSMutableData data];
