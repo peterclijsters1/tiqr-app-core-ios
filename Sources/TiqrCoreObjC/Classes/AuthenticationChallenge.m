@@ -58,69 +58,64 @@ NSString *const TIQRACErrorDomain = @"org.tiqr.ac";
     return YES;
 }
 
-+ (AuthenticationChallenge *)challengeWithChallengeString:(NSString *)challengeString error:(NSError **)error {
++ (void)generateInvalidQRCodeError:(NSError **)error {
+    NSString *errorTitle = [Localization localize:@"error_auth_invalid_qr_code" comment:@"Invalid QR tag title"];
+    NSString *errorMessage = [Localization localize:@"error_auth_invalid_challenge_message" comment:@"Invalid QR tag message"];
+    NSDictionary *details = @{NSLocalizedDescriptionKey: errorTitle, NSLocalizedFailureReasonErrorKey: errorMessage};
+    [NSError errorWithDomain:TIQRACErrorDomain code:TIQRACInvalidQRTagError userInfo:details];
+    [self applyError:[NSError errorWithDomain:TIQRACErrorDomain code:TIQRACInvalidQRTagError userInfo:details] toError:error];
+}
+
++ (void)generateUnknownIdentityError:(NSError **)error {
+    NSString *errorTitle = [Localization localize:@"error_auth_unknown_identity" comment:@"No account title"];
+    NSString *errorMessage = [Localization localize:@"error_auth_no_identities_for_identity_provider" comment:@"No account message"];
+    NSDictionary *details = @{NSLocalizedDescriptionKey: errorTitle, NSLocalizedFailureReasonErrorKey: errorMessage};
+    [self applyError:[NSError errorWithDomain:TIQRACErrorDomain code:TIQRACUnknownIdentityProviderError userInfo:details] toError:error];
+}
+
++ (void)generateInvalidAccountError:(NSError **)error {
+    NSString *errorTitle = [Localization localize:@"error_auth_invalid_account" comment:@"No account title"];
+    NSString *errorMessage = [Localization localize:@"error_auth_invalid_account_message" comment:@"No account message"];
+    NSDictionary *details = @{NSLocalizedDescriptionKey: errorTitle, NSLocalizedFailureReasonErrorKey: errorMessage};
+    [self applyError:[NSError errorWithDomain:TIQRACErrorDomain code:TIQRACZeroIdentitiesForIdentityProviderError userInfo:details] toError:error];
+}
+
++ (void)generateAccountBlockedError:(NSError **)error {
+    NSString *errorTitle = [Localization localize:@"error_auth_account_blocked_title" comment:@"Account blocked title"];
+    NSString *errorMessage = [Localization localize:@"error_auth_account_blocked_message" comment:@"Account blocked message"];
+    NSDictionary *details = @{NSLocalizedDescriptionKey: errorTitle, NSLocalizedFailureReasonErrorKey: errorMessage};
+    [self applyError:[NSError errorWithDomain:TIQRACErrorDomain code:TIQRACIdentityBlockedError userInfo:details] toError:error];
+}
+
+
++ (AuthenticationChallenge * _Nullable)challengeWithChallengeString:(NSString *)challengeString error:(NSError **)error {
 
 	NSURL *url = [NSURL URLWithString:challengeString];
     
-    AuthenticationChallenge *challenge = [[AuthenticationChallenge alloc] init];
+	if (url == nil || ![TiqrConfig isValidAuthenticationURL:url.absoluteString]) {
+        [self generateInvalidQRCodeError: error];
+        return nil;
+	}
     
-    IdentityService *identityService = ServiceContainer.sharedInstance.identityService;
+    NSString *authenticationSchemeKey = @"TIQRAuthenticationURLScheme";
+    NSString *appScheme = [[[NSBundle mainBundle] infoDictionary] objectForKey:authenticationSchemeKey];
 
-	if (url == nil || ![TiqrConfig isValidAuthenticationScheme:url.scheme] || [url.pathComponents count] < 3) {
-        NSString *errorTitle = [Localization localize:@"error_auth_invalid_qr_code" comment:@"Invalid QR tag title"];
-        NSString *errorMessage = [Localization localize:@"error_auth_invalid_challenge_message" comment:@"Invalid QR tag message"];
-        NSDictionary *details = @{NSLocalizedDescriptionKey: errorTitle, NSLocalizedFailureReasonErrorKey: errorMessage};
-        [NSError errorWithDomain:TIQRACErrorDomain code:TIQRACInvalidQRTagError userInfo:details];
-        [self applyError:[NSError errorWithDomain:TIQRACErrorDomain code:TIQRACInvalidQRTagError userInfo:details] toError:error];
-        return nil;
-	}
+    if ([[url scheme] isEqualToString: appScheme]) {
+        // Old format URL
+        return [self challengeFromOldFormatURL:url error:error];
+    } else {
+        // New format URL
+        return [self challengeFromNewFormatURL:url error:error];
+    }
+}
 
-	IdentityProvider *identityProvider = [identityService findIdentityProviderWithIdentifier:url.host];
-	if (identityProvider == nil) {
-        NSString *errorTitle = [Localization localize:@"error_auth_unknown_identity" comment:@"No account title"];
-        NSString *errorMessage = [Localization localize:@"error_auth_no_identities_for_identity_provider" comment:@"No account message"];
-        NSDictionary *details = @{NSLocalizedDescriptionKey: errorTitle, NSLocalizedFailureReasonErrorKey: errorMessage};
-        [self applyError:[NSError errorWithDomain:TIQRACErrorDomain code:TIQRACUnknownIdentityProviderError userInfo:details] toError:error];
-        return nil;
-	}
-	
-	if (url.user != nil) {
-		Identity *identity = [identityService findIdentityWithIdentifier:url.user forIdentityProvider:identityProvider];
-		if (identity == nil) {
-            NSString *errorTitle = [Localization localize:@"error_auth_invalid_account" comment:@"Unknown account title"];
-            NSString *errorMessage = [Localization localize:@"error_auth_invalid_account_message" comment:@"Unknown account message"];
-            NSDictionary *details = @{NSLocalizedDescriptionKey: errorTitle, NSLocalizedFailureReasonErrorKey: errorMessage};
-            [self applyError:[NSError errorWithDomain:TIQRACErrorDomain code:TIQRACUnknownIdentityError userInfo:details] toError:error];
-            return nil;
-		}
-		
-		challenge.identities = @[identity];
-		challenge.identity = identity;
-	} else {
-        NSArray *identities = [identityService findIdentitiesForIdentityProvider:identityProvider];
-		if (identities == nil || [identities count] == 0) {
-            NSString *errorTitle = [Localization localize:@"error_auth_invalid_account" comment:@"No account title"];
-            NSString *errorMessage = [Localization localize:@"error_auth_invalid_account_message" comment:@"No account message"];
-            NSDictionary *details = @{NSLocalizedDescriptionKey: errorTitle, NSLocalizedFailureReasonErrorKey: errorMessage};
-            
-            [self applyError:[NSError errorWithDomain:TIQRACErrorDomain code:TIQRACZeroIdentitiesForIdentityProviderError userInfo:details] toError:error];
-            return nil;
-		}
-		
-		challenge.identities = identities;
-		challenge.identity = [identities count] == 1 ? identities[0] : nil;
-	}
-	
-    if (challenge.identity != nil && [challenge.identity.blocked boolValue]) {
-        NSString *errorTitle = [Localization localize:@"error_auth_account_blocked_title" comment:@"Account blocked title"];
-        NSString *errorMessage = [Localization localize:@"error_auth_account_blocked_message" comment:@"Account blocked message"];
-        NSDictionary *details = @{NSLocalizedDescriptionKey: errorTitle, NSLocalizedFailureReasonErrorKey: errorMessage};
-        
-        [self applyError:[NSError errorWithDomain:TIQRACErrorDomain code:TIQRACIdentityBlockedError userInfo:details] toError:error];
+
++ (AuthenticationChallenge * _Nullable)challengeFromOldFormatURL:(NSURL * _Nonnull)url error:(NSError **)error {
+    
+    AuthenticationChallenge *challenge = [[AuthenticationChallenge alloc] init];
+    if(![self findIdentityForServerIdentifier: url.host andUser:url.user forChallenge:challenge error: error]) {
         return nil;
     }
-    
-	challenge.identityProvider = identityProvider;
     challenge.sessionKey = url.pathComponents[1];
     challenge.challenge = url.pathComponents[2];
     if ([url.pathComponents count] > 3) {
@@ -147,6 +142,103 @@ NSString *const TIQRACErrorDomain = @"org.tiqr.ac";
     
     return challenge;
 }
+
++ (AuthenticationChallenge * _Nullable)challengeFromNewFormatURL:(NSURL *)url error:(NSError **)error {
+    
+    AuthenticationChallenge *challenge = [[AuthenticationChallenge alloc] init];
+    IdentityService *identityService = ServiceContainer.sharedInstance.identityService;
+    
+    NSURLComponents * components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+    
+    // Parse the parameters
+    NSString *serverIdentifier = [self getQueryParameter:@"i" fromComponents:components];
+    // User is optional
+    NSString *user = [self getQueryParameter:@"u" fromComponents:components];
+
+    if (!serverIdentifier) {
+        NSLog(@"Required parameter 'i' missing from the authentication URL!");
+        [self generateInvalidQRCodeError: error];
+        return nil;
+    }
+    
+    if(![self findIdentityForServerIdentifier: serverIdentifier andUser:user forChallenge:challenge error: error]) {
+        return nil;
+    }
+    
+    NSString *sessionKey = [self getQueryParameter:@"s" fromComponents:components];
+    if (!sessionKey) {
+        NSLog(@"Required parameter 's' missing from the authentication URL!");
+        [self generateInvalidQRCodeError: error];
+        return nil;
+    }
+    NSString *challengeParam = [self getQueryParameter:@"c" fromComponents:components];
+    if (!challengeParam) {
+        NSLog(@"Required parameter 'c' missing from the authentication URL!");
+        [self generateInvalidQRCodeError: error];
+        return nil;
+    }
+    
+    challenge.sessionKey = sessionKey;
+    challenge.challenge = challengeParam;
+    challenge.serviceProviderDisplayName = challenge.identityProvider.displayName;
+    challenge.serviceProviderIdentifier = @"";
+    
+    NSString *protocolVersion = [self getQueryParameter:@"v" fromComponents:components];
+    if (!protocolVersion) {
+        protocolVersion = @"1";
+    }
+    challenge.protocolVersion = protocolVersion;
+    challenge.returnUrl = nil;
+    return challenge;
+
+}
+
++(BOOL) findIdentityForServerIdentifier:(NSString * _Nonnull)serverIdentifier andUser:(NSString * _Nullable)user forChallenge:(AuthenticationChallenge *)challenge error:(NSError **)error {
+    IdentityService *identityService = ServiceContainer.sharedInstance.identityService;
+    IdentityProvider *identityProvider = [identityService findIdentityProviderWithIdentifier:serverIdentifier];
+    if (identityProvider == nil) {
+        [self generateUnknownIdentityError:error];
+        return NO;
+    }
+    if (user) {
+        Identity *identity = [identityService findIdentityWithIdentifier:user forIdentityProvider:identityProvider];
+        if (identity == nil) {
+            [self generateInvalidAccountError:error];
+            return NO;
+        }
+        
+        challenge.identities = @[identity];
+        challenge.identity = identity;
+    } else {
+        NSArray *identities = [identityService findIdentitiesForIdentityProvider:identityProvider];
+        if (identities == nil || [identities count] == 0) {
+            [self generateInvalidAccountError:error];
+            return NO;
+        }
+        
+        challenge.identities = identities;
+        challenge.identity = [identities count] == 1 ? identities[0] : nil;
+    }
+    
+    if (challenge.identity != nil && [challenge.identity.blocked boolValue]) {
+        [self generateAccountBlockedError:error];
+        return NO;
+    }
+    challenge.identityProvider = identityProvider;
+    return YES;
+}
+
++ (NSString * _Nullable) getQueryParameter:(NSString * _Nonnull)parameter fromComponents:(NSURLComponents * _Nonnull)components {
+    NSPredicate *paramPredicate = [NSPredicate predicateWithFormat:@"name == %@", parameter];
+    NSArray<NSURLQueryItem *>* paramItem = [[components queryItems] filteredArrayUsingPredicate: paramPredicate];
+    if ([paramItem count] != 1) {
+        return nil;
+    }
+    return [[paramItem objectAtIndex:0] value];
+}
+
+
+
 
 
 @end
