@@ -71,14 +71,14 @@
         }
 
         NSError *error = nil;
-        if (url != nil && [TiqrConfig isValidAuthenticationScheme:url.scheme]) {
+        if (url != nil && [TiqrConfig isValidAuthenticationURL:url.absoluteString]) {
             AuthenticationChallenge *challenge = [AuthenticationChallenge challengeWithChallengeString:scanResult error:&error];
             
             if (!error) {
                 type = TIQRChallengeTypeAuthentication;
                 challengeObject = challenge;
             }
-        } else if (url != nil && [TiqrConfig isValidEnrollmentScheme:url.scheme]) {
+        } else if (url != nil && [TiqrConfig isValidEnrollmentURL:url.absoluteString]) {
             EnrollmentChallenge *challenge = [EnrollmentChallenge challengeWithChallengeString:scanResult allowFiles:NO error:&error];
             
             if (!error) {

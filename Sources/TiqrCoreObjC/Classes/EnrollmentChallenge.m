@@ -62,44 +62,62 @@ NSString *const TIQRECErrorDomain = @"org.tiqr.ec";
     return YES;
 }
 
++ (void)generateInvalidQRCodeError:(NSError **)error {
+    NSString *errorTitle = [Localization localize:@"error_enroll_invalid_qr_code" comment:@"Invalid QR tag title"];
+    NSString *errorMessage = [Localization localize:@"error_enroll_invalid_response" comment:@"Invalid QR tag message"];
+    NSDictionary *details = @{NSLocalizedDescriptionKey: errorTitle, NSLocalizedFailureReasonErrorKey: errorMessage};
+    [self applyError:[NSError errorWithDomain:TIQRECErrorDomain code:TIQRECInvalidQRTagError userInfo:details] toError:error];
+}
+
 + (EnrollmentChallenge *)challengeWithChallengeString:(NSString *)challengeString allowFiles:(BOOL)allowFiles error:(NSError **)error {
     NSURL *fullURL = [NSURL URLWithString:challengeString];
     
     EnrollmentChallenge *challenge = [[EnrollmentChallenge alloc] init];
     
-    if (fullURL == nil || ![TiqrConfig isValidEnrollmentScheme:fullURL.scheme]) {
-        NSString *errorTitle = [Localization localize:@"error_enroll_invalid_qr_code" comment:@"Invalid QR tag title"];
-        NSString *errorMessage = [Localization localize:@"error_enroll_invalid_response" comment:@"Invalid QR tag message"];
-        NSDictionary *details = @{NSLocalizedDescriptionKey: errorTitle, NSLocalizedFailureReasonErrorKey: errorMessage};
-        [self applyError:[NSError errorWithDomain:TIQRECErrorDomain code:TIQRECInvalidQRTagError userInfo:details] toError:error];
+    if (fullURL == nil || ![TiqrConfig isValidEnrollmentURL:challengeString]) {
+        [self generateInvalidQRCodeError: error];
         return nil;
     }
     
-    NSURL *url = [NSURL URLWithString:[challengeString substringFromIndex:13]];
-    if (url == nil) {
-        NSString *errorTitle = [Localization localize:@"error_enroll_invalid_qr_code" comment:@"Invalid QR tag title"];
-        NSString *errorMessage = [Localization localize:@"error_enroll_invalid_response" comment:@"Invalid QR tag message"];
-        NSDictionary *details = @{NSLocalizedDescriptionKey: errorTitle, NSLocalizedFailureReasonErrorKey: errorMessage};
-        [self applyError:[NSError errorWithDomain:TIQRECErrorDomain code:TIQRECInvalidQRTagError userInfo:details] toError:error];
-        return nil;
+    NSURL *metadataURL;
+    
+    if ([fullURL.scheme isEqualToString:@"https"]) {
+        // New format URL
+        NSURLComponents *components = [NSURLComponents componentsWithURL:fullURL resolvingAgainstBaseURL:NO];
+        NSPredicate *metadataPredicate = [NSPredicate predicateWithFormat:@"name == %@", @"metadata"];
+        NSArray<NSURLQueryItem *>* metadataItem = [[components queryItems] filteredArrayUsingPredicate: metadataPredicate];
+        if ([metadataItem count] != 1) {
+            NSLog(@"Enrollment URL did not contain metadata query item!");
+            [self generateInvalidQRCodeError: error];
+            return nil;
+        }
+        NSString *metadataURLString = [[metadataItem objectAtIndex:0] value];
+        metadataURL = [NSURL URLWithString: metadataURLString];
+        if (!metadataURL) {
+            NSLog(@"Enrollment URL metadata parameter is not a valid URL!");
+            [self generateInvalidQRCodeError: error];
+            return nil;
+        }
+    } else {
+        // Old format URL
+        metadataURL = [NSURL URLWithString:[challengeString substringFromIndex:13]];
+        if (metadataURL == nil) {
+            [self generateInvalidQRCodeError: error];
+            return nil;
+        }
+        
+        if (![metadataURL.scheme isEqualToString:@"http"] && ![metadataURL.scheme isEqualToString:@"https"] && ![metadataURL.scheme isEqualToString:@"file"]) {
+            [self generateInvalidQRCodeError: error];
+            return nil;
+        } else if ([metadataURL.scheme isEqualToString:@"file"] && !allowFiles) {
+            [self generateInvalidQRCodeError: error];
+            return nil;
+        }
     }
     
-    if (![url.scheme isEqualToString:@"http"] && ![url.scheme isEqualToString:@"https"] && ![url.scheme isEqualToString:@"file"]) {
-        NSString *errorTitle = [Localization localize:@"error_enroll_invalid_qr_code" comment:@"Invalid QR tag title"];
-        NSString *errorMessage = [Localization localize:@"error_enroll_invalid_response" comment:@"Invalid QR tag message"];
-        NSDictionary *details = @{NSLocalizedDescriptionKey: errorTitle, NSLocalizedFailureReasonErrorKey: errorMessage};
-        [self applyError:[NSError errorWithDomain:TIQRECErrorDomain code:TIQRECInvalidQRTagError userInfo:details] toError:error];
-        return nil;
-    } else if ([url.scheme isEqualToString:@"file"] && !allowFiles) {
-        NSString *errorTitle = [Localization localize:@"error_enroll_invalid_qr_code" comment:@"Invalid QR tag title"];
-        NSString *errorMessage = [Localization localize:@"error_enroll_invalid_response" comment:@"Invalid QR tag message"];
-        NSDictionary *details = @{NSLocalizedDescriptionKey: errorTitle, NSLocalizedFailureReasonErrorKey: errorMessage};
-        [self applyError:[NSError errorWithDomain:TIQRECErrorDomain code:TIQRECInvalidQRTagError userInfo:details] toError:error];
-        return nil;
-    }
     
     NSError *downloadError = nil;
-    NSData *data = [challenge downloadSynchronously:url error:&downloadError];
+    NSData *data = [challenge downloadSynchronously:metadataURL error:&downloadError];
     if (downloadError != nil) {
         NSString *errorTitle = [Localization localize:@"no_connection" comment:@"No connection title"];
         NSString *errorMessage = [Localization localize:@"internet_connection_required" comment:@"You need an Internet connection to activate your account. Please try again later."];
@@ -145,13 +163,13 @@ NSString *const TIQRECErrorDomain = @"org.tiqr.ec";
     NSString *regex = @"^http(s)?://.*";
     NSPredicate *protocolPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
     
-    if (url.query != nil && [url.query length] > 0 && [protocolPredicate evaluateWithObject:url.query] == YES) {
-        challenge.returnUrl = url.query.decodedURL;
+    if (metadataURL.query != nil && [metadataURL.query length] > 0 && [protocolPredicate evaluateWithObject:metadataURL.query] == YES) {
+        challenge.returnUrl = metadataURL.query.decodedURL;
     } else {
         challenge.returnUrl = nil;
     }
     
-    challenge.returnUrl = nil; // TODO: support return URL url.query == nil || [url.query length] == 0 ? nil : url.query;
+    challenge.returnUrl = nil; // TODO: support return URL metadataURL.query == nil || [metadataURL.query length] == 0 ? nil : metadataURL.query;
     challenge.enrollmentUrl = [identityProviderMetadata[@"enrollmentUrl"] description];
     
     return challenge;

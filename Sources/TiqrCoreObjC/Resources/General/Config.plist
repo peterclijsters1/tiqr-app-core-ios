@@ -4,9 +4,5 @@
 <dict>
 	<key>SANotificationRegistrationURL</key>
 	<string>https://tx.tiqr.org/tokenexchange/?appId=</string>
-	<key>TIQRAuthenticationURLScheme</key>
-	<string>tiqrauth</string>
-	<key>TIQREnrollmentURLScheme</key>
-	<string>tiqrenroll</string>
 </dict>
 </plist>
