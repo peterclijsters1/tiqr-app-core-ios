@@ -113,7 +113,7 @@ NSString *const TIQRACErrorDomain = @"org.tiqr.ac";
 + (AuthenticationChallenge * _Nullable)challengeFromOldFormatURL:(NSURL * _Nonnull)url error:(NSError **)error {
     
     AuthenticationChallenge *challenge = [[AuthenticationChallenge alloc] init];
-    if(![self findIdentityForServerIdentifier: url.host andUser:url.user forChallenge:challenge error: error]) {
+    if (![self findIdentityForServerIdentifier: url.host andUser:url.user forChallenge:challenge error: error]) {
         return nil;
     }
     challenge.sessionKey = url.pathComponents[1];
@@ -161,7 +161,7 @@ NSString *const TIQRACErrorDomain = @"org.tiqr.ac";
         return nil;
     }
     
-    if(![self findIdentityForServerIdentifier: serverIdentifier andUser:user forChallenge:challenge error: error]) {
+    if (![self findIdentityForServerIdentifier: serverIdentifier andUser:user forChallenge:challenge error: error]) {
         return nil;
     }
     
