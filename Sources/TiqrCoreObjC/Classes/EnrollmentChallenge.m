@@ -172,7 +172,8 @@ NSString *const TIQRECErrorDomain = @"org.tiqr.ec";
 
 - (NSData *)downloadSynchronously:(NSURL *)url error:(NSError **)error {
 	NSURLResponse *response = nil;
-	NSURLRequest *request = [NSURLRequest requestWithURL:url];
+	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request setValue:[TiqrUserAgent getUserAgent] forHTTPHeaderField:@"User-Agent"];
 	NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:error];
 	return data;
 }

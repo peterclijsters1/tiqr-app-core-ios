@@ -30,6 +30,7 @@
 #import "NotificationRegistration.h"
 #import "NSData+Hex.h"
 #import "TiqrConfig.h"
+@import TiqrCore;
 
 static NotificationRegistration *sharedInstance = nil;
 
@@ -93,6 +94,7 @@ NSString* const KEY_DEVICE_TOKEN = @"TiqrDeviceToken";
 	[request setTimeoutInterval:15.0];
 	[request setHTTPMethod:@"POST"];
 	[request setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
+    [request setValue:[TiqrUserAgent getUserAgent] forHTTPHeaderField:@"User-Agent"];
 
 	NotificationRegistration *delegate = self;
 	NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:delegate];
