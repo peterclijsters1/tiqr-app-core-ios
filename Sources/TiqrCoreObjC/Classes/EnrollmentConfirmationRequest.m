@@ -68,7 +68,9 @@ typedef void (^CompletionBlock)(BOOL success, NSError *error);
 	NSString *escapedNotificationToken = [notificationToken stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSString *version = [TiqrConfig valueForKey:@"TIQRProtocolVersion"];
     NSString *operation = @"register";
-	NSString *body = [NSString stringWithFormat:@"secret=%@&language=%@&notificationType=APNS&notificationAddress=%@&version=%@&operation=%@", escapedSecret, escapedLanguage, escapedNotificationToken, version, operation];
+    NSString *notificationType = [NotificationRegistration sharedInstance].notificationType;
+    NSString *escapedNotificationType = [notificationType stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+	NSString *body = [NSString stringWithFormat:@"secret=%@&language=%@&notificationType=%@&notificationAddress=%@&version=%@&operation=%@", escapedSecret, escapedLanguage, escapedNotificationType, escapedNotificationToken, version, operation];
     
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:self.challenge.enrollmentUrl]];
 	[request setCachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData];
