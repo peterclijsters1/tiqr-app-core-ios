@@ -33,24 +33,50 @@
 
 static NotificationRegistration *sharedInstance = nil;
 
+
+NSString* const KEY_NOTIFICATION_TOKEN = @"SANotificationToken";
+NSString* const KEY_DEVICE_TOKEN = @"TiqrDeviceToken";
+
 @implementation NotificationRegistration
 
 #pragma mark -
 #pragma mark Class instance methods
 
+- (NSString *)notificationType {
+    if ([self isTokenExchangeEnabled]) {
+        return @"APNS";
+    } else {
+        return @"APNS_DIRECT";
+    }
+}
+
+- (BOOL)isTokenExchangeEnabled {
+    NSString *tokenExchangeEnabledKey = @"TIQRTokenExchangeEnabled";
+    id tokenExchangeEnabledRef = [[[NSBundle mainBundle] infoDictionary] objectForKey:tokenExchangeEnabledKey];
+    return tokenExchangeEnabledRef ? [tokenExchangeEnabledRef boolValue] : YES; // Token exchange is enabled by default if not specified
+}
+
 - (void)setNotificationToken:(NSString *)notificationToken {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	[defaults setValue:notificationToken forKey:@"SANotificationToken"];
+    NSString *key = [self isTokenExchangeEnabled] ? KEY_NOTIFICATION_TOKEN : KEY_DEVICE_TOKEN;
+	[defaults setValue:notificationToken forKey: key];
 	[defaults synchronize];
 }
 
 - (NSString *)notificationToken {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	return [defaults stringForKey:@"SANotificationToken"];
+    NSString *key = [self isTokenExchangeEnabled] ? KEY_NOTIFICATION_TOKEN : KEY_DEVICE_TOKEN;
+	return [defaults stringForKey: key];
 }
 
 - (void)sendRequestWithDeviceToken:(NSData *)deviceToken {
-	NSString *escapedDeviceToken = [deviceToken hexStringValue];
+    NSString *escapedDeviceToken = [deviceToken hexStringValue];
+    // If the token exchange is disabled, the notification token will be the device token, and no request needs to be sent.
+    if (![self isTokenExchangeEnabled]) {
+        [self setNotificationToken: escapedDeviceToken];
+        return;
+    }
+	
 	NSString *escapedLanguage = [[NSLocale preferredLanguages][0] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	NSString *escapedNotificationToken = [self.notificationToken stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	

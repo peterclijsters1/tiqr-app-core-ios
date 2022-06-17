@@ -246,8 +246,10 @@ typedef void (^CompletionBlock)(BOOL success, NSError *error);
 	NSString *escapedNotificationToken = [notificationToken stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSString *operation = @"login";
     NSString *version = [TiqrConfig valueForKey:@"TIQRProtocolVersion"];
+    NSString *notificationType = [NotificationRegistration sharedInstance].notificationType;
+    NSString *escapedNotificationType = [notificationType stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 
-	NSString *body = [NSString stringWithFormat:@"sessionKey=%@&userId=%@&response=%@&language=%@&notificationType=APNS&notificationAddress=%@&operation=%@&version=%@", escapedSessionKey, escapedUserId, escapedResponse, escapedLanguage, escapedNotificationToken, operation, version];
+	NSString *body = [NSString stringWithFormat:@"sessionKey=%@&userId=%@&response=%@&language=%@&notificationType=%@&notificationAddress=%@&operation=%@&version=%@", escapedSessionKey, escapedUserId, escapedResponse, escapedLanguage, escapedNotificationType, escapedNotificationToken, operation, version];
         
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:self.challenge.identityProvider.authenticationUrl]];
 	[request setCachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData];

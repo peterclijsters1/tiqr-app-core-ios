@@ -55,6 +55,13 @@
  */
 @property (nonatomic, readonly, copy) NSString *notificationToken;
 
+/**
+ * Returns the notification type to be used in the requests.
+ *
+ * @return The notification type. If the token exchange is enabled, it will be APNS, otherwise APNS_DIRECT.
+ */
+@property (nonatomic, readonly, copy) NSString *notificationType;
+
 
 /**
  * Send a new registration request to the server using the given
