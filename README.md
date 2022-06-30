@@ -16,7 +16,7 @@ The [Swift Package Manager](https://swift.org/package-manager/) is a tool for ma
 To integrate **Tiqr** click File -> Add Packages -> and enter the package URL:
 
 ```text
-https://github.com/SURFnet/tiqr-app-core-ios
+https://github.com/Tiqr/tiqr-app-core-ios
 ```
 
 Select Tiqr and press Add Package
