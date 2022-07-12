@@ -171,9 +171,9 @@ NSString *const TIQRACErrorDomain = @"org.tiqr.ac";
         [self generateInvalidQRCodeError: error];
         return nil;
     }
-    NSString *challengeParam = [self getQueryParameter:@"c" fromComponents:components];
+    NSString *challengeParam = [self getQueryParameter:@"q" fromComponents:components];
     if (!challengeParam) {
-        NSLog(@"Required parameter 'c' missing from the authentication URL!");
+        NSLog(@"Required parameter 'q' missing from the authentication URL!");
         [self generateInvalidQRCodeError: error];
         return nil;
     }
