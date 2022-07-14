@@ -100,7 +100,11 @@ NSString *const TIQRECErrorDomain = @"org.tiqr.ec";
         }
     } else {
         // Old format URL
-        metadataURL = [NSURL URLWithString:[challengeString substringFromIndex:13]];
+        NSString *enrollmentSchemeKey = @"TIQREnrollmentURLScheme";
+        NSString *enrollmentScheme = [[[NSBundle mainBundle] infoDictionary] objectForKey:enrollmentSchemeKey];
+        int startIndex = enrollmentScheme.length + 3 // +3 for the ://
+        // Remove the custom scheme to get the metadata URL
+        metadataURL = [NSURL URLWithString:[challengeString substringFromIndex:startIndex]];
         if (metadataURL == nil) {
             [self generateInvalidQRCodeError: error];
             return nil;
