@@ -42,7 +42,6 @@ typedef void (^CompletionBlock)(BOOL success, NSError *error);
 @property (nonatomic, strong) AuthenticationChallenge *challenge;
 @property (nonatomic, copy) NSString *response;
 @property (nonatomic, strong) NSMutableData *data;
-@property (nonatomic, copy) NSString *protocolVersion;
 @property (nonatomic, strong) NSURLConnection *sendConnection;
 @property (nonatomic, strong) CompletionBlock completionBlock;
 
@@ -58,17 +57,6 @@ typedef void (^CompletionBlock)(BOOL success, NSError *error);
     }
     
     return self;
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-    [self.data setLength:0];
-    
-    NSDictionary* headers = [(NSHTTPURLResponse *)response allHeaderFields];
-    if (headers[@"X-TIQR-Protocol-Version"]) {
-        self.protocolVersion = headers[@"X-TIQR-Protocol-Version"];
-    } else {
-        self.protocolVersion = @"1";
-    }
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
@@ -91,7 +79,7 @@ typedef void (^CompletionBlock)(BOOL success, NSError *error);
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
 
-    if (self.protocolVersion != nil && [self.protocolVersion intValue] > 1) {
+    if (self.challenge.protocolVersion != nil && [self.challenge.protocolVersion intValue] > 1) {
         // Parse JSON result
         id result = [NSJSONSerialization JSONObjectWithData:self.data options:0 error:nil];
         self.data = nil;
