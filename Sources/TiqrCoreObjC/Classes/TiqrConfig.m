@@ -75,16 +75,21 @@
             }
         }
         // Enforce host check
-        NSString *enforceChallengeHostKey = @"TIQREnforceChallengeHost";
-        NSString *enforceChallengeHost = [[[NSBundle mainBundle] infoDictionary] objectForKey:enforceChallengeHostKey];
-        if (enforceChallengeHost) {
+        NSString *enforceChallengeHostsKey = @"TIQREnforceChallengeHosts";
+        NSString *enforceChallengeHosts = [[[NSBundle mainBundle] infoDictionary] objectForKey:enforceChallengeHostsKey];
+        if (enforceChallengeHosts && enforceChallengeHosts.length > 0) {
             NSString* host = [components host];
-            NSString *enforceHostWithSubdomain = [NSString stringWithFormat:@".%@", enforceChallengeHost];
-            if ([host isEqualToString: enforceChallengeHost] ||
-                [host hasSuffix: enforceHostWithSubdomain]) {
-                NSLog(@"Authentication URL host is valid.");
-            } else {
-                NSLog(@"Authentication URL is not valid because host is not allowed. Host of the URL: %@, allowed host: %@", host, enforceChallengeHost);
+            bool validHost = false;
+            for (NSString *enforcedHost in [enforceChallengeHosts componentsSeparatedByString:@","]) {
+                NSString *enforcedHostWithSubdomain = [NSString stringWithFormat:@".%@", enforcedHost];
+                if ([host isEqualToString: enforcedHost] ||
+                    [host hasSuffix: enforcedHostWithSubdomain]) {
+                    NSLog(@"Authentication URL host is valid.");
+                    validHost = true;
+                }
+            }
+            if (!validHost) {
+                NSLog(@"Authentication URL is not valid because host is not allowed. Host of the URL: %@, allowed hosts: %@", host, enforceChallengeHosts);
                 return false;
             }
         }
@@ -129,25 +134,36 @@
             return false;
         }
         // Enforce host check
-        NSString *enforceChallengeHostKey = @"TIQREnforceChallengeHost";
-        NSString *enforceChallengeHost = [[[NSBundle mainBundle] infoDictionary] objectForKey:enforceChallengeHostKey];
-        if (enforceChallengeHost) {
+        NSString *enforceChallengeHostsKey = @"TIQREnforceChallengeHosts";
+        NSString *enforceChallengeHosts = [[[NSBundle mainBundle] infoDictionary] objectForKey:enforceChallengeHostsKey];
+        if (enforceChallengeHosts && enforceChallengeHosts.length > 0) {
             NSString* host = [components host];
-            NSString *enforceHostWithSubdomain = [NSString stringWithFormat:@".%@", enforceChallengeHost];
-            if ([host isEqualToString: enforceChallengeHost] ||
-                [[host lowercaseString] rangeOfString:enforceHostWithSubdomain].location != NSNotFound) {
-                NSLog(@"Enrollment URL host is valid.");
-            } else {
-                NSLog(@"Enrollment URL is not valid because host is not allowed. Host of the URL: %@, allowed host: %@", host, enforceChallengeHost);
+            bool validHost = false;
+            for (NSString *enforcedHost in [enforceChallengeHosts componentsSeparatedByString:@","]) {
+                NSString *enforcedHostWithSubdomain = [NSString stringWithFormat:@".%@", enforcedHost];
+                if ([host isEqualToString: enforcedHost] ||
+                    [[host lowercaseString] rangeOfString:enforcedHostWithSubdomain].location != NSNotFound) {
+                    NSLog(@"Enrollment URL host is valid.");
+                    validHost = true;
+                }
+            }
+            if (!validHost) {
+                NSLog(@"Enrollment URL is not valid because host is not allowed. Host of the URL: %@, allowed hosts: %@", host, enforceChallengeHosts);
                 return false;
             }
             // We also need to validate the metadata URL host
             NSString* metadataURLHost = [metadataURL host];
-            if ([metadataURLHost isEqualToString: enforceChallengeHost] ||
-                [[metadataURLHost lowercaseString] rangeOfString:enforceHostWithSubdomain].location != NSNotFound) {
-                NSLog(@"Enrollment metadata URL host is valid.");
-            } else {
-                NSLog(@"Enrollment metadata URL is not valid because host is not allowed. Host of the metadata URL: %@, allowed host: %@", metadataURLHost, enforceChallengeHost);
+            bool validMetadataHost = false;
+            for (NSString *enforcedHost in [enforceChallengeHosts componentsSeparatedByString:@","]) {
+                NSString *enforcedHostWithSubdomain = [NSString stringWithFormat:@".%@", enforcedHost];
+                if ([metadataURLHost isEqualToString: enforcedHost] ||
+                    [[metadataURLHost lowercaseString] rangeOfString:enforcedHostWithSubdomain].location != NSNotFound) {
+                    NSLog(@"Enrollment metadata URL host is valid.");
+                    validMetadataHost = true;
+                }
+            }
+            if (!validMetadataHost) {
+                NSLog(@"Enrollment metadata URL is not valid because host is not allowed. Host of the URL: %@, allowed hosts: %@", metadataURLHost, enforceChallengeHosts);
                 return false;
             }
         }

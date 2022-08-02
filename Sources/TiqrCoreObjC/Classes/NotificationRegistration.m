@@ -88,7 +88,11 @@ NSString* const KEY_DEVICE_TOKEN = @"TiqrDeviceToken";
 	    body = [NSString stringWithFormat:@"deviceToken=%@&notificationToken=%@&language=%@", escapedDeviceToken, escapedNotificationToken, escapedLanguage];				
 	}
     
-    NSString *url = [[TiqrConfig valueForKey:@"SANotificationRegistrationURL"] stringByAppendingString:[TiqrConfig.appName lowercaseString]];
+    NSString *tokenExchangeURLKey = @"TIQRTokenExchangeURL";
+    id tokenExchangeURLRef = [[[NSBundle mainBundle] infoDictionary] objectForKey:tokenExchangeURLKey];
+    NSString *tokenExchangeURL = [tokenExchangeURLRef stringValue];
+    
+    NSString *url = [tokenExchangeURL stringByAppendingString: @"tiqr"]; // Only works with tiqr
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
 	[request setCachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData];
 	[request setTimeoutInterval:15.0];
@@ -113,6 +117,9 @@ NSString* const KEY_DEVICE_TOKEN = @"TiqrDeviceToken";
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
 	responseData = nil;
+    if (error) {
+        NSLog(@"Unable to register for notifications: %@, %@", [error localizedDescription], [error userInfo]);
+    }
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
