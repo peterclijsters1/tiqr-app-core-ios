@@ -49,6 +49,34 @@
     NSURLComponents *components = [NSURLComponents componentsWithURL: [NSURL URLWithString:url] resolvingAgainstBaseURL:NO];
     // Old format: URL starts with custom scheme
     if (appScheme && [appScheme isEqualToString: [components scheme]]) {
+        NSString *enforceChallengeHostsKey = @"TIQREnforceChallengeHosts";
+        NSString *enforceChallengeHosts = [[[NSBundle mainBundle] infoDictionary] objectForKey:enforceChallengeHostsKey];
+        if (enforceChallengeHosts && enforceChallengeHosts.length > 0) {
+            
+            NSURL *httpURL = [NSURL URLWithString: [url stringByReplacingOccurrencesOfString: appScheme
+                                                            withString: @"https"
+                                                               options: 0
+                                                                 range: NSMakeRange(0, appScheme.length)]];
+            if (httpURL == nil) {
+                return false;
+            }
+            NSURLComponents *urlComponents = [NSURLComponents componentsWithURL: httpURL resolvingAgainstBaseURL:NO];
+            NSString *urlHost = [urlComponents host];
+            bool validHost = false;
+            for (NSString *enforcedHost in [enforceChallengeHosts componentsSeparatedByString:@","]) {
+                NSString *enforcedHostWithSubdomain = [NSString stringWithFormat:@".%@", enforcedHost];
+                if ([urlHost isEqualToString: enforcedHost] ||
+                    [[urlHost lowercaseString] rangeOfString:enforcedHostWithSubdomain].location != NSNotFound) {
+                    NSLog(@"Authentication URL host is valid.");
+                    validHost = true;
+                }
+            }
+            if (!validHost) {
+                NSLog(@"Authentication URL is not valid because host is not allowed. Host of the URL: %@, allowed hosts: %@", urlHost, enforceChallengeHosts);
+                return false;
+            }
+        }
+        
         return true;
     }
     // New format: URL scheme, and special path parameter
@@ -105,6 +133,33 @@
     NSURLComponents *components = [NSURLComponents componentsWithURL: [NSURL URLWithString:url] resolvingAgainstBaseURL:NO];
     // Old format: URL starts with custom scheme
     if (appScheme && [appScheme isEqualToString: [components scheme]]) {
+        // Custom scheme - old format
+        // If we have host enforcement, we still check for it
+        NSString *enforceChallengeHostsKey = @"TIQREnforceChallengeHosts";
+        NSString *enforceChallengeHosts = [[[NSBundle mainBundle] infoDictionary] objectForKey:enforceChallengeHostsKey];
+        if (enforceChallengeHosts && enforceChallengeHosts.length > 0) {
+            long startIndex = appScheme.length + 3; // +3 for the ://
+            // Remove the custom scheme to get the metadata URL
+            NSURL* metadataURL = [NSURL URLWithString:[url substringFromIndex:startIndex]];
+            if (metadataURL == nil) {
+                return false;
+            }
+            NSURLComponents *metadataComponents = [NSURLComponents componentsWithURL: metadataURL resolvingAgainstBaseURL:NO];
+            NSString* metadataURLHost = [metadataComponents host];
+            bool validMetadataHost = false;
+            for (NSString *enforcedHost in [enforceChallengeHosts componentsSeparatedByString:@","]) {
+                NSString *enforcedHostWithSubdomain = [NSString stringWithFormat:@".%@", enforcedHost];
+                if ([metadataURLHost isEqualToString: enforcedHost] ||
+                    [[metadataURLHost lowercaseString] rangeOfString:enforcedHostWithSubdomain].location != NSNotFound) {
+                    NSLog(@"Enrollment metadata URL host is valid.");
+                    validMetadataHost = true;
+                }
+            }
+            if (!validMetadataHost) {
+                NSLog(@"Enrollment metadata URL is not valid because host is not allowed. Host of the URL: %@, allowed hosts: %@", metadataURLHost, enforceChallengeHosts);
+                return false;
+            }
+        }
         return true;
     }
     // New format: URL scheme, and special path parameter
