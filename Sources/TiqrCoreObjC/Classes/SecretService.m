@@ -374,7 +374,7 @@
             
         } else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                completionHandler(false);
+                completionHandler(NO);
             });
         }
         
@@ -404,7 +404,7 @@
 - (void)secretForIdentity:(Identity *)identity touchIDPrompt:(NSString *)prompt withSuccessHandler:(void (^)(NSData *secret))successHandler failureHandler:(void (^)(BOOL cancelled))failureHandler {
     
     if (!self.biometricIDAvailable || !identity.usesBiometrics) {
-        failureHandler(false);
+        failureHandler(NO);
         return;
     }
     
@@ -442,7 +442,7 @@
                 });
             } else {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    failureHandler(false);
+                    failureHandler(NO);
                 });
             }
         } else {
