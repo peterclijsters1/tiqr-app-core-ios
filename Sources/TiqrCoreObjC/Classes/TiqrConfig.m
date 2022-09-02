@@ -52,16 +52,7 @@
         NSString *enforceChallengeHostsKey = @"TIQREnforceChallengeHosts";
         NSString *enforceChallengeHosts = [[[NSBundle mainBundle] infoDictionary] objectForKey:enforceChallengeHostsKey];
         if (enforceChallengeHosts && enforceChallengeHosts.length > 0) {
-            
-            NSURL *httpURL = [NSURL URLWithString: [url stringByReplacingOccurrencesOfString: appScheme
-                                                            withString: @"https"
-                                                               options: 0
-                                                                 range: NSMakeRange(0, appScheme.length)]];
-            if (httpURL == nil) {
-                return NO;
-            }
-            NSURLComponents *urlComponents = [NSURLComponents componentsWithURL: httpURL resolvingAgainstBaseURL:NO];
-            NSString *urlHost = [urlComponents host];
+            NSString *urlHost = [components host];
             BOOL validHost = NO;
             for (NSString *enforcedHost in [enforceChallengeHosts componentsSeparatedByString:@","]) {
                 NSString *enforcedHostWithSubdomain = [NSString stringWithFormat:@".%@", enforcedHost];
