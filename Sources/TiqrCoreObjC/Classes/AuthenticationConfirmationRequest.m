@@ -86,7 +86,7 @@ typedef void (^CompletionBlock)(BOOL success, NSError *error);
     [details setValue:connectionError forKey:NSUnderlyingErrorKey];
     
     NSError *error = [NSError errorWithDomain:TIQRACRErrorDomain code:TIQRACRConnectionError userInfo:details];
-    self.completionBlock(false, error);
+    self.completionBlock(NO, error);
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
@@ -98,7 +98,7 @@ typedef void (^CompletionBlock)(BOOL success, NSError *error);
         
         NSNumber *responseCode = @([[result valueForKey:@"responseCode"] intValue]);
         if ([responseCode intValue] == AuthenticationChallengeResponseCodeSuccess) {
-            self.completionBlock(true, nil);
+            self.completionBlock(YES, nil);
         } else {
             NSInteger code = TIQRACRUnknownError;
             NSString *title = [Localization localize:@"unknown_error" comment:@"Unknown error title"];
@@ -177,13 +177,13 @@ typedef void (^CompletionBlock)(BOOL success, NSError *error);
             }
             
             NSError *error = [NSError errorWithDomain:TIQRACRErrorDomain code:code userInfo:details];
-            self.completionBlock(false, error);
+            self.completionBlock(NO, error);
         }
     } else {
         // Parse String result
         NSString *response = [[NSString alloc] initWithBytes:[self.data bytes] length:[self.data length] encoding:NSUTF8StringEncoding];
         if ([response isEqualToString:@"OK"]) {
-            self.completionBlock(true, nil);
+            self.completionBlock(YES, nil);
         } else {
             NSInteger code = TIQRACRUnknownError;
             NSString *title = [Localization localize:@"unknown_error" comment:@"Unknown error title"];
@@ -229,7 +229,7 @@ typedef void (^CompletionBlock)(BOOL success, NSError *error);
             }
             
             NSError *error = [NSError errorWithDomain:TIQRACRErrorDomain code:code userInfo:details];
-            self.completionBlock(false, error);
+            self.completionBlock(NO, error);
         }
     }
     

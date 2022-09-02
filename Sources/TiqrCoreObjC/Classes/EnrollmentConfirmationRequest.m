@@ -113,7 +113,7 @@ typedef void (^CompletionBlock)(BOOL success, NSError *error);
     
     NSError *error = [NSError errorWithDomain:TIQRECRErrorDomain code:TIQRECRConnectionError userInfo:details];
     
-    self.completionBlock(false, error);
+    self.completionBlock(NO, error);
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
@@ -124,7 +124,7 @@ typedef void (^CompletionBlock)(BOOL success, NSError *error);
         
         NSNumber *responseCode = @([[result valueForKey:@"responseCode"] intValue]);
         if ([responseCode intValue] == EnrollmentChallengeResponseCodeSuccess) {
-            self.completionBlock(true, nil);
+            self.completionBlock(YES, nil);
         } else {
             NSString *title = [Localization localize:@"enroll_error_title" comment:@"Enrollment error title"];
             NSString *message = nil;
@@ -140,14 +140,14 @@ typedef void (^CompletionBlock)(BOOL success, NSError *error);
             [details setValue:message forKey:NSLocalizedFailureReasonErrorKey];
             
             NSError *error = [NSError errorWithDomain:TIQRECRErrorDomain code:TIQRECRUnknownError userInfo:details];
-            self.completionBlock(false, error);
+            self.completionBlock(NO, error);
         }
     } else {
         // Parse string result
         NSString *response = [[NSString alloc] initWithBytes:[self.data bytes] length:[self.data length] encoding:NSUTF8StringEncoding];
         self.data = nil;
         if ([response isEqualToString:@"OK"]) {
-            self.completionBlock(true, nil);
+            self.completionBlock(YES, nil);
         } else {
             // TODO: server should return different error codes
             NSString *title = [Localization localize:@"unknown_error" comment:@"Unknown error title"];
@@ -158,7 +158,7 @@ typedef void (^CompletionBlock)(BOOL success, NSError *error);
             [details setValue:message forKey:NSLocalizedFailureReasonErrorKey];
             
             NSError *error = [NSError errorWithDomain:TIQRECRErrorDomain code:TIQRECRUnknownError userInfo:details];
-            self.completionBlock(false, error);
+            self.completionBlock(NO, error);
         }
         
     }

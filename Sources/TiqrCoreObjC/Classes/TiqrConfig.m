@@ -49,7 +49,26 @@
     NSURLComponents *components = [NSURLComponents componentsWithURL: [NSURL URLWithString:url] resolvingAgainstBaseURL:NO];
     // Old format: URL starts with custom scheme
     if (appScheme && [appScheme isEqualToString: [components scheme]]) {
-        return true;
+        NSString *enforceChallengeHostsKey = @"TIQREnforceChallengeHosts";
+        NSString *enforceChallengeHosts = [[[NSBundle mainBundle] infoDictionary] objectForKey:enforceChallengeHostsKey];
+        if (enforceChallengeHosts && enforceChallengeHosts.length > 0) {
+            NSString *urlHost = [components host];
+            BOOL validHost = NO;
+            for (NSString *enforcedHost in [enforceChallengeHosts componentsSeparatedByString:@","]) {
+                NSString *enforcedHostWithSubdomain = [NSString stringWithFormat:@".%@", enforcedHost];
+                if ([urlHost isEqualToString: enforcedHost] ||
+                    [[urlHost lowercaseString] rangeOfString:enforcedHostWithSubdomain].location != NSNotFound) {
+                    NSLog(@"Authentication URL host is valid.");
+                    validHost = YES;
+                }
+            }
+            if (!validHost) {
+                NSLog(@"Authentication URL is not valid because host is not allowed. Host of the URL: %@, allowed hosts: %@", urlHost, enforceChallengeHosts);
+                return NO;
+            }
+        }
+        
+        return YES;
     }
     // New format: URL scheme, and special path parameter
     NSString *authenticationPathParameterKey = @"TIQRAuthenticationURLPathParameter";
@@ -62,7 +81,7 @@
         [url hasPrefix:@"https://"]) {
         if (!([[components path] isEqualToString: authenticationPathParameter])) {
             NSLog(@"Authentication URL is not valid because the path parameter does not match. Path of the URL: %@, expected path: %@", [components path], authenticationPathParameter);
-            return false;
+            return NO;
         }
         // Check for all the required parameters
         NSArray<NSString *>* requiredParams = @[@"q", @"s", @"i"];
@@ -71,7 +90,7 @@
             NSArray<NSURLQueryItem *>* paramItem = [[components queryItems] filteredArrayUsingPredicate: paramPredicate];
             if ([paramItem count] != 1) {
                 NSLog(@"Authentication URL did not contain the following required query parameter: '%@'!", param);
-                return false;
+                return NO;
             }
         }
         // Enforce host check
@@ -79,24 +98,24 @@
         NSString *enforceChallengeHosts = [[[NSBundle mainBundle] infoDictionary] objectForKey:enforceChallengeHostsKey];
         if (enforceChallengeHosts && enforceChallengeHosts.length > 0) {
             NSString* host = [components host];
-            bool validHost = false;
+            BOOL validHost = NO;
             for (NSString *enforcedHost in [enforceChallengeHosts componentsSeparatedByString:@","]) {
                 NSString *enforcedHostWithSubdomain = [NSString stringWithFormat:@".%@", enforcedHost];
                 if ([host isEqualToString: enforcedHost] ||
                     [host hasSuffix: enforcedHostWithSubdomain]) {
                     NSLog(@"Authentication URL host is valid.");
-                    validHost = true;
+                    validHost = YES;
                 }
             }
             if (!validHost) {
                 NSLog(@"Authentication URL is not valid because host is not allowed. Host of the URL: %@, allowed hosts: %@", host, enforceChallengeHosts);
-                return false;
+                return NO;
             }
         }
-        return true;
+        return YES;
     }
     // HTTPS URL but no path parameter supplied, so we don't support it at all
-    return false;
+    return NO;
 }
 
 + (BOOL)isValidEnrollmentURL:(NSString *)url {
@@ -105,7 +124,34 @@
     NSURLComponents *components = [NSURLComponents componentsWithURL: [NSURL URLWithString:url] resolvingAgainstBaseURL:NO];
     // Old format: URL starts with custom scheme
     if (appScheme && [appScheme isEqualToString: [components scheme]]) {
-        return true;
+        // Custom scheme - old format
+        // If we have host enforcement, we still check for it
+        NSString *enforceChallengeHostsKey = @"TIQREnforceChallengeHosts";
+        NSString *enforceChallengeHosts = [[[NSBundle mainBundle] infoDictionary] objectForKey:enforceChallengeHostsKey];
+        if (enforceChallengeHosts && enforceChallengeHosts.length > 0) {
+            long startIndex = appScheme.length + 3; // +3 for the ://
+            // Remove the custom scheme to get the metadata URL
+            NSURL* metadataURL = [NSURL URLWithString:[url substringFromIndex:startIndex]];
+            if (metadataURL == nil) {
+                return NO;
+            }
+            NSURLComponents *metadataComponents = [NSURLComponents componentsWithURL: metadataURL resolvingAgainstBaseURL:NO];
+            NSString* metadataURLHost = [metadataComponents host];
+            BOOL validMetadataHost = NO;
+            for (NSString *enforcedHost in [enforceChallengeHosts componentsSeparatedByString:@","]) {
+                NSString *enforcedHostWithSubdomain = [NSString stringWithFormat:@".%@", enforcedHost];
+                if ([metadataURLHost isEqualToString: enforcedHost] ||
+                    [[metadataURLHost lowercaseString] rangeOfString:enforcedHostWithSubdomain].location != NSNotFound) {
+                    NSLog(@"Enrollment metadata URL host is valid.");
+                    validMetadataHost = YES;
+                }
+            }
+            if (!validMetadataHost) {
+                NSLog(@"Enrollment metadata URL is not valid because host is not allowed. Host of the URL: %@, allowed hosts: %@", metadataURLHost, enforceChallengeHosts);
+                return NO;
+            }
+        }
+        return YES;
     }
     // New format: URL scheme, and special path parameter
     NSString *enrollmentPathParameterKey = @"TIQREnrollmentURLPathParameter";
@@ -118,60 +164,60 @@
         [url hasPrefix:@"https://"]) {
         if (!([[components path] isEqualToString: enrollmentPathParameter])) {
             NSLog(@"Enrollment URL is not valid because the path parameter does not match. Path of the URL: %@, expected path: %@", [components path], enrollmentPathParameter);
-            return false;
+            return NO;
         }
         // Metadata is a required parameter
         NSPredicate *metadataPredicate = [NSPredicate predicateWithFormat:@"name == %@", @"metadata"];
         NSArray<NSURLQueryItem *>* metadataItem = [[components queryItems] filteredArrayUsingPredicate: metadataPredicate];
         if ([metadataItem count] != 1) {
             NSLog(@"Enrollment URL did not contain metadata query item!");
-            return false;
+            return NO;
         }
         NSString* metadataURLString = [[metadataItem objectAtIndex:0] value];
         NSURL* metadataURL = [NSURL URLWithString:metadataURLString];
         if (!metadataURL) {
             NSLog(@"Enrollment URL metadata parameter is not a valid URL!");
-            return false;
+            return NO;
         }
         // Enforce host check
         NSString *enforceChallengeHostsKey = @"TIQREnforceChallengeHosts";
         NSString *enforceChallengeHosts = [[[NSBundle mainBundle] infoDictionary] objectForKey:enforceChallengeHostsKey];
         if (enforceChallengeHosts && enforceChallengeHosts.length > 0) {
             NSString* host = [components host];
-            bool validHost = false;
+            BOOL validHost = NO;
             for (NSString *enforcedHost in [enforceChallengeHosts componentsSeparatedByString:@","]) {
                 NSString *enforcedHostWithSubdomain = [NSString stringWithFormat:@".%@", enforcedHost];
                 if ([host isEqualToString: enforcedHost] ||
                     [[host lowercaseString] rangeOfString:enforcedHostWithSubdomain].location != NSNotFound) {
                     NSLog(@"Enrollment URL host is valid.");
-                    validHost = true;
+                    validHost = YES;
                 }
             }
             if (!validHost) {
                 NSLog(@"Enrollment URL is not valid because host is not allowed. Host of the URL: %@, allowed hosts: %@", host, enforceChallengeHosts);
-                return false;
+                return NO;
             }
             // We also need to validate the metadata URL host
             NSString* metadataURLHost = [metadataURL host];
-            bool validMetadataHost = false;
+            BOOL validMetadataHost = NO;
             for (NSString *enforcedHost in [enforceChallengeHosts componentsSeparatedByString:@","]) {
                 NSString *enforcedHostWithSubdomain = [NSString stringWithFormat:@".%@", enforcedHost];
                 if ([metadataURLHost isEqualToString: enforcedHost] ||
                     [[metadataURLHost lowercaseString] rangeOfString:enforcedHostWithSubdomain].location != NSNotFound) {
                     NSLog(@"Enrollment metadata URL host is valid.");
-                    validMetadataHost = true;
+                    validMetadataHost = YES;
                 }
             }
             if (!validMetadataHost) {
                 NSLog(@"Enrollment metadata URL is not valid because host is not allowed. Host of the URL: %@, allowed hosts: %@", metadataURLHost, enforceChallengeHosts);
-                return false;
+                return NO;
             }
         }
         
-        return true;
+        return YES;
     }
     // HTTPS URL but no path parameter supplied, so we don't support it at all
-    return false;
+    return NO;
 }
 
 + (NSString *)appName {

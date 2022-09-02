@@ -135,7 +135,7 @@
         NSDictionary *details = @{NSLocalizedDescriptionKey: errorTitle, NSLocalizedFailureReasonErrorKey: errorMessage};
         
         NSError *error = [NSError errorWithDomain:TIQRECErrorDomain code:TIQRECUnknownError userInfo:details];
-        completionHandler(false, error);
+        completionHandler(NO, error);
         challenge = nil;
         return;
     }
@@ -149,7 +149,7 @@
             if (success) {
                 challenge.identity.blocked = @NO;
                 [ServiceContainer.sharedInstance.identityService saveIdentities];
-                completionHandler(true, nil);
+                completionHandler(YES, nil);
             } else {
                 if (![challenge.identity.blocked boolValue]) {
                     [self.identityService deleteIdentity:challenge.identity];
@@ -158,7 +158,7 @@
                 
                 [self.secretService deleteSecretForIdentityIdentifier:challenge.identityIdentifier
                                                    providerIdentifier:challenge.identityProviderIdentifier];
-                completionHandler(false, error);
+                completionHandler(NO, error);
             }
         }];
     };
@@ -175,7 +175,7 @@
                 NSDictionary *details = @{NSLocalizedDescriptionKey: errorTitle, NSLocalizedFailureReasonErrorKey: errorMessage};
                 
                 NSError *error = [NSError errorWithDomain:TIQRECErrorDomain code:TIQRECUnknownError userInfo:details];
-                completionHandler(false, error);
+                completionHandler(NO, error);
                 return;
             }
             
@@ -213,7 +213,7 @@
     NSError *error = nil;
     NSString *response = [ocra generateOCRA:challenge.identityProvider.ocraSuite secret:secret challenge:challenge.challenge sessionKey:challenge.sessionKey error:&error];
     if (response == nil) {
-        completionHandler(false, nil, error);
+        completionHandler(NO, nil, error);
         return;
     }
     
