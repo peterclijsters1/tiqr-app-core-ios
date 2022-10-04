@@ -321,13 +321,13 @@
 "msg_default_status" = "Plaats een QR-code in het vierkant om deze te scannen.";
 
 /* Welcome */
-"main_text_welcome" = "<b>Met de %@-app kun je met je smartphone veilig en vertrouwd inloggen bij verschillende webdiensten.</b><br/><br/>Deze app bevat nog geen actief account. Om gebruik te maken van %@ heb je een geactiveerd account nodig.<br/><br/>Na registratie ontvang je een activatiecode en instructies voor de activatie. Tijdens het activatieproces moet je een QR code scannen. Druk op <b>Scannen</> als hier om gevraagd wordt.";
+"main_text_welcome" = "<b>Met de %@-app kun je met je smartphone veilig en vertrouwd inloggen bij verschillende webdiensten.</b><br/><br/>Deze app bevat nog geen actief account. Om gebruik te maken van %@ heb je een geactiveerd account nodig.<br/><br/>Tijdens het activatieproces moet je een QR code scannen. Druk op <b>Scannen</> als hier om gevraagd wordt.";
 
 /* Instructions */
 "main_text_instructions" = "<b>Gebruik de %@-app op je smartphone om in te loggen</b><br/><ol><li>Open de %@ notificatie of druk op <b>Scannen</b> en scan de QR-code op de website.</li><li>Bevestig met je biometrie of je %@ PIN code en druk op <b>OK</b>.</li><li>Je bent ingelogd!</li></ol>";
 
 /* Blocked */
-"main_text_blocked" = "<b>Wat nu?</b><br/> Vraag bij je identeitverstrekker(s) om een nieuwe activatiecode. Een link naar je identiteitverstrekker(s) is beschikbaar vanuit het accountoverzicht (rechtsboven). <br/><br/> Bij uw nieuwe activatiecode ontvang je instructies. Zodra je daarom gevraagd wordt druk je op <b>Scannen</b>.";
+"main_text_blocked" = "<b>Wat nu?</b><br/> Vraag bij je identiteitverstrekker(s) om een nieuwe activatiecode. Een link naar je identiteitverstrekker(s) is beschikbaar vanuit het accountoverzicht (rechtsboven). <br/><br/> Bij je nieuwe activatie ontvang je instructies. Zodra je daarom gevraagd wordt druk je op <b>Scannen</b>.";
 
 /* Camera access prompt title */
 "camera_prompt_title" = "Toegang tot de camera vereist";
