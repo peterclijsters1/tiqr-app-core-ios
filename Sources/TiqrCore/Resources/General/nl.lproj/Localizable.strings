@@ -35,7 +35,7 @@
 "authentication_title" = "Login";
 
 /* Confirm account activation */
-"confirm_account_activation" = "Bevestig account-activatie";
+"confirm_account_activation" = "Bevestig account activatie";
 
 /* Are you sure you want to login? */
 "confirm_authentication" = "Weet je zeker dat je wilt inloggen?";
@@ -159,7 +159,7 @@
 "error_auth_infinite_attempts_left" = "De opgegeven PIN is onjuist. Voer je PIN opnieuw in. Controleer of je de juiste PIN hebt en voer deze nogmaals in.";
 
 /* Account already activated message */
-"error_enroll_already_enrolled" = "U hebt de identeit %@ reeds geregistreerd voor de dienst %@.";
+"error_enroll_already_enrolled" = "Je hebt de identeit %@ reeds geregistreerd voor de dienst %@.";
 
 /* Account already activated */
 "error_enroll_already_enrolled_title" = "Account reeds geactiveerd";
@@ -312,19 +312,19 @@
 "yes_button" = "Ja";
 
 /* You will be logged in as: */
-"you_will_be_logged_in_as" = "U wordt ingelogd als:";
+"you_will_be_logged_in_as" = "Je wordt ingelogd als:";
 
 /* Accounts navigation item title */
-"your_accounts" = "Uw accounts";
+"your_accounts" = "Je accounts";
 
 /* Place a QR code inside the rectangle to scan it. */
 "msg_default_status" = "Plaats een QR-code in het vierkant om deze te scannen.";
 
 /* Welcome */
-"main_text_welcome" = "<b>Gebruik de %@-app op je smartphone om makkelijk en veilig in te loggen op websites</b><br/><br/>Registreer je nieuwe %@ account en volg de instructies om te activeren<br/><br/>Druk op <b>Scannen</b> wanneer hierom wordt gevraagd.";
+"main_text_welcome" = "<b>Met de %@-app kun je met je smartphone veilig en vertrouwd inloggen bij verschillende webdiensten.</b><br/><br/>Deze app bevat nog geen actief account. Om gebruik te maken van %@ heb je een geactiveerd account nodig.<br/><br/>Na registratie ontvang je een activatiecode en instructies voor de activatie. Tijdens het activatieproces moet je een QR code scannen. Druk op <b>Scannen</> als hier om gevraagd wordt.";
 
 /* Instructions */
-"main_text_instructions" = "<b>Gebruik de %@-app op je smartphone om in te loggen</b><br/><ol><li>Druk op <b>Scannen</b> en scan de QR-code op de website.<br/></br><i>Meer dan één ID? Selecteer het relevante ID.</i></li><li>Scan je vingerafdruk of vul je PIN voor %@ in en druk op <b>OK</b>.</li><li>Je bent ingelogd!</li></ol>";
+"main_text_instructions" = "<b>Gebruik de %@-app op je smartphone om in te loggen</b><br/><ol><li>Open de %@ notificatie of druk op <b>Scannen</b> en scan de QR-code op de website.</li><li>Bevestig met je biometrie of je %@ PIN code en druk op <b>OK</b>.</li><li>Je bent ingelogd!</li></ol>";
 
 /* Blocked */
 "main_text_blocked" = "<b>Wat nu?</b><br/> Vraag bij je identeitverstrekker(s) om een nieuwe activatiecode. Een link naar je identiteitverstrekker(s) is beschikbaar vanuit het accountoverzicht (rechtsboven). <br/><br/> Bij uw nieuwe activatiecode ontvang je instructies. Zodra je daarom gevraagd wordt druk je op <b>Scannen</b>.";
@@ -333,7 +333,7 @@
 "camera_prompt_title" = "Toegang tot de camera vereist";
 
 /* Camera access prompt message */
-"camera_prompt_message" = "Tiqr heeft toegang tot de camera nodig om QR codes te kunnen scannen. Je kunt de %@-app toestemming geven in de instellingen.";
+"camera_prompt_message" = "%@ heeft toegang tot de camera nodig om QR codes te kunnen scannen. Je kunt de %@-app toestemming geven in de instellingen.";
 
 /* Name of the settings app */
 "settings_app_name" = "Instellingen";
