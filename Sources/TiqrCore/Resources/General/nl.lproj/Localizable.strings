@@ -297,7 +297,7 @@
 "successfully_logged_in" = "Inloggen geslaagd!";
 
 /* Because you entered an incorrect PIN too many times, all your accounts have been blocked. You can't login anymore. */
-"to_many_attempts" = "Omdat je PIN te vaak verkeerd is ingevuld zijn je accounts geblokkeerd. Je kunt niet meer inloggen.";
+"to_many_attempts" = "Omdat je PIN te vaak verkeerd is ingevuld zijn je accounts in deze app geblokkeerd. Je kunt niet meer inloggen.";
 
 /* to: */
 "to_service_provider" = "voor:";
