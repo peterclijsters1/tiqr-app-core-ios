@@ -339,7 +339,7 @@
 "settings_app_name" = "Instellingen";
 
 /* TouchID */
-"touch_id_reason" = "Tiqr wil de identiteit opslaan";
+"touch_id_reason" = "%@ wil de identiteit opslaan";
 
 /* Cancel */
 "cancel" = "Annuleren";
